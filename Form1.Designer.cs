@@ -28,30 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.MostrarPartidas = new System.Windows.Forms.Button();
+            this.VizualizaçãoPartidas = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.NomeGrupo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // MostrarPartidas
             // 
-            this.button1.Location = new System.Drawing.Point(29, 68);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(176, 26);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.MostrarPartidas.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MostrarPartidas.Location = new System.Drawing.Point(29, 68);
+            this.MostrarPartidas.Name = "MostrarPartidas";
+            this.MostrarPartidas.Size = new System.Drawing.Size(176, 26);
+            this.MostrarPartidas.TabIndex = 0;
+            this.MostrarPartidas.Text = "Partidas";
+            this.MostrarPartidas.UseVisualStyleBackColor = true;
+            this.MostrarPartidas.Click += new System.EventHandler(this.MostrarPartidas_Click);
             // 
-            // textBox1
+            // VizualizaçãoPartidas
             // 
-            this.textBox1.Location = new System.Drawing.Point(29, 100);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(176, 270);
-            this.textBox1.TabIndex = 1;
+            this.VizualizaçãoPartidas.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VizualizaçãoPartidas.Location = new System.Drawing.Point(29, 100);
+            this.VizualizaçãoPartidas.Multiline = true;
+            this.VizualizaçãoPartidas.Name = "VizualizaçãoPartidas";
+            this.VizualizaçãoPartidas.Size = new System.Drawing.Size(176, 270);
+            this.VizualizaçãoPartidas.TabIndex = 1;
             // 
             // listBox1
             // 
@@ -90,8 +92,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.NomeGrupo);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.VizualizaçãoPartidas);
+            this.Controls.Add(this.MostrarPartidas);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -102,8 +104,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button MostrarPartidas;
+        private System.Windows.Forms.TextBox VizualizaçãoPartidas;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label NomeGrupo;
         private System.Windows.Forms.Label label1;

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using KingMeServer;
+using KingMeServer;  //utilização de dll do PI
 
 namespace PI_PrefeitoDeLondres
 {
@@ -23,18 +23,19 @@ namespace PI_PrefeitoDeLondres
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void MostrarPartidas_Click(object sender, EventArgs e)     //ao clicar no bnt
         {
-            string retorno = Jogo.ListarPartidas("T");
-            textBox1.Text = retorno;
+            string retorno = Jogo.ListarPartidas("T");             //retorno recebe status de todas as partidas
+            VizualizaçãoPartidas.Text = retorno;                   //txt recebe lista de partidas
 
-            retorno = retorno.Replace("\r", "");
+            retorno = retorno.Replace("\r", "");                   //troca de /r por " "-vazio
             retorno = retorno.Substring(0, retorno.Length - 1);
-            string[] partidas = retorno.Split('\n');
+            string[] partidas = retorno.Split('\n');               // /n realiza a divisão de linhas, colocando as partidas em itens individuais
 
-            for (int i = 0; i < partidas.Length - 1; i++)
+
+            for (int i = 0; i < partidas.Length - 1; i++)         //em andamento...
             {
-                listBox1.Items.Add(partidas[i]);
+                listBox1.Items.Add(partidas[i]); 
 
             }
             
