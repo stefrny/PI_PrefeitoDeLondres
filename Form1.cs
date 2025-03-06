@@ -33,18 +33,38 @@ namespace PI_PrefeitoDeLondres
             string[] partidas = retorno.Split('\n');               // /n realiza a divisão de linhas, colocando as partidas em itens individuais
 
 
+            lstListaDePartidas.Items.Clear();                     //limpando a lista pra não repetir as mesmas partidas anteriormente solicitadas 
             for (int i = 0; i < partidas.Length - 1; i++)         //em andamento...
             {
-                listBox1.Items.Add(partidas[i]); 
-
+                lstListaDePartidas.Items.Add(partidas[i]); 
             }
-            
-
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e) //(listbox1 = lstListaDePartidas), ao clicar em um item da lista...
+        {          
+
+            string partida = lstListaDePartidas.SelectedItem.ToString();       // separando e convertendo os dados da partida
+            string[] dadosDaPartida = partida.Split(',');
+
+            int idPartida = Convert.ToInt32(dadosDaPartida[0]);                 // atribuindo cada dado a uma variavel pra facilitar manuseio
+            string nomePartida = dadosDaPartida[1];                             // os dados "nome" e "data" não estão sendo usados no momento, remover ou fazer uso no futuro
+            string dataPartida = dadosDaPartida[2];
+
+            string retorno = Jogo.ListarJogadores(idPartida);                   // usando o dado "idPartida" para verificar os jogadores da partida
+            retorno = retorno.Replace("\r", "");                                
+            string[] jogadores = retorno.Split('\n');                           // guardando os jogadores em uma variável pra facilitar o manuseio
+
+            lstListaDeJogadores.Items.Clear();                                  // limpando a lista pra não repetir os mesmos nomes anteriormente solicitados
+            for (int i = 0; i < jogadores.Length; i++)
+            {
+                lstListaDeJogadores.Items.Add(jogadores[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
+            }
+            
         }
     }
 }

@@ -30,9 +30,10 @@
         {
             this.MostrarPartidas = new System.Windows.Forms.Button();
             this.VizualizaçãoPartidas = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstListaDePartidas = new System.Windows.Forms.ListBox();
             this.NomeGrupo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lstListaDeJogadores = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // MostrarPartidas
@@ -55,13 +56,14 @@
             this.VizualizaçãoPartidas.Size = new System.Drawing.Size(176, 270);
             this.VizualizaçãoPartidas.TabIndex = 1;
             // 
-            // listBox1
+            // lstListaDePartidas
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(258, 100);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(155, 147);
-            this.listBox1.TabIndex = 2;
+            this.lstListaDePartidas.FormattingEnabled = true;
+            this.lstListaDePartidas.Location = new System.Drawing.Point(258, 100);
+            this.lstListaDePartidas.Name = "lstListaDePartidas";
+            this.lstListaDePartidas.Size = new System.Drawing.Size(155, 147);
+            this.lstListaDePartidas.TabIndex = 2;
+            this.lstListaDePartidas.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // NomeGrupo
             // 
@@ -84,14 +86,23 @@
             this.label1.Text = "1.0.0.0";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // lstListaDeJogadores
+            // 
+            this.lstListaDeJogadores.FormattingEnabled = true;
+            this.lstListaDeJogadores.Location = new System.Drawing.Point(527, 100);
+            this.lstListaDeJogadores.Name = "lstListaDeJogadores";
+            this.lstListaDeJogadores.Size = new System.Drawing.Size(155, 147);
+            this.lstListaDeJogadores.TabIndex = 5;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lstListaDeJogadores);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.NomeGrupo);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lstListaDePartidas);
             this.Controls.Add(this.VizualizaçãoPartidas);
             this.Controls.Add(this.MostrarPartidas);
             this.Name = "Form1";
@@ -106,9 +117,10 @@
 
         private System.Windows.Forms.Button MostrarPartidas;
         private System.Windows.Forms.TextBox VizualizaçãoPartidas;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstListaDePartidas;
         private System.Windows.Forms.Label NomeGrupo;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox lstListaDeJogadores;
     }
 }
 
