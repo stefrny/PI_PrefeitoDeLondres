@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using KingMeServer;  //utilização de dll do PI
 
@@ -18,11 +11,6 @@ namespace PI_PrefeitoDeLondres
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void MostrarPartidas_Click(object sender, EventArgs e)     //ao clicar no bnt
         {
             string retorno = Jogo.ListarPartidas("T");             //retorno recebe status de todas as partidas
@@ -32,17 +20,11 @@ namespace PI_PrefeitoDeLondres
             retorno = retorno.Substring(0, retorno.Length - 1);
             string[] partidas = retorno.Split('\n');               // /n realiza a divisão de linhas, colocando as partidas em itens individuais
 
-
             lstListaDePartidas.Items.Clear();                     //limpando a lista pra não repetir as mesmas partidas anteriormente solicitadas 
             for (int i = 0; i < partidas.Length - 1; i++)         //em andamento...
             {
                 lstListaDePartidas.Items.Add(partidas[i]); 
             }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void lstListaDePartidas_SelectedIndexChanged(object sender, EventArgs e) // ao clicar em um item da lista...
@@ -64,7 +46,6 @@ namespace PI_PrefeitoDeLondres
             {
                 lstListaDeJogadores.Items.Add(jogadores[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
             }
-            
         }
     }
 }
