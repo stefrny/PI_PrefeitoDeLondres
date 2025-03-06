@@ -45,7 +45,7 @@ namespace PI_PrefeitoDeLondres
 
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e) //(listbox1 = lstListaDePartidas), ao clicar em um item da lista...
+        private void lstListaDePartidas_SelectedIndexChanged(object sender, EventArgs e) // ao clicar em um item da lista...
         {          
 
             string partida = lstListaDePartidas.SelectedItem.ToString();       // separando e convertendo os dados da partida
