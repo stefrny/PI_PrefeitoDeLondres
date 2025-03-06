@@ -4,17 +4,17 @@ using KingMeServer;  //utilização de dll do PI
 
 namespace PI_PrefeitoDeLondres
 {
-    public partial class Form1: Form
+    public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void MostrarPartidas_Click(object sender, EventArgs e)     //ao clicar no bnt
+        private void btnMostrarPartidas_Click(object sender, EventArgs e)     //ao clicar no bnt
         {
             string retorno = Jogo.ListarPartidas("T");             //retorno recebe status de todas as partidas
-            VizualizaçãoPartidas.Text = retorno;                   //txt recebe lista de partidas
+            txtVizualizaçãoPartidas.Text = retorno;                   //txt recebe lista de partidas
 
             retorno = retorno.Replace("\r", "");                   //troca de /r por " "-vazio
             retorno = retorno.Substring(0, retorno.Length - 1);
@@ -23,13 +23,12 @@ namespace PI_PrefeitoDeLondres
             lstListaDePartidas.Items.Clear();                     //limpando a lista pra não repetir as mesmas partidas anteriormente solicitadas 
             for (int i = 0; i < partidas.Length - 1; i++)         //em andamento...
             {
-                lstListaDePartidas.Items.Add(partidas[i]); 
+                lstListaDePartidas.Items.Add(partidas[i]);
             }
         }
 
         private void lstListaDePartidas_SelectedIndexChanged(object sender, EventArgs e) // ao clicar em um item da lista...
-        {          
-
+        {
             string partida = lstListaDePartidas.SelectedItem.ToString();       // separando e convertendo os dados da partida
             string[] dadosDaPartida = partida.Split(',');
 
@@ -38,7 +37,7 @@ namespace PI_PrefeitoDeLondres
             string dataPartida = dadosDaPartida[2];
 
             string retorno = Jogo.ListarJogadores(idPartida);                   // usando o dado "idPartida" para verificar os jogadores da partida
-            retorno = retorno.Replace("\r", "");                                
+            retorno = retorno.Replace("\r", "");
             string[] jogadores = retorno.Split('\n');                           // guardando os jogadores em uma variável pra facilitar o manuseio
 
             lstListaDeJogadores.Items.Clear();                                  // limpando a lista pra não repetir os mesmos nomes anteriormente solicitados
