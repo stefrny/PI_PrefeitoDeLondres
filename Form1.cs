@@ -9,12 +9,12 @@ namespace PI_PrefeitoDeLondres
         public Form1()
         {
             InitializeComponent();
+            lblVersaoDLL.Text = Jogo.versao;
         }
 
         private void btnMostrarPartidas_Click(object sender, EventArgs e)     //ao clicar no bnt
         {
             string retorno = Jogo.ListarPartidas("T");             //retorno recebe status de todas as partidas
-            txtVizualizaçãoPartidas.Text = retorno;                   //txt recebe lista de partidas
 
             retorno = retorno.Replace("\r", "");                   //troca de /r por " "-vazio
             retorno = retorno.Substring(0, retorno.Length - 1);
@@ -45,6 +45,16 @@ namespace PI_PrefeitoDeLondres
             {
                 lstListaDeJogadores.Items.Add(jogadores[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
             }
+        }
+
+        private void btnCriarPartida_Click(object sender, EventArgs e)
+        {
+            lblNomeIDPartida.Text = "ID da Partida";
+            string nomePartidaCriada = txtNomePartida.Text;                     //pega o nome e senha inseridos nas textboxes
+            string senhaPartidaCriada = txtSenhaPartida.Text;
+            string grupoPartidaCriada = "Prefeitos de Londres";
+
+            lblIdPartida.Text = Jogo.CriarPartida(nomePartidaCriada, senhaPartidaCriada, grupoPartidaCriada);   //cria a partida e escreve o id da mesma ao lado
         }
     }
 }
