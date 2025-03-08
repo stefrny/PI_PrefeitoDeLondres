@@ -9,7 +9,7 @@ namespace PI_PrefeitoDeLondres
         public Form1()
         {
             InitializeComponent();
-            lblVersaoDLL.Text = Jogo.versao.ToString();
+            lblVersaoDLL.Text = Jogo.versao;
         }
 
         private void btnMostrarPartidas_Click(object sender, EventArgs e)     //ao clicar no bnt
