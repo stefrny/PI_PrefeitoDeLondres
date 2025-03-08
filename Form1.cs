@@ -15,7 +15,6 @@ namespace PI_PrefeitoDeLondres
         private void btnMostrarPartidas_Click(object sender, EventArgs e)     //ao clicar no bnt
         {
             string retorno = Jogo.ListarPartidas("T");             //retorno recebe status de todas as partidas
-            //txtVizualizaçãoPartidas.Text = retorno;                   //txt recebe lista de partidas
 
             retorno = retorno.Replace("\r", "");                   //troca de /r por " "-vazio
             retorno = retorno.Substring(0, retorno.Length - 1);
@@ -48,14 +47,9 @@ namespace PI_PrefeitoDeLondres
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCriarPartida_Click(object sender, EventArgs e)
         {
-            lblNomeIDPartida.Text = "ID da Partida";                            
+            lblNomeIDPartida.Text = "ID da Partida";
             string nomePartidaCriada = txtNomePartida.Text;                     //pega o nome e senha inseridos nas textboxes
             string senhaPartidaCriada = txtSenhaPartida.Text;
             string grupoPartidaCriada = "Prefeitos de Londres";
