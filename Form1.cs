@@ -21,7 +21,7 @@ namespace PI_PrefeitoDeLondres
             string[] partidas = retorno.Split('\n');               // /n realiza a divisão de linhas, colocando as partidas em itens individuais
 
             lstListaDePartidas.Items.Clear();                     //limpando a lista pra não repetir as mesmas partidas anteriormente solicitadas 
-            for (int i = 0; i < partidas.Length - 1; i++)         //em andamento...
+            for (int i = 0; i < partidas.Length; i++)         
             {
                 lstListaDePartidas.Items.Add(partidas[i]);
             }
@@ -52,9 +52,43 @@ namespace PI_PrefeitoDeLondres
             lblNomeIDPartida.Text = "ID da Partida";
             string nomePartidaCriada = txtNomePartida.Text;                     //pega o nome e senha inseridos nas textboxes
             string senhaPartidaCriada = txtSenhaPartida.Text;
-            string grupoPartidaCriada = "Prefeitos de Londres";
+            string grupoPartidaCriada = txtGrupoNome.Text;
+
 
             lblIdPartida.Text = Jogo.CriarPartida(nomePartidaCriada, senhaPartidaCriada, grupoPartidaCriada);   //cria a partida e escreve o id da mesma ao lado
+            txtPartidaID.Text = lblIdPartida.Text; // campo abaixo de ID partida mostra o ID da partida
+        }
+
+
+
+
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bntEntrarPartida_Click(object sender, EventArgs e)
+        {
+            string nomeJogador = txtNomeJogador.Text;                     //pega o nome e senha inseridos nas textboxes
+            string senhaPartida = txtSenhaPartida.Text;
+            int Partida = Convert.ToInt32(lblIdPartida.Text);
+
+            string retorno = Jogo.Entrar(Partida, nomeJogador, senhaPartida);             //retorno recebe dados do IDJogador
+
+            retorno = retorno.Substring(0, retorno.Length - 1);
+            string[] idesenha = retorno.Split(',');                                       // , realiza a divisão de dados, colocando as partidas em itens individuais       
+
+
+            lblJogadorID.Text = idesenha[0];                         //id de jogador
+            lblSenhaJogador.Text = idesenha[1];                      //id de senha
+
+            txtIDJogador.Text = lblJogadorID.Text; // txt ID Jogador recebe lbl ID do jogador
+            txtSenhaAtualPartida.Text = lblSenhaJogador.Text; // txt Senha recebe lbl da senha do jogador
+
+
+
         }
     }
 }
