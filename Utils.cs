@@ -14,7 +14,7 @@ namespace PI_PrefeitoDeLondres
             if (VerificarErro(mensagem))
                 mensagem = mensagem.Substring(5);
 
-            MessageBox.Show(mensagem, "some", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(mensagem, "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }
