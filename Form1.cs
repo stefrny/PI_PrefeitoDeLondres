@@ -92,5 +92,30 @@ namespace PI_PrefeitoDeLondres
             txtIDJogador.Text = lblJogadorID.Text; // txt ID Jogador recebe lbl ID do jogador
             txtSenhaAtualPartida.Text = lblSenhaJogador.Text; // txt Senha recebe lbl da senha do jogador
         }
+
+        private void bntIniciarJogo_Click(object sender, EventArgs e)
+        {
+            //int idPartida = Convert.ToInt32(txtPartidaID.Text);
+            //string senha = txtSenhaPartida.Text;
+
+            string retorno = Jogo.Iniciar(1346, "manu");
+
+            lblCartas.Text = retorno;
+        }
+
+        private void btnExibirCartas_Click(object sender, EventArgs e)
+        {
+            int idJogador = Convert.ToInt32(txtIDJogador.Text);
+            string senha = txtSenhaAtualPartida.Text;
+
+            string retorno = Jogo.ListarCartas(idJogador, senha);
+            if (Utils.VerificarErro(retorno))
+            {
+                Utils.ExibirErro(retorno);
+                return;
+            }
+
+            lblCartas.Text = retorno;
+        }
     }
 }
