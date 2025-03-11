@@ -56,6 +56,8 @@
             this.txtSenhaAtualPartida = new System.Windows.Forms.TextBox();
             this.lblSenhaAtualPartida = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnExibirCartas = new System.Windows.Forms.Button();
+            this.lblCartas = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnMostrarPartidas
@@ -221,6 +223,7 @@
             this.bntIniciarJogo.TabIndex = 23;
             this.bntIniciarJogo.Text = "Iniciar Partida";
             this.bntIniciarJogo.UseVisualStyleBackColor = true;
+            this.bntIniciarJogo.Click += new System.EventHandler(this.bntIniciarJogo_Click);
             // 
             // txtGrupoNome
             // 
@@ -309,11 +312,32 @@
             this.label4.Size = new System.Drawing.Size(0, 13);
             this.label4.TabIndex = 29;
             // 
+            // btnExibirCartas
+            // 
+            this.btnExibirCartas.Location = new System.Drawing.Point(314, 575);
+            this.btnExibirCartas.Name = "btnExibirCartas";
+            this.btnExibirCartas.Size = new System.Drawing.Size(88, 36);
+            this.btnExibirCartas.TabIndex = 34;
+            this.btnExibirCartas.Text = "Exibir Carta";
+            this.btnExibirCartas.UseVisualStyleBackColor = true;
+            this.btnExibirCartas.Click += new System.EventHandler(this.btnExibirCartas_Click);
+            // 
+            // lblCartas
+            // 
+            this.lblCartas.AutoSize = true;
+            this.lblCartas.Location = new System.Drawing.Point(411, 587);
+            this.lblCartas.Name = "lblCartas";
+            this.lblCartas.Size = new System.Drawing.Size(32, 13);
+            this.lblCartas.TabIndex = 35;
+            this.lblCartas.Text = "Carta";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 633);
+            this.Controls.Add(this.lblCartas);
+            this.Controls.Add(this.btnExibirCartas);
             this.Controls.Add(this.txtIDJogador);
             this.Controls.Add(this.lblIDJogador);
             this.Controls.Add(this.txtSenhaAtualPartida);
@@ -379,6 +403,8 @@
         private System.Windows.Forms.TextBox txtSenhaAtualPartida;
         private System.Windows.Forms.Label lblSenhaAtualPartida;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnExibirCartas;
+        private System.Windows.Forms.Label lblCartas;
     }
 }
 
