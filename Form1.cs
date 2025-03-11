@@ -83,7 +83,6 @@ namespace PI_PrefeitoDeLondres
                 return;
             }
 
-            retorno = retorno.Substring(0, retorno.Length - 1);
             string[] idesenha = retorno.Split(',');                                       // , realiza a divisão de dados, colocando as partidas em itens individuais       
 
             lblJogadorID.Text = idesenha[0];                         //id de jogador
@@ -95,27 +94,30 @@ namespace PI_PrefeitoDeLondres
 
         private void bntIniciarJogo_Click(object sender, EventArgs e)
         {
-            //int idPartida = Convert.ToInt32(txtPartidaID.Text);
-            //string senha = txtSenhaPartida.Text;
+            int idJogador = Convert.ToInt32(txtIDJogador.Text);
+            string senhaJogador = txtSenhaAtualPartida.Text;
 
-            string retorno = Jogo.Iniciar(1346, "manu");
-
-            lblCartas.Text = retorno;
+            string retorno = Jogo.Iniciar(idJogador, senhaJogador);
+            if (Utils.VerificarErro(retorno))
+            {
+                Utils.ExibirErro(retorno);
+                return;
+            }
         }
 
         private void btnExibirCartas_Click(object sender, EventArgs e)
         {
             int idJogador = Convert.ToInt32(txtIDJogador.Text);
-            string senha = txtSenhaAtualPartida.Text;
+            string senhaJogador = txtSenhaAtualPartida.Text;
 
-            string retorno = Jogo.ListarCartas(idJogador, senha);
+            string retorno = Jogo.ListarCartas(idJogador, senhaJogador);
             if (Utils.VerificarErro(retorno))
             {
                 Utils.ExibirErro(retorno);
                 return;
             }
 
-            lblCartas.Text = retorno;
+            lblCartas.Text = "Carta: " + retorno;
         }
     }
 }
