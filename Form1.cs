@@ -83,6 +83,8 @@ namespace PI_PrefeitoDeLondres
         private void bntEntrarPartida_Click(object sender, EventArgs e)
         {
             this.nomeJogador = txtNomeJogador.Text;                     //pega o nome e senha inseridos nas textboxes
+            this.idPartida = Convert.ToInt32(txtPartidaID.Text);
+            this.senhaPartida = txtSenhaPartida.Text;
 
             string retorno = Jogo.Entrar(this.idPartida, this.nomeJogador, this.senhaPartida);             //retorno recebe dados do IDJogador
             if (Utils.VerificarErro(retorno))

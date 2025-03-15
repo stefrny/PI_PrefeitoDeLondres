@@ -48,7 +48,6 @@
             this.bntIniciarJogo = new System.Windows.Forms.Button();
             this.txtGrupoNome = new System.Windows.Forms.TextBox();
             this.lblGrupoNome = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.lblJogadorID = new System.Windows.Forms.Label();
             this.lblSenhaJogador = new System.Windows.Forms.Label();
             this.txtIDJogador = new System.Windows.Forms.TextBox();
@@ -264,15 +263,6 @@
             this.lblGrupoNome.TabIndex = 2;
             this.lblGrupoNome.Text = "Nome do Grupo";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(69, 591);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 16);
-            this.label1.TabIndex = 26;
-            // 
             // lblJogadorID
             // 
             this.lblJogadorID.AutoSize = true;
@@ -377,7 +367,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblSenhaJogador);
             this.Controls.Add(this.lblJogadorID);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.txtGrupoNome);
             this.Controls.Add(this.lblGrupoNome);
             this.Controls.Add(this.bntIniciarJogo);
@@ -428,7 +417,6 @@
         private System.Windows.Forms.Button bntIniciarJogo;
         private System.Windows.Forms.TextBox txtGrupoNome;
         private System.Windows.Forms.Label lblGrupoNome;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblJogadorID;
         private System.Windows.Forms.Label lblSenhaJogador;
         private System.Windows.Forms.TextBox txtIDJogador;
