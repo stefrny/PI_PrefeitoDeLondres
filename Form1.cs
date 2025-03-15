@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Windows.Forms;
 using KingMeServer;  //utilização de dll do PI
 
@@ -13,6 +14,7 @@ namespace PI_PrefeitoDeLondres
         public string nomeJogador;
         public string senhaJogador;
         public int idJogador;
+        public string ClcPersonagem;
 
         public Form1()
         {
@@ -111,6 +113,10 @@ namespace PI_PrefeitoDeLondres
                 Utils.ExibirErro(retorno);
                 return;
             }
+
+            string lstSetores = Jogo.ListarSetores();
+            string lstPersonagens = Jogo.ListarPersonagens();
+
         }
 
         private void btnExibirCartas_Click(object sender, EventArgs e)
@@ -123,6 +129,42 @@ namespace PI_PrefeitoDeLondres
             }
 
             lblCartas.Text = "Carta: " + retorno;
+        }
+
+        private void bntColocarPersonagem_Click(object sender, EventArgs e)
+        {
+            int setor = Convert.ToInt32(txtSetor.Text);
+
+            string personagem = txtPersonagem.Text;
+
+            string retorno = Jogo.ColocarPersonagem(this.idJogador, this.senhaJogador, setor, personagem);
+
+        }
+
+        private void bntVerificarVez_Click(object sender, EventArgs e)
+        {
+            string retorno = Jogo.VerificarVez(idPartida);
+            string idjogadorvez = retorno.Split(',')[0];
+
+            string retorno2 = Jogo.ListarJogadores(idPartida);
+            retorno2 = retorno2.Replace("\r", "");
+            retorno2 = retorno2.Substring(0, retorno2.Length - 1);
+            string[] jogadores = retorno2.Split('\n');
+
+            string nomeJogador = "";
+            for (int i = 0; i < jogadores.Length; i++)
+            {
+                string[]infJogadores = jogadores[i].Split(',');
+
+                if (idjogadorvez == infJogadores[0])
+                {
+                    nomeJogador = infJogadores[1];                         
+                }
+            }
+
+            lblVezJogador.Text = idjogadorvez;
+            lblNomeVez.Text = nomeJogador;
+
         }
     }
 }
