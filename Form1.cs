@@ -6,6 +6,14 @@ namespace PI_PrefeitoDeLondres
 {
     public partial class Form1 : Form
     {
+        public string nomePartida;
+        public string senhaPartida;
+        public int idPartida;
+        public string nomeGrupo;
+        public string nomeJogador;
+        public string senhaJogador;
+        public int idJogador;
+
         public Form1()
         {
             InitializeComponent();
@@ -56,27 +64,27 @@ namespace PI_PrefeitoDeLondres
         private void btnCriarPartida_Click(object sender, EventArgs e)
         {
             lblNomeIDPartida.Text = "ID da Partida";
-            string nomePartidaCriada = txtNomePartida.Text;                     //pega o nome e senha inseridos nas textboxes
-            string senhaPartidaCriada = txtSenhaPartida.Text;
-            string grupoPartidaCriada = txtGrupoNome.Text;
+            this.nomePartida = txtNomePartida.Text;                     //pega o nome e senha inseridos nas textboxes
+            this.senhaPartida = txtSenhaPartida.Text;
+            this.nomeGrupo = txtGrupoNome.Text;
 
-            string retorno = Jogo.CriarPartida(nomePartidaCriada, senhaPartidaCriada, grupoPartidaCriada);   //cria a partida e escreve o id da mesma ao lado
+            string retorno = Jogo.CriarPartida(this.nomePartida, this.senhaPartida, this.nomeGrupo);   //cria a partida e escreve o id da mesma ao lado
             if (Utils.VerificarErro(retorno))
             {
                 Utils.ExibirErro(retorno);
                 return;
             }
-            lblIdPartida.Text = retorno;
-            txtPartidaID.Text = lblIdPartida.Text; // campo abaixo de ID partida mostra o ID da partida
+            this.idPartida = Convert.ToInt32(retorno);
+
+            lblIdPartida.Text = this.idPartida.ToString();
+            txtPartidaID.Text = this.idPartida.ToString(); // campo abaixo de ID partida mostra o ID da partida
         }
 
         private void bntEntrarPartida_Click(object sender, EventArgs e)
         {
-            string nomeJogador = txtNomeJogador.Text;                     //pega o nome e senha inseridos nas textboxes
-            string senhaPartida = txtSenhaPartida.Text;
-            int Partida = Convert.ToInt32(txtPartidaID.Text);
+            this.nomeJogador = txtNomeJogador.Text;                     //pega o nome e senha inseridos nas textboxes
 
-            string retorno = Jogo.Entrar(Partida, nomeJogador, senhaPartida);             //retorno recebe dados do IDJogador
+            string retorno = Jogo.Entrar(this.idPartida, this.nomeJogador, this.senhaPartida);             //retorno recebe dados do IDJogador
             if (Utils.VerificarErro(retorno))
             {
                 Utils.ExibirErro(retorno);
@@ -85,19 +93,19 @@ namespace PI_PrefeitoDeLondres
 
             string[] idesenha = retorno.Split(',');                                       // , realiza a divisão de dados, colocando as partidas em itens individuais       
 
-            lblJogadorID.Text = idesenha[0];                         //id de jogador
-            lblSenhaJogador.Text = idesenha[1];                      //id de senha
+            this.idJogador = Convert.ToInt32(idesenha[0]);
+            this.senhaJogador = idesenha[1];
 
-            txtIDJogador.Text = lblJogadorID.Text; // txt ID Jogador recebe lbl ID do jogador
-            txtSenhaAtualPartida.Text = lblSenhaJogador.Text; // txt Senha recebe lbl da senha do jogador
+            lblJogadorID.Text = this.idJogador.ToString();                 //id de jogador
+            lblSenhaJogador.Text = this.senhaJogador;                      //id de senha
+
+            txtIDJogador.Text = this.idJogador.ToString(); // txt ID Jogador recebe lbl ID do jogador
+            txtSenhaAtualPartida.Text = this.senhaJogador; // txt Senha recebe lbl da senha do jogador
         }
 
         private void bntIniciarJogo_Click(object sender, EventArgs e)
         {
-            int idJogador = Convert.ToInt32(txtIDJogador.Text);
-            string senhaJogador = txtSenhaAtualPartida.Text;
-
-            string retorno = Jogo.Iniciar(idJogador, senhaJogador);
+            string retorno = Jogo.Iniciar(this.idJogador, this.senhaJogador);
             if (Utils.VerificarErro(retorno))
             {
                 Utils.ExibirErro(retorno);
@@ -107,10 +115,7 @@ namespace PI_PrefeitoDeLondres
 
         private void btnExibirCartas_Click(object sender, EventArgs e)
         {
-            int idJogador = Convert.ToInt32(txtIDJogador.Text);
-            string senhaJogador = txtSenhaAtualPartida.Text;
-
-            string retorno = Jogo.ListarCartas(idJogador, senhaJogador);
+            string retorno = Jogo.ListarCartas(this.idJogador, this.senhaJogador);
             if (Utils.VerificarErro(retorno))
             {
                 Utils.ExibirErro(retorno);
