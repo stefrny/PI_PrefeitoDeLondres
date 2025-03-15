@@ -6,7 +6,8 @@ namespace PI_PrefeitoDeLondres
     {
         public static bool VerificarErro(string str)
         {
-            return str.Substring(0, 4) == "ERRO";
+            if (str.Length < 4) return false;
+            else return str.Substring(0, 4) == "ERRO";
         }
 
         public static void ExibirErro(string mensagem)
