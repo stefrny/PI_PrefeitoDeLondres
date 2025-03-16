@@ -114,8 +114,28 @@ namespace PI_PrefeitoDeLondres
                 return;
             }
 
-            string lstSetores = Jogo.ListarSetores();
-            string lstPersonagens = Jogo.ListarPersonagens();
+            string lstSetor = Jogo.ListarSetores();
+
+            lstSetor = lstSetor.Replace("\r", "");
+            lstSetor = lstSetor.Substring(0, lstSetor.Length - 1);
+            string[] setores = lstSetor.Split('\n');                           // guardando os jogadores em uma variável pra facilitar o manuseio
+
+            for (int i = 0; i < setores.Length; i++)
+            {
+                lstSetores.Items.Add(setores[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
+            }
+
+            string lstPersonagem = Jogo.ListarPersonagens();
+
+            lstPersonagem = lstPersonagem.Replace("\r", "");
+            lstPersonagem = lstPersonagem.Substring(0, lstPersonagem.Length - 1);
+            string[] personagens = lstPersonagem.Split('\n');                           // guardando os jogadores em uma variável pra facilitar o manuseio
+
+            for (int i = 0; i < personagens.Length; i++)
+            {
+                lstPersonagens.Items.Add(personagens[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
+            }
+
         }
 
         private void btnExibirCartas_Click(object sender, EventArgs e)
@@ -136,6 +156,7 @@ namespace PI_PrefeitoDeLondres
             string personagem = txtPersonagem.Text;
 
             string retorno = Jogo.ColocarPersonagem(this.idJogador, this.senhaJogador, setor, personagem);
+            lstJogo.Items.Add(retorno);
         }
 
         private void bntVerificarVez_Click(object sender, EventArgs e)
