@@ -91,5 +91,15 @@ namespace PI_PrefeitoDeLondres
         {
             return APIAdapter.VerificarVez(this.id);
         }
+
+        public List<Personagem> ListarPersonagens()
+        {
+            return APIAdapter.ListarPersonagens();
+        }
+
+        public List<Setor> ListarSetores()
+        {
+            return APIAdapter.ListarSetores();
+        }
     }
 }

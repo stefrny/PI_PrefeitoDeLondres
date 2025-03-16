@@ -28,14 +28,12 @@ namespace PI_PrefeitoDeLondres
             this.carta = null;
         }
 
-        public void AdicionarCarta(string carta)
+        public List<Personagem> ListarCarta()
         {
             if (this.carta != null)
-                throw new Exception($"Jogador {this.nome} já possui uma carta.");
+                this.carta = APIAdapter.ListarCarta(this.id, this.senha);
 
-            this.carta = new List<Personagem>();
-            for (int i = 0; i < carta.Length; i++)
-                this.carta.Add(new Personagem(carta[i]));
+            return this.carta;
         }
     }
 }
