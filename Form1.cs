@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using KingMeServer;  //utilização de dll do PI
 
@@ -6,13 +7,8 @@ namespace PI_PrefeitoDeLondres
 {
     public partial class Form1 : Form
     {
-        public string nomePartida;
-        public string senhaPartida;
-        public int idPartida;
-        public string nomeGrupo;
-        public string nomeJogador;
-        public string senhaJogador;
-        public int idJogador;
+        public Partida partida;
+        public Jogador jogador;
 
         public Form1()
         {
@@ -22,176 +18,212 @@ namespace PI_PrefeitoDeLondres
 
         private void btnMostrarPartidas_Click(object sender, EventArgs e)     //ao clicar no bnt
         {
-            string retorno = Jogo.ListarPartidas("T");             //retorno recebe status de todas as partidas
+            List<Partida> partidas = null;
 
-            retorno = retorno.Replace("\r", "");                   //troca de /r por " "-vazio
-            retorno = retorno.Substring(0, retorno.Length - 1);
-            string[] partidas = retorno.Split('\n');               // /n realiza a divisão de linhas, colocando as partidas em itens individuais
+            try
+            {
+                partidas = Partida.ListarPartidas("T");
+            }
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
+                return;
+            }
 
             lstListaDePartidas.Items.Clear();                     //limpando a lista pra não repetir as mesmas partidas anteriormente solicitadas 
-            for (int i = 0; i < partidas.Length; i++)
+            for (int i = 0; i < partidas.Count; i++)
             {
-                lstListaDePartidas.Items.Add(partidas[i]);
+                int id = partidas[i].Id;
+                string nome = partidas[i].Nome;
+                string data = partidas[i].Data.ToShortDateString();
+                string status = partidas[i].StatusCompleto;
+
+                lstListaDePartidas.Items.Add($"{id} | {nome} | {data} | {status}");
             }
         }
 
         private void lstListaDePartidas_SelectedIndexChanged(object sender, EventArgs e) // ao clicar em um item da lista...
         {
-            string partida = lstListaDePartidas.SelectedItem.ToString();       // separando e convertendo os dados da partida
-            string[] dadosDaPartida = partida.Split(',');
+            string partidaStr = lstListaDePartidas.SelectedItem.ToString();       // separando e convertendo os dados da partida
+            // [id, nome, data, status]
+            string[] dadosDaPartida = partidaStr.Split('|');
 
-            int idPartida = Convert.ToInt32(dadosDaPartida[0]);                 // atribuindo cada dado a uma variavel pra facilitar manuseio
-            string nomePartida = dadosDaPartida[1];                             // os dados "nome" e "data" não estão sendo usados no momento, remover ou fazer uso no futuro
-            string dataPartida = dadosDaPartida[2];
+            int idPartida = Convert.ToInt32(dadosDaPartida[0]);
+            string nomePartida = dadosDaPartida[1].Trim();
+            string data = dadosDaPartida[2].Trim();
+            char status = dadosDaPartida[3].Trim()[0];
 
-            string retorno = Jogo.ListarJogadores(idPartida);                   // usando o dado "idPartida" para verificar os jogadores da partida
-            if (Utils.VerificarErro(retorno))
+            Partida partida = new Partida(idPartida, nomePartida, null, data, status);
+            List<Jogador> jogadores = null;
+
+            try
             {
-                Utils.ExibirErro(retorno);
+                jogadores = partida.ListarJogadores();
+            }
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
                 return;
             }
 
-            retorno = retorno.Replace("\r", "");
-            string[] jogadores = retorno.Split('\n');                           // guardando os jogadores em uma variável pra facilitar o manuseio
-
             lstListaDeJogadores.Items.Clear();                                  // limpando a lista pra não repetir os mesmos nomes anteriormente solicitados
-            for (int i = 0; i < jogadores.Length; i++)
+            for (int i = 0; i < jogadores.Count; i++)
             {
-                lstListaDeJogadores.Items.Add(jogadores[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
+                int idJogador = jogadores[i].Id;
+                string nomeJogador = jogadores[i].Nome;
+                int pontos = jogadores[i].Pontos;
+
+                lstListaDeJogadores.Items.Add($"{idJogador} | {nomeJogador} | {pontos}");                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
             }
         }
 
         private void btnCriarPartida_Click(object sender, EventArgs e)
         {
             lblNomeIDPartida.Text = "ID da Partida";
-            this.nomePartida = txtNomePartida.Text;                     //pega o nome e senha inseridos nas textboxes
-            this.senhaPartida = txtSenhaPartida.Text;
-            this.nomeGrupo = txtGrupoNome.Text;
+            string nomePartida = txtNomePartida.Text;                     //pega o nome e senha inseridos nas textboxes
+            string senhaPartida = txtSenhaPartida.Text;
+            string nomeGrupo = txtGrupoNome.Text;
 
-            string retorno = Jogo.CriarPartida(this.nomePartida, this.senhaPartida, this.nomeGrupo);   //cria a partida e escreve o id da mesma ao lado
-            if (Utils.VerificarErro(retorno))
+            try
             {
-                Utils.ExibirErro(retorno);
+                this.partida = Partida.CriarPartida(nomePartida, senhaPartida, nomeGrupo);
+            }
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
                 return;
             }
-            this.idPartida = Convert.ToInt32(retorno);
 
-            lblIdPartida.Text = this.idPartida.ToString();
-            txtPartidaID.Text = this.idPartida.ToString(); // campo abaixo de ID partida mostra o ID da partida
+            lblIdPartida.Text = this.partida.Id.ToString();
+            txtPartidaID.Text = this.partida.Id.ToString(); // campo abaixo de ID partida mostra o ID da partida
         }
 
         private void bntEntrarPartida_Click(object sender, EventArgs e)
         {
-            this.nomeJogador = txtNomeJogador.Text;                     //pega o nome e senha inseridos nas textboxes
-            this.idPartida = Convert.ToInt32(txtPartidaID.Text);
-            this.senhaPartida = txtSenhaPartida.Text;
-
-            string retorno = Jogo.Entrar(this.idPartida, this.nomeJogador, this.senhaPartida);             //retorno recebe dados do IDJogador
-            if (Utils.VerificarErro(retorno))
+            string nomeJogador = txtNomeJogador.Text;                     //pega o nome e senha inseridos nas textboxes
+            if (txtPartidaID.Text == "")
             {
-                Utils.ExibirErro(retorno);
+                Utils.ExibirErro("Insira o ID da partida");
+                return;
+            }
+            int idPartida = Convert.ToInt32(txtPartidaID.Text);
+            string senhaPartida = txtSenhaPartida.Text;
+
+            if (this.partida == null)
+                this.partida = new Partida(idPartida, null, senhaPartida, null, 'A');
+
+            try
+            {
+                this.jogador = this.partida.Entrar(nomeJogador, senhaPartida);
+            }
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
                 return;
             }
 
-            string[] idesenha = retorno.Split(',');                                       // , realiza a divisão de dados, colocando as partidas em itens individuais       
+            lblJogadorID.Text = this.jogador.Id.ToString();                 //id de jogador
+            lblSenhaJogador.Text = this.jogador.Senha;                      //id de senha
 
-            this.idJogador = Convert.ToInt32(idesenha[0]);
-            this.senhaJogador = idesenha[1];
+            txtIDJogador.Text = this.jogador.Id.ToString(); // txt ID Jogador recebe lbl ID do jogador
+            txtSenhaAtualPartida.Text = this.jogador.Senha; // txt Senha recebe lbl da senha do jogador
 
-            lblJogadorID.Text = this.idJogador.ToString();                 //id de jogador
-            lblSenhaJogador.Text = this.senhaJogador;                      //id de senha
+            List<Setor> setores = this.partida.ListarSetores();
+            lstSetores.Items.Clear();
+            for (int i = 0; i < setores.Count; i++)
+                lstSetores.Items.Add($"{setores[i].Id} | {setores[i].Nome}");                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
 
-            txtIDJogador.Text = this.idJogador.ToString(); // txt ID Jogador recebe lbl ID do jogador
-            txtSenhaAtualPartida.Text = this.senhaJogador; // txt Senha recebe lbl da senha do jogador
+            List<Personagem> personagens = this.partida.ListarPersonagens();
+            lstPersonagens.Items.Clear();
+            for (int i = 0; i < personagens.Count; i++)
+                lstPersonagens.Items.Add(personagens[i].Nome);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
         }
 
         private void bntIniciarJogo_Click(object sender, EventArgs e)
         {
-            string retorno = Jogo.Iniciar(this.idJogador, this.senhaJogador);
-            if (Utils.VerificarErro(retorno))
+            try
             {
-                Utils.ExibirErro(retorno);
+                if (this.partida == null || this.jogador == null)
+                    throw new Exception("Entre em uma partida");
+
+                this.partida.Iniciar(this.jogador.Id, this.jogador.Senha);
+            }
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
                 return;
             }
-
-            string lstSetor = Jogo.ListarSetores();
-
-            lstSetor = lstSetor.Replace("\r", "");
-            lstSetor = lstSetor.Substring(0, lstSetor.Length - 1);
-            string[] setores = lstSetor.Split('\n');                           // guardando os jogadores em uma variável pra facilitar o manuseio
-
-            for (int i = 0; i < setores.Length; i++)
-            {
-                lstSetores.Items.Add(setores[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
-            }
-
-            string lstPersonagem = Jogo.ListarPersonagens();
-
-            lstPersonagem = lstPersonagem.Replace("\r", "");
-            lstPersonagem = lstPersonagem.Substring(0, lstPersonagem.Length - 1);
-            string[] personagens = lstPersonagem.Split('\n');                           // guardando os jogadores em uma variável pra facilitar o manuseio
-
-            for (int i = 0; i < personagens.Length; i++)
-            {
-                lstPersonagens.Items.Add(personagens[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
-            }
-
         }
 
         private void btnExibirCartas_Click(object sender, EventArgs e)
         {
-            string retorno = Jogo.ListarCartas(this.idJogador, this.senhaJogador);
-            if (Utils.VerificarErro(retorno))
+            List<Personagem> personagens = null;
+
+            try
             {
-                Utils.ExibirErro(retorno);
+                if (this.partida == null || this.jogador == null)
+                    throw new Exception("Entre em uma partida");
+
+                personagens = this.jogador.ListarCarta();
+            }
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
                 return;
             }
 
-            lblCartas.Text = "Carta: " + retorno;
+            lblCartas.Text = "Carta: ";
+            for (int i = 0; i < personagens.Count; i++)
+                lblCartas.Text += personagens[i].Inicial;
         }
 
         private void bntColocarPersonagem_Click(object sender, EventArgs e)
         {
+            if (txtSetor.Text == "" || txtPersonagem.Text == "")
+            {
+                Utils.ExibirErro("Insira o número do setor e a inicial do personagem");
+                return;
+            }
             int setor = Convert.ToInt32(txtSetor.Text);
-            string personagem = txtPersonagem.Text;
+            char personagem = Convert.ToChar(txtPersonagem.Text);
 
-            string retorno = Jogo.ColocarPersonagem(this.idJogador, this.senhaJogador, setor, personagem);
+            string retorno = null;
+
+            try
+            {
+                if (this.partida == null || this.jogador == null)
+                    throw new Exception("Entre em uma partida");
+
+                retorno = this.jogador.ColocarPersonagem(setor, personagem);
+            }
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
+                return;
+            }
+
             lstJogo.Items.Add(retorno);
         }
 
         private void bntVerificarVez_Click(object sender, EventArgs e)
         {
-            string retorno = Jogo.VerificarVez(this.idPartida);
-            if (Utils.VerificarErro(retorno))
+            Jogador jogadorDaVez = null;
+
+            try
             {
-                Utils.ExibirErro(retorno);
+                if (this.partida == null || this.jogador == null)
+                    throw new Exception("Entre em uma partida");
+
+                jogadorDaVez = this.partida.VerificarVez();
+            }
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
                 return;
             }
-            string idJogadorVez = retorno.Split(',')[0];
 
-            string retorno2 = Jogo.ListarJogadores(this.idPartida);
-            if (Utils.VerificarErro(retorno2))
-            {
-                Utils.ExibirErro(retorno2);
-                return;
-            }
-            retorno2 = retorno2.Replace("\r", "");
-            retorno2 = retorno2.Substring(0, retorno2.Length - 1);
-            string[] jogadores = retorno2.Split('\n');
-
-            string nomeJogador = "";
-            for (int i = 0; i < jogadores.Length; i++)
-            {
-                string[] infJogador = jogadores[i].Split(',');
-
-                if (idJogadorVez == infJogador[0])
-                {
-                    nomeJogador = infJogador[1];
-                }
-            }
-
-            lblVezJogador.Text = $"ID: {idJogadorVez}";
-            lblNomeVez.Text = $"Nome: {nomeJogador}";
+            lblVezJogador.Text = $"ID: {jogadorDaVez.Id}";
+            lblNomeVez.Text = $"Nome: {jogadorDaVez.Nome}";
         }
     }
 }
