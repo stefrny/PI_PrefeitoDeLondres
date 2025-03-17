@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace PI_PrefeitoDeLondres
@@ -19,6 +18,8 @@ namespace PI_PrefeitoDeLondres
 
         private List<Personagem> carta;
 
+        private APIAdapter api;
+
         public Jogador(int id, string nome, string senha, int pontos)
         {
             this.id = id;
@@ -26,14 +27,20 @@ namespace PI_PrefeitoDeLondres
             this.senha = senha;
             this.pontos = pontos;
             this.carta = null;
+            this.api = new APIAdapter();
         }
 
         public List<Personagem> ListarCarta()
         {
-            if (this.carta != null)
-                this.carta = APIAdapter.ListarCarta(this.id, this.senha);
+            if (this.carta == null)
+                this.carta = this.api.ListarCarta(this.id, this.senha);
 
             return this.carta;
+        }
+
+        public string ColocarPersonagem(int setor, char personagem)
+        {
+            return this.api.ColocarPersonagem(this.id, this.senha, setor, personagem);
         }
     }
 }
