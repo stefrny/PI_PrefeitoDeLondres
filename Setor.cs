@@ -1,5 +1,3 @@
-using System;
-
 namespace PI_PrefeitoDeLondres
 {
     public class Setor
