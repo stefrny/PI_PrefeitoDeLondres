@@ -113,6 +113,29 @@ namespace PI_PrefeitoDeLondres
                 Utils.ExibirErro(retorno);
                 return;
             }
+
+            string lstSetor = Jogo.ListarSetores();
+
+            lstSetor = lstSetor.Replace("\r", "");
+            lstSetor = lstSetor.Substring(0, lstSetor.Length - 1);
+            string[] setores = lstSetor.Split('\n');                           // guardando os jogadores em uma variável pra facilitar o manuseio
+
+            for (int i = 0; i < setores.Length; i++)
+            {
+                lstSetores.Items.Add(setores[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
+            }
+
+            string lstPersonagem = Jogo.ListarPersonagens();
+
+            lstPersonagem = lstPersonagem.Replace("\r", "");
+            lstPersonagem = lstPersonagem.Substring(0, lstPersonagem.Length - 1);
+            string[] personagens = lstPersonagem.Split('\n');                           // guardando os jogadores em uma variável pra facilitar o manuseio
+
+            for (int i = 0; i < personagens.Length; i++)
+            {
+                lstPersonagens.Items.Add(personagens[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
+            }
+
         }
 
         private void btnExibirCartas_Click(object sender, EventArgs e)
@@ -125,6 +148,50 @@ namespace PI_PrefeitoDeLondres
             }
 
             lblCartas.Text = "Carta: " + retorno;
+        }
+
+        private void bntColocarPersonagem_Click(object sender, EventArgs e)
+        {
+            int setor = Convert.ToInt32(txtSetor.Text);
+            string personagem = txtPersonagem.Text;
+
+            string retorno = Jogo.ColocarPersonagem(this.idJogador, this.senhaJogador, setor, personagem);
+            lstJogo.Items.Add(retorno);
+        }
+
+        private void bntVerificarVez_Click(object sender, EventArgs e)
+        {
+            string retorno = Jogo.VerificarVez(this.idPartida);
+            if (Utils.VerificarErro(retorno))
+            {
+                Utils.ExibirErro(retorno);
+                return;
+            }
+            string idJogadorVez = retorno.Split(',')[0];
+
+            string retorno2 = Jogo.ListarJogadores(this.idPartida);
+            if (Utils.VerificarErro(retorno2))
+            {
+                Utils.ExibirErro(retorno2);
+                return;
+            }
+            retorno2 = retorno2.Replace("\r", "");
+            retorno2 = retorno2.Substring(0, retorno2.Length - 1);
+            string[] jogadores = retorno2.Split('\n');
+
+            string nomeJogador = "";
+            for (int i = 0; i < jogadores.Length; i++)
+            {
+                string[] infJogador = jogadores[i].Split(',');
+
+                if (idJogadorVez == infJogador[0])
+                {
+                    nomeJogador = infJogador[1];
+                }
+            }
+
+            lblVezJogador.Text = $"ID: {idJogadorVez}";
+            lblNomeVez.Text = $"Nome: {nomeJogador}";
         }
     }
 }
