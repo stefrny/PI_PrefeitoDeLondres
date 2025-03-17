@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace PI_PrefeitoDeLondres
 {
@@ -38,29 +39,32 @@ namespace PI_PrefeitoDeLondres
 
         private List<Jogador> jogadores;
 
+        private APIAdapter api;
+
         public Partida(int id, string nome, string senha, string data, char status)
         {
             this.id = id;
             this.nome = nome;
             this.senha = senha;
-            this.data = DateTime.Parse(data);
-            this.status = status.ToUpper();
+            this.data = data != null ? Convert.ToDateTime(data) : new DateTime();
+            this.status = char.ToUpper(status);
             this.jogadores = null;
+            this.api = new APIAdapter();
         }
 
         public static Partida CriarPartida(string nome, string senha, string grupo)
         {
-            return APIAdapter.CriarPartida(nome, senha, grupo);
+            return new APIAdapter().CriarPartida(nome, senha, grupo);
         }
 
         public static List<Partida> ListarPartidas(string status)
         {
-            return APIAdapter.ListarPartidas(status);
+            return new APIAdapter().ListarPartidas(status);
         }
 
         public Jogador Entrar(string nomeJogador, string senhaPartida)
         {
-            Jogador jogador = APIAdapter.Entrar(this.id, nomeJogador, senhaPartida);
+            Jogador jogador = this.api.Entrar(this.id, nomeJogador, senhaPartida);
             this.senha = senhaPartida;
             return jogador;
         }
@@ -71,35 +75,35 @@ namespace PI_PrefeitoDeLondres
             bool listaJogadoresVazia = this.jogadores == null;
 
             if (partidaAberta)
-                return APIAdapter.ListarJogadores(this.id);
+                return this.api.ListarJogadores(this.id);
 
             if (listaJogadoresVazia)
-                this.jogadores = APIAdapter.ListarJogadores(this.id);
+                this.jogadores = this.api.ListarJogadores(this.id);
 
             return this.jogadores;
         }
 
-        public void Iniciar(string idJogador, string senhaJogador)
+        public void Iniciar(int idJogador, string senhaJogador)
         {
-            APIAdapter.Iniciar(idJogador, senhaJogador);
+            this.api.Iniciar(idJogador, senhaJogador);
 
             this.status = 'J';
-            this.jogadores = APIAdapter.ListarJogadores(this.id);
+            this.jogadores = this.api.ListarJogadores(this.id);
         }
 
         public Jogador VerificarVez()
         {
-            return APIAdapter.VerificarVez(this.id);
+            return this.api.VerificarVez(this.id);
         }
 
         public List<Personagem> ListarPersonagens()
         {
-            return APIAdapter.ListarPersonagens();
+            return this.api.ListarPersonagens();
         }
 
         public List<Setor> ListarSetores()
         {
-            return APIAdapter.ListarSetores();
+            return this.api.ListarSetores();
         }
     }
 }
