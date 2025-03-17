@@ -11,20 +11,20 @@ namespace PI_PrefeitoDeLondres
         Jogador Entrar(int idPartida, string nomeJogador, string senhaPartida);
         void Iniciar(int idJogador, string senhaJogador);
         List<Jogador> ListarJogadores(int idPartida);
-        void ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem);
+        string ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem);
         Jogador VerificarVez(int idPartida);
         void Promover(int idJogador, string senhaJogador, char personagem);
         void Votar(int idJogador, string senhaJogador, char voto);
         List<Personagem> ListarPersonagens();
         List<Setor> ListarSetores();
         List<Personagem> ListarCarta(int idJogador, string senhaJogador);
-        string ExibirUltimaVotacao(int idJogador, string senhaJogador);
-        string ConsultarHistorico(int idJogador, string senhaJogador, bool formatado);
+        string ExibirUltimaVotacao(int idPartida);
+        string ConsultarHistorico(int idPartida, bool formatado);
     }
 
-    public static class APIAdapter : IAPIAdapter
+    public class APIAdapter : IAPIAdapter
     {
-        public static Partida CriarPartida(string nomePartida, string senhaPartida, string grupo)
+        public Partida CriarPartida(string nomePartida, string senhaPartida, string grupo)
         {
             grupo = grupo ?? "Prefeitos de Londres";
             string retorno = Jogo.CriarPartida(nomePartida, senhaPartida, grupo);
@@ -34,9 +34,9 @@ namespace PI_PrefeitoDeLondres
             return new Partida(Convert.ToInt32(retorno), nomePartida, senhaPartida, null, 'A');
         }
 
-        public static List<Partida> ListarPartidas(string status)
+        public List<Partida> ListarPartidas(string status)
         {
-           string retorno = Jogo.ListarPartidas(status); 
+            string retorno = Jogo.ListarPartidas(status);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
@@ -48,13 +48,13 @@ namespace PI_PrefeitoDeLondres
             {
                 // [id, nome, data, status]
                 string[] dados = linhas[i].Split(',');
-                partidas.Add(new Partida(Convert.Toint32(dados[0]), dados[1], null, dados[2], dados[3]));
+                partidas.Add(new Partida(Convert.ToInt32(dados[0]), dados[1], null, dados[2], Convert.ToChar(dados[3])));
             }
 
             return partidas;
         }
 
-        public static Jogador Entrar(int idPartida, string nomeJogador, string senhaPartida)
+        public Jogador Entrar(int idPartida, string nomeJogador, string senhaPartida)
         {
             string retorno = Jogo.Entrar(idPartida, nomeJogador, senhaPartida);
             if (Utils.VerificarErro(retorno))
@@ -62,21 +62,23 @@ namespace PI_PrefeitoDeLondres
 
             // [id, senha]
             string[] dados = retorno.Split(',');
-            return new Jogador(Convert.ToInt32(dados[0]), nomeJogador, Convert.ToInt32(dados[1]), 0);
+            return new Jogador(Convert.ToInt32(dados[0]), nomeJogador, dados[1], 0);
         }
 
-        public static void Iniciar(int idJogador, string senhaJogador)
+        public void Iniciar(int idJogador, string senhaJogador)
         {
             string retorno = Jogo.Iniciar(idJogador, senhaJogador);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
         }
 
-        public static List<Jogador> ListarJogadores(int idPartida)
+        public List<Jogador> ListarJogadores(int idPartida)
         {
-            string retorno = Jogo.ListarJogadores(idPartida); 
+            string retorno = Jogo.ListarJogadores(idPartida);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
+
+            if (retorno.Length == 0) return new List<Jogador>();
 
             retorno = retorno.Substring(0, retorno.Length - 1).Replace("\r", "");
             string[] linhas = retorno.Split('\n');
@@ -86,21 +88,24 @@ namespace PI_PrefeitoDeLondres
             {
                 // [id, nome, pontos]
                 string[] dados = linhas[i].Split(',');
-                jogadores.Add(new Jogador(Convert.Toint32(dados[0]), dados[1], null, Convert.ToInt32(dados[2])));
+                jogadores.Add(new Jogador(Convert.ToInt32(dados[0]), dados[1], null, Convert.ToInt32(dados[2])));
             }
 
             return jogadores;
         }
 
-        public static void ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem)
+        public string ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem)
         {
-            string retorno = Jogo.ColocarPersonagem(idJogador, senhaJogador, setor, personagem);
+            string retorno = Jogo.ColocarPersonagem(idJogador, senhaJogador, setor, personagem.ToString());
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
+
+            return retorno;
         }
 
-        public static Jogador VerificarVez(int idPartida)
+        public Jogador VerificarVez(int idPartida)
         {
+            // int,char,int,char \r\n int,char \r\n ...
             string retorno = Jogo.VerificarVez(idPartida);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
@@ -112,21 +117,21 @@ namespace PI_PrefeitoDeLondres
             return jogadores.Find(j => j.Id == idJogador);
         }
 
-        public static void Promover(int idJogador, string senhaJogador, char personagem)
+        public void Promover(int idJogador, string senhaJogador, char personagem)
         {
-            string retorno = Jogo.Promover(idJogador, senhaJogador, personagem);
+            string retorno = Jogo.Promover(idJogador, senhaJogador, personagem.ToString());
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
         }
 
-        public static void Votar(int idJogador, string senhaJogador, char voto)
+        public void Votar(int idJogador, string senhaJogador, char voto)
         {
-            string retorno = Jogo.Votar(idJogador, senhaJogador, voto);
+            string retorno = Jogo.Votar(idJogador, senhaJogador, voto.ToString());
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
         }
 
-        public static List<Personagem> ListarPersonagens()
+        public List<Personagem> ListarPersonagens()
         {
             string retorno = Jogo.ListarPersonagens();
             if (Utils.VerificarErro(retorno))
@@ -142,7 +147,7 @@ namespace PI_PrefeitoDeLondres
             return personagens;
         }
 
-        public static List<Setor> ListarSetores()
+        public List<Setor> ListarSetores()
         {
             string retorno = Jogo.ListarSetores();
             if (Utils.VerificarErro(retorno))
@@ -156,36 +161,36 @@ namespace PI_PrefeitoDeLondres
             {
                 // [id, nome]
                 string[] dados = linhas[i].Split(',');
-                setores.Add(new Setor(Convert.Toint32(dados[0]), dados[1]));
+                setores.Add(new Setor(Convert.ToInt32(dados[0]), dados[1]));
             }
 
             return setores;
         }
 
-        public static List<Personagem> ListarCarta(int idJogador, string senhaJogador)
+        public List<Personagem> ListarCarta(int idJogador, string senhaJogador)
         {
             string retorno = Jogo.ListarCartas(idJogador, senhaJogador);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
             List<Personagem> personagens = this.ListarPersonagens();
-            personagens.RemoveAll(p => !retorno.Contains(p.Inicial));
+            personagens.RemoveAll(p => !retorno.Contains(p.Inicial.ToString()));
 
             return personagens;
         }
 
-        public static string ExibirUltimaVotacao(int idJogador, string senhaJogador)
+        public string ExibirUltimaVotacao(int idPartida)
         {
-            string retorno = Jogo.ExibirUltimaVotacao(idJogador, senhaJogador);
+            string retorno = Jogo.ExibirUltimaVotacao(idPartida);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
             return retorno;
         }
 
-        public static string ConsultarHistorico(int idJogador, string senhaJogador, bool formatado)
+        public string ConsultarHistorico(int idPartida, bool formatado)
         {
-            string retorno = Jogo.ConsultarHistorico(idJogador, senhaJogador, formatado);
+            string retorno = Jogo.ConsultarHistorico(idPartida, formatado);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
