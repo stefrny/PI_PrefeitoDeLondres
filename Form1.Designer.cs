@@ -56,7 +56,6 @@
             this.lblSenhaAtualPartida = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.bntVerificarVez = new System.Windows.Forms.Button();
             this.lstJogo = new System.Windows.Forms.ListBox();
             this.lblSetores = new System.Windows.Forms.Label();
             this.lblPersonagens = new System.Windows.Forms.Label();
@@ -68,8 +67,6 @@
             this.lblPersonagem = new System.Windows.Forms.Label();
             this.bntColocarPersonagem = new System.Windows.Forms.Button();
             this.bntPromover = new System.Windows.Forms.Button();
-            this.lblNomeVez = new System.Windows.Forms.Label();
-            this.lblVezJogador = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnMostrarPartidas
@@ -323,17 +320,6 @@
             this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 100;
             // 
-            // bntVerificarVez
-            // 
-            this.bntVerificarVez.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bntVerificarVez.Location = new System.Drawing.Point(482, 69);
-            this.bntVerificarVez.Name = "bntVerificarVez";
-            this.bntVerificarVez.Size = new System.Drawing.Size(96, 27);
-            this.bntVerificarVez.TabIndex = 101;
-            this.bntVerificarVez.Text = "Verificar Vez";
-            this.bntVerificarVez.UseVisualStyleBackColor = true;
-            this.bntVerificarVez.Click += new System.EventHandler(this.bntVerificarVez_Click);
-            // 
             // lstJogo
             // 
             this.lstJogo.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -439,33 +425,11 @@
             this.bntPromover.Text = "Promover";
             this.bntPromover.UseVisualStyleBackColor = true;
             // 
-            // lblNomeVez
-            // 
-            this.lblNomeVez.AutoSize = true;
-            this.lblNomeVez.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNomeVez.Location = new System.Drawing.Point(493, 133);
-            this.lblNomeVez.Name = "lblNomeVez";
-            this.lblNomeVez.Size = new System.Drawing.Size(76, 15);
-            this.lblNomeVez.TabIndex = 113;
-            this.lblNomeVez.Text = "Nome Jogador";
-            // 
-            // lblVezJogador
-            // 
-            this.lblVezJogador.AutoSize = true;
-            this.lblVezJogador.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVezJogador.Location = new System.Drawing.Point(493, 109);
-            this.lblVezJogador.Name = "lblVezJogador";
-            this.lblVezJogador.Size = new System.Drawing.Size(60, 15);
-            this.lblVezJogador.TabIndex = 114;
-            this.lblVezJogador.Text = "ID Jogador";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 633);
-            this.Controls.Add(this.lblVezJogador);
-            this.Controls.Add(this.lblNomeVez);
             this.Controls.Add(this.bntPromover);
             this.Controls.Add(this.bntColocarPersonagem);
             this.Controls.Add(this.txtSetor);
@@ -477,7 +441,6 @@
             this.Controls.Add(this.lblPersonagens);
             this.Controls.Add(this.lblSetores);
             this.Controls.Add(this.lstJogo);
-            this.Controls.Add(this.bntVerificarVez);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtIDJogador);
             this.Controls.Add(this.lblIDJogador);
@@ -543,7 +506,6 @@
         private System.Windows.Forms.Label lblSenhaAtualPartida;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button bntVerificarVez;
         private System.Windows.Forms.ListBox lstJogo;
         private System.Windows.Forms.Label lblSetores;
         private System.Windows.Forms.Label lblPersonagens;
@@ -555,8 +517,6 @@
         private System.Windows.Forms.Label lblPersonagem;
         private System.Windows.Forms.Button bntColocarPersonagem;
         private System.Windows.Forms.Button bntPromover;
-        private System.Windows.Forms.Label lblNomeVez;
-        private System.Windows.Forms.Label lblVezJogador;
     }
 }
 

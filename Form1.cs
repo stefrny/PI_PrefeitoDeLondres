@@ -139,6 +139,7 @@ namespace PI_PrefeitoDeLondres
             Tabuleiro tabuleiro = new Tabuleiro();
             tabuleiro.idJogador = this.idJogador;
             tabuleiro.senhaJogador = this.senhaJogador;
+            tabuleiro.idPartida = this.idPartida;
 
             tabuleiro.ShowDialog();
 
@@ -151,41 +152,6 @@ namespace PI_PrefeitoDeLondres
 
             string retorno = Jogo.ColocarPersonagem(this.idJogador, this.senhaJogador, setor, personagem);
             lstJogo.Items.Add(retorno);
-        }
-
-        private void bntVerificarVez_Click(object sender, EventArgs e)
-        {
-            string retorno = Jogo.VerificarVez(this.idPartida);
-            if (Utils.VerificarErro(retorno))
-            {
-                Utils.ExibirErro(retorno);
-                return;
-            }
-            string idJogadorVez = retorno.Split(',')[0];
-
-            string retorno2 = Jogo.ListarJogadores(this.idPartida);
-            if (Utils.VerificarErro(retorno2))
-            {
-                Utils.ExibirErro(retorno2);
-                return;
-            }
-            retorno2 = retorno2.Replace("\r", "");
-            retorno2 = retorno2.Substring(0, retorno2.Length - 1);
-            string[] jogadores = retorno2.Split('\n');
-
-            string nomeJogador = "";
-            for (int i = 0; i < jogadores.Length; i++)
-            {
-                string[] infJogador = jogadores[i].Split(',');
-
-                if (idJogadorVez == infJogador[0])
-                {
-                    nomeJogador = infJogador[1];
-                }
-            }
-
-            lblVezJogador.Text = $"ID: {idJogadorVez}";
-            lblNomeVez.Text = $"Nome: {nomeJogador}";
         }
     }
 }

@@ -61,6 +61,8 @@
             this.pnlSetor1 = new System.Windows.Forms.Panel();
             this.btnPainel1 = new System.Windows.Forms.Button();
             this.pnlSetor0 = new System.Windows.Forms.Panel();
+            this.lblVezJogador = new System.Windows.Forms.Label();
+            this.lblNomeVez = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlSetor2.SuspendLayout();
             this.pnlSetor3.SuspendLayout();
@@ -79,7 +81,7 @@
             // 
             // btnPosicionar
             // 
-            this.btnPosicionar.Location = new System.Drawing.Point(29, 139);
+            this.btnPosicionar.Location = new System.Drawing.Point(29, 241);
             this.btnPosicionar.Name = "btnPosicionar";
             this.btnPosicionar.Size = new System.Drawing.Size(75, 23);
             this.btnPosicionar.TabIndex = 1;
@@ -89,7 +91,7 @@
             // 
             // btnPromover
             // 
-            this.btnPromover.Location = new System.Drawing.Point(29, 282);
+            this.btnPromover.Location = new System.Drawing.Point(29, 364);
             this.btnPromover.Name = "btnPromover";
             this.btnPromover.Size = new System.Drawing.Size(75, 23);
             this.btnPromover.TabIndex = 2;
@@ -144,6 +146,7 @@
             this.btnVerificarVez.TabIndex = 7;
             this.btnVerificarVez.Text = "Verificar Vez";
             this.btnVerificarVez.UseVisualStyleBackColor = true;
+            this.btnVerificarVez.Click += new System.EventHandler(this.bntVerificarVez_Click);
             // 
             // cboPosicionarPersonagens
             // 
@@ -162,7 +165,7 @@
             "Quintas",
             "Ranufo",
             "Toshio"});
-            this.cboPosicionarPersonagens.Location = new System.Drawing.Point(29, 194);
+            this.cboPosicionarPersonagens.Location = new System.Drawing.Point(29, 302);
             this.cboPosicionarPersonagens.Name = "cboPosicionarPersonagens";
             this.cboPosicionarPersonagens.Size = new System.Drawing.Size(121, 21);
             this.cboPosicionarPersonagens.TabIndex = 17;
@@ -444,11 +447,31 @@
             this.pnlSetor0.Size = new System.Drawing.Size(514, 138);
             this.pnlSetor0.TabIndex = 8;
             // 
+            // lblVezJogador
+            // 
+            this.lblVezJogador.AutoSize = true;
+            this.lblVezJogador.Location = new System.Drawing.Point(26, 119);
+            this.lblVezJogador.Name = "lblVezJogador";
+            this.lblVezJogador.Size = new System.Drawing.Size(30, 13);
+            this.lblVezJogador.TabIndex = 34;
+            this.lblVezJogador.Text = "teste";
+            // 
+            // lblNomeVez
+            // 
+            this.lblNomeVez.AutoSize = true;
+            this.lblNomeVez.Location = new System.Drawing.Point(26, 156);
+            this.lblNomeVez.Name = "lblNomeVez";
+            this.lblNomeVez.Size = new System.Drawing.Size(30, 13);
+            this.lblNomeVez.TabIndex = 0;
+            this.lblNomeVez.Text = "teste";
+            // 
             // Tabuleiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(909, 969);
+            this.Controls.Add(this.lblNomeVez);
+            this.Controls.Add(this.lblVezJogador);
             this.Controls.Add(this.pnlLetraC);
             this.Controls.Add(this.pnlLetraT);
             this.Controls.Add(this.pnlLetraA);
@@ -483,6 +506,7 @@
             this.MinimizeBox = false;
             this.Name = "Tabuleiro";
             this.Text = "Tabuleiro";
+            this.Load += new System.EventHandler(this.Tabuleiro_Load);
             this.panel1.ResumeLayout(false);
             this.pnlSetor2.ResumeLayout(false);
             this.pnlSetor3.ResumeLayout(false);
@@ -527,5 +551,7 @@
         private System.Windows.Forms.Panel pnlLetraQ;
         private System.Windows.Forms.Panel pnlLetraR;
         private System.Windows.Forms.Panel pnlLetraT;
+        private System.Windows.Forms.Label lblVezJogador;
+        private System.Windows.Forms.Label lblNomeVez;
     }
 }
