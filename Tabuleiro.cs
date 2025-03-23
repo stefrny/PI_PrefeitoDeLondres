@@ -15,6 +15,7 @@ namespace PI_PrefeitoDeLondres
     {
         public int idJogador;
         public string senhaJogador;
+        int setorEscolhido;
 
 
         public Tabuleiro()
@@ -22,6 +23,7 @@ namespace PI_PrefeitoDeLondres
             InitializeComponent();
             lblVersaoJogo.Text = Jogo.versao;
             cboTipoVoto.SelectedIndex = 0;
+
         }
 
         private void lblVersaoJogo_Click(object sender, EventArgs e)
@@ -47,7 +49,14 @@ namespace PI_PrefeitoDeLondres
 
         private void btnPosicionar_Click(object sender, EventArgs e)
         {
-
+            string personagemEscolhido = cboPosicionarPersonagens.SelectedItem.ToString();
+            personagemEscolhido = personagemEscolhido[0].ToString();
+            string retorno = Jogo.ColocarPersonagem(idJogador, senhaJogador, setorEscolhido, personagemEscolhido);
+            if (Utils.VerificarErro(retorno))
+            {
+                Utils.ExibirErro(retorno);
+                return;
+            }
         }
 
         private void pnlSetor1_Paint(object sender, PaintEventArgs e)
@@ -55,11 +64,40 @@ namespace PI_PrefeitoDeLondres
            
         }
 
-        private void btnPainel10_Click(object sender, EventArgs e)
+        private void btnPainel4_Click(object sender, EventArgs e)
         {
-            //btnPainel10.FlatStyle = FlatStyle.Standard;
+            btnPainel1.FlatAppearance.BorderSize = 0;
+            btnPainel2.FlatAppearance.BorderSize = 0;
+            btnPainel3.FlatAppearance.BorderSize = 0;
             btnPainel4.FlatAppearance.BorderSize = 3;
-            btnPainel4.FlatAppearance.BorderColor = Color.Red;
+            this.setorEscolhido = 4;
+        }
+
+        private void btnPainel3_Click(object sender, EventArgs e)
+        {
+            btnPainel1.FlatAppearance.BorderSize = 0;
+            btnPainel2.FlatAppearance.BorderSize = 0;
+            btnPainel3.FlatAppearance.BorderSize = 3;
+            btnPainel4.FlatAppearance.BorderSize = 0;
+            this.setorEscolhido = 3;
+        }
+
+        private void btnPainel2_Click(object sender, EventArgs e)
+        {
+            btnPainel1.FlatAppearance.BorderSize = 0;
+            btnPainel2.FlatAppearance.BorderSize = 3;
+            btnPainel3.FlatAppearance.BorderSize = 0;
+            btnPainel4.FlatAppearance.BorderSize = 0;
+            this.setorEscolhido = 2;
+        }
+
+        private void btnPainel1_Click(object sender, EventArgs e)
+        {
+            btnPainel1.FlatAppearance.BorderSize = 3;
+            btnPainel2.FlatAppearance.BorderSize = 0;
+            btnPainel3.FlatAppearance.BorderSize = 0;
+            btnPainel4.FlatAppearance.BorderSize = 0;
+            this.setorEscolhido = 1;
         }
     }
 }
