@@ -67,6 +67,7 @@
             this.lblPersonagem = new System.Windows.Forms.Label();
             this.bntColocarPersonagem = new System.Windows.Forms.Button();
             this.bntPromover = new System.Windows.Forms.Button();
+            this.btnAbrirTabuleiro = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMostrarPartidas
@@ -225,7 +226,7 @@
             // bntIniciarJogo
             // 
             this.bntIniciarJogo.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bntIniciarJogo.Location = new System.Drawing.Point(347, 65);
+            this.bntIniciarJogo.Location = new System.Drawing.Point(346, 65);
             this.bntIniciarJogo.Name = "bntIniciarJogo";
             this.bntIniciarJogo.Size = new System.Drawing.Size(96, 42);
             this.bntIniciarJogo.TabIndex = 8;
@@ -425,11 +426,22 @@
             this.bntPromover.Text = "Promover";
             this.bntPromover.UseVisualStyleBackColor = true;
             // 
+            // btnAbrirTabuleiro
+            // 
+            this.btnAbrirTabuleiro.Location = new System.Drawing.Point(496, 69);
+            this.btnAbrirTabuleiro.Name = "btnAbrirTabuleiro";
+            this.btnAbrirTabuleiro.Size = new System.Drawing.Size(75, 34);
+            this.btnAbrirTabuleiro.TabIndex = 113;
+            this.btnAbrirTabuleiro.Text = "Abrir Tabuleiro";
+            this.btnAbrirTabuleiro.UseVisualStyleBackColor = true;
+            this.btnAbrirTabuleiro.Click += new System.EventHandler(this.btnAbrirTabuleiro_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 633);
+            this.Controls.Add(this.btnAbrirTabuleiro);
             this.Controls.Add(this.bntPromover);
             this.Controls.Add(this.bntColocarPersonagem);
             this.Controls.Add(this.txtSetor);
@@ -517,6 +529,7 @@
         private System.Windows.Forms.Label lblPersonagem;
         private System.Windows.Forms.Button bntColocarPersonagem;
         private System.Windows.Forms.Button bntPromover;
+        private System.Windows.Forms.Button btnAbrirTabuleiro;
     }
 }
 

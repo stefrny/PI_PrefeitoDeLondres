@@ -153,5 +153,15 @@ namespace PI_PrefeitoDeLondres
             string retorno = Jogo.ColocarPersonagem(this.idJogador, this.senhaJogador, setor, personagem);
             lstJogo.Items.Add(retorno);
         }
+
+        private void btnAbrirTabuleiro_Click(object sender, EventArgs e)
+        {
+            Tabuleiro tabuleiro = new Tabuleiro();
+            tabuleiro.idJogador = this.idJogador;
+            tabuleiro.senhaJogador = this.senhaJogador;
+            tabuleiro.idPartida = this.idPartida;
+
+            tabuleiro.ShowDialog();
+        }
     }
 }
