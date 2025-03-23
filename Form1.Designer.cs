@@ -55,8 +55,6 @@
             this.txtSenhaAtualPartida = new System.Windows.Forms.TextBox();
             this.lblSenhaAtualPartida = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnExibirCartas = new System.Windows.Forms.Button();
-            this.lblCartas = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.bntVerificarVez = new System.Windows.Forms.Button();
             this.lstJogo = new System.Windows.Forms.ListBox();
@@ -172,9 +170,8 @@
             this.lblVersaoDLL.AutoSize = true;
             this.lblVersaoDLL.Location = new System.Drawing.Point(1056, 611);
             this.lblVersaoDLL.Name = "lblVersaoDLL";
-            this.lblVersaoDLL.Size = new System.Drawing.Size(31, 13);
+            this.lblVersaoDLL.Size = new System.Drawing.Size(0, 13);
             this.lblVersaoDLL.TabIndex = 16;
-            this.lblVersaoDLL.Text = "1.0.0";
             // 
             // lblNomeIDPartida
             // 
@@ -255,7 +252,7 @@
             this.lblGrupoNome.Size = new System.Drawing.Size(86, 15);
             this.lblGrupoNome.TabIndex = 2;
             this.lblGrupoNome.Text = "Nome do Grupo";
-            //
+            // 
             // lblJogadorID
             // 
             this.lblJogadorID.AutoSize = true;
@@ -317,27 +314,6 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(0, 13);
             this.label4.TabIndex = 29;
-            // 
-            // btnExibirCartas
-            // 
-            this.btnExibirCartas.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExibirCartas.Location = new System.Drawing.Point(398, 589);
-            this.btnExibirCartas.Name = "btnExibirCartas";
-            this.btnExibirCartas.Size = new System.Drawing.Size(88, 27);
-            this.btnExibirCartas.TabIndex = 9;
-            this.btnExibirCartas.Text = "Exibir Carta";
-            this.btnExibirCartas.UseVisualStyleBackColor = true;
-            this.btnExibirCartas.Click += new System.EventHandler(this.btnExibirCartas_Click);
-            // 
-            // lblCartas
-            // 
-            this.lblCartas.AutoSize = true;
-            this.lblCartas.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCartas.Location = new System.Drawing.Point(518, 595);
-            this.lblCartas.Name = "lblCartas";
-            this.lblCartas.Size = new System.Drawing.Size(35, 15);
-            this.lblCartas.TabIndex = 35;
-            this.lblCartas.Text = "Carta";
             // 
             // label2
             // 
@@ -503,8 +479,6 @@
             this.Controls.Add(this.lstJogo);
             this.Controls.Add(this.bntVerificarVez);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.lblCartas);
-            this.Controls.Add(this.btnExibirCartas);
             this.Controls.Add(this.txtIDJogador);
             this.Controls.Add(this.lblIDJogador);
             this.Controls.Add(this.txtSenhaAtualPartida);
@@ -568,8 +542,6 @@
         private System.Windows.Forms.TextBox txtSenhaAtualPartida;
         private System.Windows.Forms.Label lblSenhaAtualPartida;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnExibirCartas;
-        private System.Windows.Forms.Label lblCartas;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button bntVerificarVez;
         private System.Windows.Forms.ListBox lstJogo;

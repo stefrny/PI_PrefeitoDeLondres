@@ -136,18 +136,12 @@ namespace PI_PrefeitoDeLondres
                 lstPersonagens.Items.Add(personagens[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
             }
 
-        }
+            Tabuleiro tabuleiro = new Tabuleiro();
+            tabuleiro.idJogador = this.idJogador;
+            tabuleiro.senhaJogador = this.senhaJogador;
 
-        private void btnExibirCartas_Click(object sender, EventArgs e)
-        {
-            string retorno = Jogo.ListarCartas(this.idJogador, this.senhaJogador);
-            if (Utils.VerificarErro(retorno))
-            {
-                Utils.ExibirErro(retorno);
-                return;
-            }
+            tabuleiro.ShowDialog();
 
-            lblCartas.Text = "Carta: " + retorno;
         }
 
         private void bntColocarPersonagem_Click(object sender, EventArgs e)
