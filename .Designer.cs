@@ -1,6 +1,6 @@
 ﻿namespace PI_PrefeitoDeLondres
 {
-    partial class Tabuleiro
+    partial class TabuleiroForm
     {
         /// <summary>
         /// Required designer variable.
@@ -48,10 +48,10 @@
             this.pnlLetraE = new System.Windows.Forms.Panel();
             this.pnlLetraD = new System.Windows.Forms.Panel();
             this.pnlLetraB = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlSetor4 = new System.Windows.Forms.Panel();
+            this.btnPainel4 = new System.Windows.Forms.Button();
             this.pnlLetraC = new System.Windows.Forms.Panel();
             this.pnlLetraA = new System.Windows.Forms.Panel();
-            this.btnPainel4 = new System.Windows.Forms.Button();
             this.pnlSetor5 = new System.Windows.Forms.Panel();
             this.pnlSetor2 = new System.Windows.Forms.Panel();
             this.btnPainel2 = new System.Windows.Forms.Button();
@@ -63,7 +63,7 @@
             this.pnlSetor0 = new System.Windows.Forms.Panel();
             this.lblVezJogador = new System.Windows.Forms.Label();
             this.lblNomeVez = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.pnlSetor4.SuspendLayout();
             this.pnlSetor2.SuspendLayout();
             this.pnlSetor3.SuspendLayout();
             this.pnlSetor1.SuspendLayout();
@@ -263,9 +263,9 @@
             this.pnlLetraE.BackColor = System.Drawing.Color.Transparent;
             this.pnlLetraE.BackgroundImage = global::PI_PrefeitoDeLondres.Properties.Resources.E;
             this.pnlLetraE.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlLetraE.Location = new System.Drawing.Point(273, 194);
+            this.pnlLetraE.Location = new System.Drawing.Point(273, 203);
             this.pnlLetraE.Name = "pnlLetraE";
-            this.pnlLetraE.Size = new System.Drawing.Size(85, 85);
+            this.pnlLetraE.Size = new System.Drawing.Size(85, 82);
             this.pnlLetraE.TabIndex = 26;
             this.pnlLetraE.Visible = false;
             // 
@@ -274,7 +274,7 @@
             this.pnlLetraD.BackColor = System.Drawing.Color.Transparent;
             this.pnlLetraD.BackgroundImage = global::PI_PrefeitoDeLondres.Properties.Resources.D;
             this.pnlLetraD.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlLetraD.Location = new System.Drawing.Point(273, 414);
+            this.pnlLetraD.Location = new System.Drawing.Point(273, 406);
             this.pnlLetraD.Name = "pnlLetraD";
             this.pnlLetraD.Size = new System.Drawing.Size(85, 85);
             this.pnlLetraD.TabIndex = 25;
@@ -291,15 +291,30 @@
             this.pnlLetraB.TabIndex = 24;
             this.pnlLetraB.Visible = false;
             // 
-            // panel1
+            // pnlSetor4
             // 
-            this.panel1.BackgroundImage = global::PI_PrefeitoDeLondres.Properties.Resources.Setor4;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.btnPainel4);
-            this.panel1.Location = new System.Drawing.Point(392, 285);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(514, 138);
-            this.panel1.TabIndex = 22;
+            this.pnlSetor4.BackgroundImage = global::PI_PrefeitoDeLondres.Properties.Resources.Setor4;
+            this.pnlSetor4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlSetor4.Controls.Add(this.btnPainel4);
+            this.pnlSetor4.Location = new System.Drawing.Point(392, 285);
+            this.pnlSetor4.Name = "pnlSetor4";
+            this.pnlSetor4.Size = new System.Drawing.Size(514, 138);
+            this.pnlSetor4.TabIndex = 22;
+            // 
+            // btnPainel4
+            // 
+            this.btnPainel4.BackColor = System.Drawing.Color.Transparent;
+            this.btnPainel4.FlatAppearance.BorderColor = System.Drawing.Color.Gold;
+            this.btnPainel4.FlatAppearance.BorderSize = 0;
+            this.btnPainel4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnPainel4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnPainel4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPainel4.Location = new System.Drawing.Point(0, 0);
+            this.btnPainel4.Name = "btnPainel4";
+            this.btnPainel4.Size = new System.Drawing.Size(514, 138);
+            this.btnPainel4.TabIndex = 20;
+            this.btnPainel4.UseVisualStyleBackColor = false;
+            this.btnPainel4.Click += new System.EventHandler(this.btnPainel4_Click);
             // 
             // pnlLetraC
             // 
@@ -322,21 +337,6 @@
             this.pnlLetraA.Size = new System.Drawing.Size(85, 85);
             this.pnlLetraA.TabIndex = 23;
             this.pnlLetraA.Visible = false;
-            // 
-            // btnPainel4
-            // 
-            this.btnPainel4.BackColor = System.Drawing.Color.Transparent;
-            this.btnPainel4.FlatAppearance.BorderColor = System.Drawing.Color.Gold;
-            this.btnPainel4.FlatAppearance.BorderSize = 0;
-            this.btnPainel4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnPainel4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnPainel4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPainel4.Location = new System.Drawing.Point(0, 0);
-            this.btnPainel4.Name = "btnPainel4";
-            this.btnPainel4.Size = new System.Drawing.Size(514, 138);
-            this.btnPainel4.TabIndex = 20;
-            this.btnPainel4.UseVisualStyleBackColor = false;
-            this.btnPainel4.Click += new System.EventHandler(this.btnPainel4_Click);
             // 
             // pnlSetor5
             // 
@@ -465,13 +465,13 @@
             this.lblNomeVez.TabIndex = 0;
             this.lblNomeVez.Text = "teste";
             // 
-            // Tabuleiro
+            // TabuleiroForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(909, 969);
-            this.Controls.Add(this.lblNomeVez);
-            this.Controls.Add(this.lblVezJogador);
+            this.Controls.Add(this.pnlLetraE);
+            this.Controls.Add(this.pnlLetraD);
             this.Controls.Add(this.pnlLetraC);
             this.Controls.Add(this.pnlLetraT);
             this.Controls.Add(this.pnlLetraA);
@@ -480,12 +480,12 @@
             this.Controls.Add(this.pnlLetraM);
             this.Controls.Add(this.pnlLetraL);
             this.Controls.Add(this.pnlLetraK);
-            this.Controls.Add(this.pnlLetraH);
-            this.Controls.Add(this.pnlLetraG);
-            this.Controls.Add(this.pnlLetraE);
-            this.Controls.Add(this.pnlLetraD);
             this.Controls.Add(this.pnlLetraB);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlLetraG);
+            this.Controls.Add(this.pnlLetraH);
+            this.Controls.Add(this.lblNomeVez);
+            this.Controls.Add(this.lblVezJogador);
+            this.Controls.Add(this.pnlSetor4);
             this.Controls.Add(this.cboPosicionarPersonagens);
             this.Controls.Add(this.pnlSetor5);
             this.Controls.Add(this.pnlSetor2);
@@ -504,10 +504,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Tabuleiro";
+            this.Name = "TabuleiroForm";
             this.Text = "Tabuleiro";
             this.Load += new System.EventHandler(this.Tabuleiro_Load);
-            this.panel1.ResumeLayout(false);
+            this.pnlSetor4.ResumeLayout(false);
             this.pnlSetor2.ResumeLayout(false);
             this.pnlSetor3.ResumeLayout(false);
             this.pnlSetor1.ResumeLayout(false);
@@ -534,7 +534,7 @@
         private System.Windows.Forms.Panel pnlSetor5;
         private System.Windows.Forms.ComboBox cboPosicionarPersonagens;
         private System.Windows.Forms.Button btnPainel4;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlSetor4;
         private System.Windows.Forms.Button btnPainel2;
         private System.Windows.Forms.Button btnPainel3;
         private System.Windows.Forms.Button btnPainel1;

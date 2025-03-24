@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,21 +13,58 @@ using KingMeServer;
 
 namespace PI_PrefeitoDeLondres
 {
-    public partial class Tabuleiro : Form
+    public struct Setor
+    {
+
+        public Panel painel;
+        public string personagens;
+        public Setor(Panel painel, string personagens)
+        {
+            this.painel = painel;
+            this.personagens = personagens;
+
+
+        }
+        
+
+    }
+    public partial class TabuleiroForm : Form
     {
         public int idJogador;
         public string senhaJogador;
         int setorEscolhido;
         public int idPartida;
 
+        Dictionary<char,Panel> paineis;
 
-        public Tabuleiro()
+        Dictionary<int, Setor> setores;
+
+
+        public TabuleiroForm()
         {
             InitializeComponent();
             lblVersaoJogo.Text = Jogo.versao;
             cboTipoVoto.SelectedIndex = 0;
+            paineis = new Dictionary<char, Panel>();
+            paineis.Add('A', pnlLetraA);
+            paineis.Add('B', pnlLetraB);
+            paineis.Add('T', pnlLetraT);
+            paineis.Add('R', pnlLetraR);
+            paineis.Add('Q', pnlLetraQ);
+            paineis.Add('M', pnlLetraM);
+            paineis.Add('L', pnlLetraL);
+            paineis.Add('K', pnlLetraK);
+            paineis.Add('H', pnlLetraH);
+            paineis.Add('G', pnlLetraG);
+            paineis.Add('E', pnlLetraE);
+            paineis.Add('D', pnlLetraD);
+            paineis.Add('C', pnlLetraC);
 
+            setores = new Dictionary<int, Setor>();
+            ResetarSetor();
         }
+
+
 
         private void lblVersaoJogo_Click(object sender, EventArgs e)
         {
@@ -92,6 +131,59 @@ namespace PI_PrefeitoDeLondres
                 Utils.ExibirErro(retorno);
                 return;
             }
+
+            retorno = retorno.Replace("\r", "");
+            retorno = retorno.Substring(0, retorno.Length - 1);
+            string[] estadotabuleiro = retorno.Split('\n');
+
+            ResetarSetor();
+            for (int i = 0; i < estadotabuleiro.Length; i++)
+            {
+                string[] posicao = estadotabuleiro[i].Split(',');
+
+                int idsetor = Convert.ToInt32(posicao[0]);
+                string personagem = posicao[1];
+
+                Setor setor = setores[idsetor];
+
+                if (setor.personagens == null)
+                {
+                    setor.personagens = personagem;
+                }
+                else
+                {
+                    setor.personagens += "," + personagem;
+                }
+                setores[idsetor] = setor;
+            }
+
+            foreach (int chave in setores.Keys)
+            {
+                Panel pnlSetor = setores[chave].painel;
+                string personagensStr = setores[chave].personagens;
+                if(personagensStr == null)
+                {
+                    continue;
+                }
+
+                string[] personagens = setores[chave].personagens.Split(',');
+
+
+
+                for (int i = 0; i < personagens.Length; i++)
+                {
+                    char personagem = Convert.ToChar(personagens[i]);
+                    Panel pnlpersonagem = paineis[personagem];
+                    int x = pnlSetor.Location.X + (pnlpersonagem.Width * i);
+                    int y = pnlSetor.Location.Y;
+                    pnlpersonagem.Location = new Point(x,y);
+                    pnlpersonagem.Visible = true;
+                    paineis[personagem] = pnlpersonagem;
+                }
+                
+            }
+
+
         }
 
         private void pnlSetor1_Paint(object sender, PaintEventArgs e)
@@ -138,6 +230,19 @@ namespace PI_PrefeitoDeLondres
         private void Tabuleiro_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void ResetarSetor()
+        {
+            setores.Clear();
+
+            setores.Add(0, new Setor(pnlSetor0, null));
+            setores.Add(1, new Setor(pnlSetor1, null));
+            setores.Add(2, new Setor(pnlSetor2, null));
+            setores.Add(3, new Setor(pnlSetor3, null));
+            setores.Add(4, new Setor(pnlSetor4, null));
+            setores.Add(5, new Setor(pnlSetor5, null));
+            setores.Add(10, new Setor(pnlSetor10, null));
         }
     }
 }

@@ -136,7 +136,7 @@ namespace PI_PrefeitoDeLondres
                 lstPersonagens.Items.Add(personagens[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
             }
 
-            Tabuleiro tabuleiro = new Tabuleiro();
+            TabuleiroForm tabuleiro = new TabuleiroForm();
             tabuleiro.idJogador = this.idJogador;
             tabuleiro.senhaJogador = this.senhaJogador;
             tabuleiro.idPartida = this.idPartida;
@@ -156,7 +156,7 @@ namespace PI_PrefeitoDeLondres
 
         private void btnAbrirTabuleiro_Click(object sender, EventArgs e)
         {
-            Tabuleiro tabuleiro = new Tabuleiro();
+            TabuleiroForm tabuleiro = new TabuleiroForm();
             tabuleiro.idJogador = this.idJogador;
             tabuleiro.senhaJogador = this.senhaJogador;
             tabuleiro.idPartida = this.idPartida;
