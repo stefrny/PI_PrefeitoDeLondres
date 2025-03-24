@@ -136,18 +136,13 @@ namespace PI_PrefeitoDeLondres
                 lstPersonagens.Items.Add(personagens[i]);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
             }
 
-        }
+            TabuleiroForm tabuleiro = new TabuleiroForm();
+            tabuleiro.idJogador = this.idJogador;
+            tabuleiro.senhaJogador = this.senhaJogador;
+            tabuleiro.idPartida = this.idPartida;
 
-        private void btnExibirCartas_Click(object sender, EventArgs e)
-        {
-            string retorno = Jogo.ListarCartas(this.idJogador, this.senhaJogador);
-            if (Utils.VerificarErro(retorno))
-            {
-                Utils.ExibirErro(retorno);
-                return;
-            }
+            tabuleiro.ShowDialog();
 
-            lblCartas.Text = "Carta: " + retorno;
         }
 
         private void bntColocarPersonagem_Click(object sender, EventArgs e)
@@ -159,39 +154,14 @@ namespace PI_PrefeitoDeLondres
             lstJogo.Items.Add(retorno);
         }
 
-        private void bntVerificarVez_Click(object sender, EventArgs e)
+        private void btnAbrirTabuleiro_Click(object sender, EventArgs e)
         {
-            string retorno = Jogo.VerificarVez(this.idPartida);
-            if (Utils.VerificarErro(retorno))
-            {
-                Utils.ExibirErro(retorno);
-                return;
-            }
-            string idJogadorVez = retorno.Split(',')[0];
+            TabuleiroForm tabuleiro = new TabuleiroForm();
+            tabuleiro.idJogador = this.idJogador;
+            tabuleiro.senhaJogador = this.senhaJogador;
+            tabuleiro.idPartida = this.idPartida;
 
-            string retorno2 = Jogo.ListarJogadores(this.idPartida);
-            if (Utils.VerificarErro(retorno2))
-            {
-                Utils.ExibirErro(retorno2);
-                return;
-            }
-            retorno2 = retorno2.Replace("\r", "");
-            retorno2 = retorno2.Substring(0, retorno2.Length - 1);
-            string[] jogadores = retorno2.Split('\n');
-
-            string nomeJogador = "";
-            for (int i = 0; i < jogadores.Length; i++)
-            {
-                string[] infJogador = jogadores[i].Split(',');
-
-                if (idJogadorVez == infJogador[0])
-                {
-                    nomeJogador = infJogador[1];
-                }
-            }
-
-            lblVezJogador.Text = $"ID: {idJogadorVez}";
-            lblNomeVez.Text = $"Nome: {nomeJogador}";
+            tabuleiro.ShowDialog();
         }
     }
 }
