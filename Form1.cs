@@ -153,6 +153,13 @@ namespace PI_PrefeitoDeLondres
                 Utils.ExibirErro(erro.Message);
                 return;
             }
+
+            TabuleiroForm tabuleiro = new TabuleiroForm();
+            tabuleiro.idJogador = this.idJogador;
+            tabuleiro.senhaJogador = this.senhaJogador;
+            tabuleiro.idPartida = this.idPartida;
+
+            tabuleiro.ShowDialog();
         }
 
         private void btnExibirCartas_Click(object sender, EventArgs e)
@@ -205,25 +212,14 @@ namespace PI_PrefeitoDeLondres
             lstJogo.Items.Add(retorno);
         }
 
-        private void bntVerificarVez_Click(object sender, EventArgs e)
+        private void btnAbrirTabuleiro_Click(object sender, EventArgs e)
         {
-            Jogador jogadorDaVez = null;
+            TabuleiroForm tabuleiro = new TabuleiroForm();
+            tabuleiro.idJogador = this.idJogador;
+            tabuleiro.senhaJogador = this.senhaJogador;
+            tabuleiro.idPartida = this.idPartida;
 
-            try
-            {
-                if (this.partida == null || this.jogador == null)
-                    throw new Exception("Entre em uma partida");
-
-                jogadorDaVez = this.partida.VerificarVez();
-            }
-            catch (Exception erro)
-            {
-                Utils.ExibirErro(erro.Message);
-                return;
-            }
-
-            lblVezJogador.Text = $"ID: {jogadorDaVez.Id}";
-            lblNomeVez.Text = $"Nome: {jogadorDaVez.Nome}";
+            tabuleiro.ShowDialog();
         }
     }
 }

@@ -55,10 +55,7 @@
             this.txtSenhaAtualPartida = new System.Windows.Forms.TextBox();
             this.lblSenhaAtualPartida = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnExibirCartas = new System.Windows.Forms.Button();
-            this.lblCartas = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.bntVerificarVez = new System.Windows.Forms.Button();
             this.lstJogo = new System.Windows.Forms.ListBox();
             this.lblSetores = new System.Windows.Forms.Label();
             this.lblPersonagens = new System.Windows.Forms.Label();
@@ -70,8 +67,7 @@
             this.lblPersonagem = new System.Windows.Forms.Label();
             this.bntColocarPersonagem = new System.Windows.Forms.Button();
             this.bntPromover = new System.Windows.Forms.Button();
-            this.lblNomeVez = new System.Windows.Forms.Label();
-            this.lblVezJogador = new System.Windows.Forms.Label();
+            this.btnAbrirTabuleiro = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnMostrarPartidas
@@ -172,9 +168,8 @@
             this.lblVersaoDLL.AutoSize = true;
             this.lblVersaoDLL.Location = new System.Drawing.Point(1056, 611);
             this.lblVersaoDLL.Name = "lblVersaoDLL";
-            this.lblVersaoDLL.Size = new System.Drawing.Size(31, 13);
+            this.lblVersaoDLL.Size = new System.Drawing.Size(0, 13);
             this.lblVersaoDLL.TabIndex = 16;
-            this.lblVersaoDLL.Text = "1.0.0";
             // 
             // lblNomeIDPartida
             // 
@@ -231,7 +226,7 @@
             // bntIniciarJogo
             // 
             this.bntIniciarJogo.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bntIniciarJogo.Location = new System.Drawing.Point(347, 65);
+            this.bntIniciarJogo.Location = new System.Drawing.Point(346, 65);
             this.bntIniciarJogo.Name = "bntIniciarJogo";
             this.bntIniciarJogo.Size = new System.Drawing.Size(96, 42);
             this.bntIniciarJogo.TabIndex = 8;
@@ -255,7 +250,7 @@
             this.lblGrupoNome.Size = new System.Drawing.Size(86, 15);
             this.lblGrupoNome.TabIndex = 2;
             this.lblGrupoNome.Text = "Nome do Grupo";
-            //
+            // 
             // lblJogadorID
             // 
             this.lblJogadorID.AutoSize = true;
@@ -318,27 +313,6 @@
             this.label4.Size = new System.Drawing.Size(0, 13);
             this.label4.TabIndex = 29;
             // 
-            // btnExibirCartas
-            // 
-            this.btnExibirCartas.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExibirCartas.Location = new System.Drawing.Point(398, 589);
-            this.btnExibirCartas.Name = "btnExibirCartas";
-            this.btnExibirCartas.Size = new System.Drawing.Size(88, 27);
-            this.btnExibirCartas.TabIndex = 9;
-            this.btnExibirCartas.Text = "Exibir Carta";
-            this.btnExibirCartas.UseVisualStyleBackColor = true;
-            this.btnExibirCartas.Click += new System.EventHandler(this.btnExibirCartas_Click);
-            // 
-            // lblCartas
-            // 
-            this.lblCartas.AutoSize = true;
-            this.lblCartas.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCartas.Location = new System.Drawing.Point(518, 595);
-            this.lblCartas.Name = "lblCartas";
-            this.lblCartas.Size = new System.Drawing.Size(35, 15);
-            this.lblCartas.TabIndex = 35;
-            this.lblCartas.Text = "Carta";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -346,17 +320,6 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 100;
-            // 
-            // bntVerificarVez
-            // 
-            this.bntVerificarVez.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bntVerificarVez.Location = new System.Drawing.Point(482, 69);
-            this.bntVerificarVez.Name = "bntVerificarVez";
-            this.bntVerificarVez.Size = new System.Drawing.Size(96, 27);
-            this.bntVerificarVez.TabIndex = 101;
-            this.bntVerificarVez.Text = "Verificar Vez";
-            this.bntVerificarVez.UseVisualStyleBackColor = true;
-            this.bntVerificarVez.Click += new System.EventHandler(this.bntVerificarVez_Click);
             // 
             // lstJogo
             // 
@@ -463,33 +426,22 @@
             this.bntPromover.Text = "Promover";
             this.bntPromover.UseVisualStyleBackColor = true;
             // 
-            // lblNomeVez
+            // btnAbrirTabuleiro
             // 
-            this.lblNomeVez.AutoSize = true;
-            this.lblNomeVez.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNomeVez.Location = new System.Drawing.Point(493, 133);
-            this.lblNomeVez.Name = "lblNomeVez";
-            this.lblNomeVez.Size = new System.Drawing.Size(76, 15);
-            this.lblNomeVez.TabIndex = 113;
-            this.lblNomeVez.Text = "Nome Jogador";
-            // 
-            // lblVezJogador
-            // 
-            this.lblVezJogador.AutoSize = true;
-            this.lblVezJogador.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVezJogador.Location = new System.Drawing.Point(493, 109);
-            this.lblVezJogador.Name = "lblVezJogador";
-            this.lblVezJogador.Size = new System.Drawing.Size(60, 15);
-            this.lblVezJogador.TabIndex = 114;
-            this.lblVezJogador.Text = "ID Jogador";
+            this.btnAbrirTabuleiro.Location = new System.Drawing.Point(496, 69);
+            this.btnAbrirTabuleiro.Name = "btnAbrirTabuleiro";
+            this.btnAbrirTabuleiro.Size = new System.Drawing.Size(75, 34);
+            this.btnAbrirTabuleiro.TabIndex = 113;
+            this.btnAbrirTabuleiro.Text = "Abrir Tabuleiro";
+            this.btnAbrirTabuleiro.UseVisualStyleBackColor = true;
+            this.btnAbrirTabuleiro.Click += new System.EventHandler(this.btnAbrirTabuleiro_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 633);
-            this.Controls.Add(this.lblVezJogador);
-            this.Controls.Add(this.lblNomeVez);
+            this.Controls.Add(this.btnAbrirTabuleiro);
             this.Controls.Add(this.bntPromover);
             this.Controls.Add(this.bntColocarPersonagem);
             this.Controls.Add(this.txtSetor);
@@ -501,10 +453,7 @@
             this.Controls.Add(this.lblPersonagens);
             this.Controls.Add(this.lblSetores);
             this.Controls.Add(this.lstJogo);
-            this.Controls.Add(this.bntVerificarVez);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.lblCartas);
-            this.Controls.Add(this.btnExibirCartas);
             this.Controls.Add(this.txtIDJogador);
             this.Controls.Add(this.lblIDJogador);
             this.Controls.Add(this.txtSenhaAtualPartida);
@@ -568,10 +517,7 @@
         private System.Windows.Forms.TextBox txtSenhaAtualPartida;
         private System.Windows.Forms.Label lblSenhaAtualPartida;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnExibirCartas;
-        private System.Windows.Forms.Label lblCartas;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button bntVerificarVez;
         private System.Windows.Forms.ListBox lstJogo;
         private System.Windows.Forms.Label lblSetores;
         private System.Windows.Forms.Label lblPersonagens;
@@ -583,8 +529,7 @@
         private System.Windows.Forms.Label lblPersonagem;
         private System.Windows.Forms.Button bntColocarPersonagem;
         private System.Windows.Forms.Button bntPromover;
-        private System.Windows.Forms.Label lblNomeVez;
-        private System.Windows.Forms.Label lblVezJogador;
+        private System.Windows.Forms.Button btnAbrirTabuleiro;
     }
 }
 
