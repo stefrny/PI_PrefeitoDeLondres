@@ -13,236 +13,125 @@ using KingMeServer;
 
 namespace PI_PrefeitoDeLondres
 {
-    public struct Setor
-    {
-
-        public Panel painel;
-        public string personagens;
-        public Setor(Panel painel, string personagens)
-        {
-            this.painel = painel;
-            this.personagens = personagens;
-
-
-        }
-        
-
-    }
     public partial class TabuleiroForm : Form
     {
-        public int idJogador;
-        public string senhaJogador;
-        int setorEscolhido;
-        public int idPartida;
+        private Partida partida;
+        private Jogador jogador;
+        private Tabuleiro tabuleiro;
+        private int setorEscolhido;
 
-        Dictionary<char,Panel> paineis;
-
-        Dictionary<int, Setor> setores;
-
-
-        public TabuleiroForm()
+        public TabuleiroForm(Partida partida, Jogador jogador)
         {
             InitializeComponent();
-            lblVersaoJogo.Text = Jogo.versao;
+            this.partida = partida;
+            this.jogador = jogador;
+            this.tabuleiro = new Tabuleiro();
+
+            this.tabuleiro.paineisPersonagens.Add('A', pnlLetraA);
+            this.tabuleiro.paineisPersonagens.Add('B', pnlLetraB);
+            this.tabuleiro.paineisPersonagens.Add('T', pnlLetraT);
+            this.tabuleiro.paineisPersonagens.Add('R', pnlLetraR);
+            this.tabuleiro.paineisPersonagens.Add('Q', pnlLetraQ);
+            this.tabuleiro.paineisPersonagens.Add('M', pnlLetraM);
+            this.tabuleiro.paineisPersonagens.Add('L', pnlLetraL);
+            this.tabuleiro.paineisPersonagens.Add('K', pnlLetraK);
+            this.tabuleiro.paineisPersonagens.Add('H', pnlLetraH);
+            this.tabuleiro.paineisPersonagens.Add('G', pnlLetraG);
+            this.tabuleiro.paineisPersonagens.Add('E', pnlLetraE);
+            this.tabuleiro.paineisPersonagens.Add('D', pnlLetraD);
+            this.tabuleiro.paineisPersonagens.Add('C', pnlLetraC);
+
+            this.tabuleiro.setores.Add(0, new SetorTabuleiro(pnlSetor0, null));
+            this.tabuleiro.setores.Add(1, new SetorTabuleiro(pnlSetor1, null));
+            this.tabuleiro.setores.Add(2, new SetorTabuleiro(pnlSetor2, null));
+            this.tabuleiro.setores.Add(3, new SetorTabuleiro(pnlSetor3, null));
+            this.tabuleiro.setores.Add(4, new SetorTabuleiro(pnlSetor4, null));
+            this.tabuleiro.setores.Add(5, new SetorTabuleiro(pnlSetor5, null));
+            this.tabuleiro.setores.Add(10, new SetorTabuleiro(pnlSetor10, null));
+
+            // Voto 'Sim' aparece selecionado
             cboTipoVoto.SelectedIndex = 0;
-            paineis = new Dictionary<char, Panel>();
-            paineis.Add('A', pnlLetraA);
-            paineis.Add('B', pnlLetraB);
-            paineis.Add('T', pnlLetraT);
-            paineis.Add('R', pnlLetraR);
-            paineis.Add('Q', pnlLetraQ);
-            paineis.Add('M', pnlLetraM);
-            paineis.Add('L', pnlLetraL);
-            paineis.Add('K', pnlLetraK);
-            paineis.Add('H', pnlLetraH);
-            paineis.Add('G', pnlLetraG);
-            paineis.Add('E', pnlLetraE);
-            paineis.Add('D', pnlLetraD);
-            paineis.Add('C', pnlLetraC);
 
-            setores = new Dictionary<int, Setor>();
-            ResetarSetor();
+            // Adiciona todos os personagens na combobox
+            List<Personagem> personagens = this.partida.ListarPersonagens();
+            for (int i = 0; i < personagens.Count; i++)
+                cboPosicionarPersonagens.Items.Add(personagens[i].Nome);
         }
 
-
-
-        private void lblVersaoJogo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cboTipoVoto_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
         private void btnExibirCartas_Click(object sender, EventArgs e)
         {
-            string retorno = Jogo.ListarCartas(this.idJogador, this.senhaJogador);
-            if (Utils.VerificarErro(retorno))
+            List<Personagem> personagens;
+
+            try
             {
-                Utils.ExibirErro(retorno);
+                personagens = this.partida.ListarCarta();
+            }
+            catch (Exception e)
+            {
+                Utils.ExibirErro(e.Message);
                 return;
             }
 
-            lblCartas.Text = "Carta: " + retorno;
+            lblCartas.Text = "Carta: ";
+            for (int i = 0; i < personagens.Count; i++)
+                lblCartas.Text += $"{personagens[i].Inicial}";
         }
+
         private void bntVerificarVez_Click(object sender, EventArgs e)
         {
-            string retorno = Jogo.VerificarVez(this.idPartida);
-            if (Utils.VerificarErro(retorno))
+            Jogador jogador;
+            EstadoTabuleiro estado;
+
+            try
             {
-                Utils.ExibirErro(retorno);
+                (jogador, estado) = this.partida.VerificarVez();
+                this.tabuleiro.Atualizar(estado);
+            }
+            catch (Exception e)
+            {
+                Utils.ExibirErro(e.Message);
                 return;
             }
-            string idJogadorVez = retorno.Split(',')[0];
 
-            string retorno2 = Jogo.ListarJogadores(this.idPartida);
-            if (Utils.VerificarErro(retorno2))
-            {
-                Utils.ExibirErro(retorno2);
-                return;
-            }
-            retorno2 = retorno2.Replace("\r", "");
-            retorno2 = retorno2.Substring(0, retorno2.Length - 1);
-            string[] jogadores = retorno2.Split('\n');
-
-            string nomeJogador = "";
-            for (int i = 0; i < jogadores.Length; i++)
-            {
-                string[] infJogador = jogadores[i].Split(',');
-
-                if (idJogadorVez == infJogador[0])
-                {
-                    nomeJogador = infJogador[1];
-                }
-            }
-
-            lblVezJogador.Text = $"ID: {idJogadorVez}";
-            lblNomeVez.Text = $"Nome: {nomeJogador}";
+            lblVezJogador.Text = $"ID: {jogador.Id}";
+            lblNomeVez.Text = $"Nome: {jogador.Nome}";
         }
 
         private void btnPosicionar_Click(object sender, EventArgs e)
         {
-            string personagemEscolhido = cboPosicionarPersonagens.SelectedItem.ToString();
-            personagemEscolhido = personagemEscolhido[0].ToString();
-            string retorno = Jogo.ColocarPersonagem(idJogador, senhaJogador, setorEscolhido, personagemEscolhido);
-            if (Utils.VerificarErro(retorno))
+            try
             {
-                Utils.ExibirErro(retorno);
+                char personagemEscolhido = Convert.ToChar(cboPosicionarPersonagens.SelectedItem[0]);
+                EstadoTabuleiro estado = this.jogador.ColocarPersonagem(this.setorEscolhido, personagemEscolhido);
+
+                this.tabuleiro.Atualizar(estado);
+            }
+            catch (Exception e)
+            {
+                Utils.ExibirErro(e.Message);
                 return;
             }
+        }
 
-            retorno = retorno.Replace("\r", "");
-            retorno = retorno.Substring(0, retorno.Length - 1);
-            string[] estadotabuleiro = retorno.Split('\n');
+        private void btnPainel_Click(object sender, EventArgs e)
+        {
+            Button btnSetorClicado = (Button)sender;
+            bool estaSelecionado = btnSetorClicado.FlatAppearance.BorderSize == 3;
 
-            ResetarSetor();
-            for (int i = 0; i < estadotabuleiro.Length; i++)
+            btnPainel1.FlatAppearance.BorderSize = 0;
+            btnPainel2.FlatAppearance.BorderSize = 0;
+            btnPainel3.FlatAppearance.BorderSize = 0;
+            btnPainel4.FlatAppearance.BorderSize = 0;
+
+            if (estaSelecionado)
             {
-                string[] posicao = estadotabuleiro[i].Split(',');
-
-                int idsetor = Convert.ToInt32(posicao[0]);
-                string personagem = posicao[1];
-
-                Setor setor = setores[idsetor];
-
-                if (setor.personagens == null)
-                {
-                    setor.personagens = personagem;
-                }
-                else
-                {
-                    setor.personagens += "," + personagem;
-                }
-                setores[idsetor] = setor;
+                this.setorEscolhido = -1;
             }
-
-            foreach (int chave in setores.Keys)
+            else
             {
-                Panel pnlSetor = setores[chave].painel;
-                string personagensStr = setores[chave].personagens;
-                if(personagensStr == null)
-                {
-                    continue;
-                }
-
-                string[] personagens = setores[chave].personagens.Split(',');
-
-
-
-                for (int i = 0; i < personagens.Length; i++)
-                {
-                    char personagem = Convert.ToChar(personagens[i]);
-                    Panel pnlpersonagem = paineis[personagem];
-                    int x = pnlSetor.Location.X + (pnlpersonagem.Width * i);
-                    int y = pnlSetor.Location.Y;
-                    pnlpersonagem.Location = new Point(x,y);
-                    pnlpersonagem.Visible = true;
-                    paineis[personagem] = pnlpersonagem;
-                }
-                
+                btnSetorClicado.FlatAppearance.BorderSize = 3;
+                this.setorEscolhido = Convert.ToInt32(btnSetorClicado.Name.Substring(9));
             }
-
-
-        }
-
-        private void pnlSetor1_Paint(object sender, PaintEventArgs e)
-        {
-           
-        }
-
-        private void btnPainel4_Click(object sender, EventArgs e)
-        {
-            btnPainel1.FlatAppearance.BorderSize = 0;
-            btnPainel2.FlatAppearance.BorderSize = 0;
-            btnPainel3.FlatAppearance.BorderSize = 0;
-            btnPainel4.FlatAppearance.BorderSize = 3;
-            this.setorEscolhido = 4;
-        }
-
-        private void btnPainel3_Click(object sender, EventArgs e)
-        {
-            btnPainel1.FlatAppearance.BorderSize = 0;
-            btnPainel2.FlatAppearance.BorderSize = 0;
-            btnPainel3.FlatAppearance.BorderSize = 3;
-            btnPainel4.FlatAppearance.BorderSize = 0;
-            this.setorEscolhido = 3;
-        }
-
-        private void btnPainel2_Click(object sender, EventArgs e)
-        {
-            btnPainel1.FlatAppearance.BorderSize = 0;
-            btnPainel2.FlatAppearance.BorderSize = 3;
-            btnPainel3.FlatAppearance.BorderSize = 0;
-            btnPainel4.FlatAppearance.BorderSize = 0;
-            this.setorEscolhido = 2;
-        }
-
-        private void btnPainel1_Click(object sender, EventArgs e)
-        {
-            btnPainel1.FlatAppearance.BorderSize = 3;
-            btnPainel2.FlatAppearance.BorderSize = 0;
-            btnPainel3.FlatAppearance.BorderSize = 0;
-            btnPainel4.FlatAppearance.BorderSize = 0;
-            this.setorEscolhido = 1;
-        }
-
-        private void Tabuleiro_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ResetarSetor()
-        {
-            setores.Clear();
-
-            setores.Add(0, new Setor(pnlSetor0, null));
-            setores.Add(1, new Setor(pnlSetor1, null));
-            setores.Add(2, new Setor(pnlSetor2, null));
-            setores.Add(3, new Setor(pnlSetor3, null));
-            setores.Add(4, new Setor(pnlSetor4, null));
-            setores.Add(5, new Setor(pnlSetor5, null));
-            setores.Add(10, new Setor(pnlSetor10, null));
         }
     }
 }

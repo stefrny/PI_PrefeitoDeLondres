@@ -94,27 +94,33 @@ namespace PI_PrefeitoDeLondres
             return jogadores;
         }
 
-        public string ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem)
+        public EstadoTabuleiro ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem)
         {
+            // int,char \r\n int,char \r\n ...
             string retorno = Jogo.ColocarPersonagem(idJogador, senhaJogador, setor, personagem.ToString());
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
-            return retorno;
+            Dictionary<int, string> setores = Utils.FormatarSetores(retorno);
+
+            return new EstadoTabuleiro(null, setores);
         }
 
-        public Jogador VerificarVez(int idPartida)
+        public (Jogador, EstadoTabuleiro) VerificarVez(int idPartida)
         {
             // int,char,int,char \r\n int,char \r\n ...
             string retorno = Jogo.VerificarVez(idPartida);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
-            string[] dados = retorno.Split(',');
-            int idJogador = Convert.ToInt32(dados[0]);
+            int idJogador = Convert.ToInt32(retorno[0]);
+            string fase = retorno[1];
+            Dictionary<int, string> setores = Utils.FormatarSetores(retorno.Substring(2));
 
             List<Jogador> jogadores = this.ListarJogadores(idPartida);
-            return jogadores.Find(j => j.Id == idJogador);
+            Jogador jogadorDaVez = jogadores.Find(j => j.Id == idJogador);
+
+            return (jogadorDaVez, new EstadoTabuleiro(fase, setores));
         }
 
         public void Promover(int idJogador, string senhaJogador, char personagem)

@@ -54,19 +54,6 @@
             this.lblIDJogador = new System.Windows.Forms.Label();
             this.txtSenhaAtualPartida = new System.Windows.Forms.TextBox();
             this.lblSenhaAtualPartida = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lstJogo = new System.Windows.Forms.ListBox();
-            this.lblSetores = new System.Windows.Forms.Label();
-            this.lblPersonagens = new System.Windows.Forms.Label();
-            this.lstSetores = new System.Windows.Forms.ListBox();
-            this.lstPersonagens = new System.Windows.Forms.ListBox();
-            this.txtSetor = new System.Windows.Forms.TextBox();
-            this.lblSetor = new System.Windows.Forms.Label();
-            this.txtPersonagem = new System.Windows.Forms.TextBox();
-            this.lblPersonagem = new System.Windows.Forms.Label();
-            this.bntColocarPersonagem = new System.Windows.Forms.Button();
-            this.bntPromover = new System.Windows.Forms.Button();
             this.btnAbrirTabuleiro = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -305,127 +292,6 @@
             this.lblSenhaAtualPartida.TabIndex = 30;
             this.lblSenhaAtualPartida.Text = "Senha";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(358, 162);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 13);
-            this.label4.TabIndex = 29;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(344, 219);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 13);
-            this.label2.TabIndex = 100;
-            // 
-            // lstJogo
-            // 
-            this.lstJogo.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstJogo.FormattingEnabled = true;
-            this.lstJogo.ItemHeight = 15;
-            this.lstJogo.Location = new System.Drawing.Point(347, 219);
-            this.lstJogo.Name = "lstJogo";
-            this.lstJogo.Size = new System.Drawing.Size(274, 364);
-            this.lstJogo.TabIndex = 102;
-            // 
-            // lblSetores
-            // 
-            this.lblSetores.AutoSize = true;
-            this.lblSetores.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSetores.Location = new System.Drawing.Point(866, 69);
-            this.lblSetores.Name = "lblSetores";
-            this.lblSetores.Size = new System.Drawing.Size(42, 15);
-            this.lblSetores.TabIndex = 103;
-            this.lblSetores.Text = "Setores";
-            // 
-            // lblPersonagens
-            // 
-            this.lblPersonagens.AutoSize = true;
-            this.lblPersonagens.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPersonagens.Location = new System.Drawing.Point(866, 293);
-            this.lblPersonagens.Name = "lblPersonagens";
-            this.lblPersonagens.Size = new System.Drawing.Size(66, 15);
-            this.lblPersonagens.TabIndex = 104;
-            this.lblPersonagens.Text = "Personagens";
-            // 
-            // lstSetores
-            // 
-            this.lstSetores.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstSetores.FormattingEnabled = true;
-            this.lstSetores.ItemHeight = 15;
-            this.lstSetores.Location = new System.Drawing.Point(869, 86);
-            this.lstSetores.Name = "lstSetores";
-            this.lstSetores.Size = new System.Drawing.Size(218, 199);
-            this.lstSetores.TabIndex = 105;
-            // 
-            // lstPersonagens
-            // 
-            this.lstPersonagens.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstPersonagens.FormattingEnabled = true;
-            this.lstPersonagens.ItemHeight = 15;
-            this.lstPersonagens.Location = new System.Drawing.Point(869, 314);
-            this.lstPersonagens.Name = "lstPersonagens";
-            this.lstPersonagens.Size = new System.Drawing.Size(218, 244);
-            this.lstPersonagens.TabIndex = 106;
-            // 
-            // txtSetor
-            // 
-            this.txtSetor.Location = new System.Drawing.Point(651, 87);
-            this.txtSetor.Name = "txtSetor";
-            this.txtSetor.Size = new System.Drawing.Size(100, 20);
-            this.txtSetor.TabIndex = 110;
-            // 
-            // lblSetor
-            // 
-            this.lblSetor.AutoSize = true;
-            this.lblSetor.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSetor.Location = new System.Drawing.Point(648, 69);
-            this.lblSetor.Name = "lblSetor";
-            this.lblSetor.Size = new System.Drawing.Size(32, 15);
-            this.lblSetor.TabIndex = 109;
-            this.lblSetor.Text = "Setor";
-            // 
-            // txtPersonagem
-            // 
-            this.txtPersonagem.Location = new System.Drawing.Point(651, 134);
-            this.txtPersonagem.Name = "txtPersonagem";
-            this.txtPersonagem.Size = new System.Drawing.Size(100, 20);
-            this.txtPersonagem.TabIndex = 108;
-            // 
-            // lblPersonagem
-            // 
-            this.lblPersonagem.AutoSize = true;
-            this.lblPersonagem.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPersonagem.Location = new System.Drawing.Point(648, 116);
-            this.lblPersonagem.Name = "lblPersonagem";
-            this.lblPersonagem.Size = new System.Drawing.Size(64, 15);
-            this.lblPersonagem.TabIndex = 107;
-            this.lblPersonagem.Text = "Personagem";
-            // 
-            // bntColocarPersonagem
-            // 
-            this.bntColocarPersonagem.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bntColocarPersonagem.Location = new System.Drawing.Point(757, 97);
-            this.bntColocarPersonagem.Name = "bntColocarPersonagem";
-            this.bntColocarPersonagem.Size = new System.Drawing.Size(96, 42);
-            this.bntColocarPersonagem.TabIndex = 111;
-            this.bntColocarPersonagem.Text = "Colocar Personagem";
-            this.bntColocarPersonagem.UseVisualStyleBackColor = true;
-            this.bntColocarPersonagem.Click += new System.EventHandler(this.bntColocarPersonagem_Click);
-            // 
-            // bntPromover
-            // 
-            this.bntPromover.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bntPromover.Location = new System.Drawing.Point(651, 172);
-            this.bntPromover.Name = "bntPromover";
-            this.bntPromover.Size = new System.Drawing.Size(96, 28);
-            this.bntPromover.TabIndex = 112;
-            this.bntPromover.Text = "Promover";
-            this.bntPromover.UseVisualStyleBackColor = true;
-            // 
             // btnAbrirTabuleiro
             // 
             this.btnAbrirTabuleiro.Location = new System.Drawing.Point(496, 69);
@@ -516,19 +382,6 @@
         private System.Windows.Forms.Label lblIDJogador;
         private System.Windows.Forms.TextBox txtSenhaAtualPartida;
         private System.Windows.Forms.Label lblSenhaAtualPartida;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox lstJogo;
-        private System.Windows.Forms.Label lblSetores;
-        private System.Windows.Forms.Label lblPersonagens;
-        private System.Windows.Forms.ListBox lstSetores;
-        private System.Windows.Forms.ListBox lstPersonagens;
-        private System.Windows.Forms.TextBox txtSetor;
-        private System.Windows.Forms.Label lblSetor;
-        private System.Windows.Forms.TextBox txtPersonagem;
-        private System.Windows.Forms.Label lblPersonagem;
-        private System.Windows.Forms.Button bntColocarPersonagem;
-        private System.Windows.Forms.Button bntPromover;
         private System.Windows.Forms.Button btnAbrirTabuleiro;
     }
 }

@@ -91,7 +91,7 @@ namespace PI_PrefeitoDeLondres
             this.jogadores = this.api.ListarJogadores(this.id);
         }
 
-        public Jogador VerificarVez()
+        public (Jogador, EstadoTabuleiro) VerificarVez()
         {
             return this.api.VerificarVez(this.id);
         }

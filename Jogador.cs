@@ -38,7 +38,7 @@ namespace PI_PrefeitoDeLondres
             return this.carta;
         }
 
-        public string ColocarPersonagem(int setor, char personagem)
+        public EstadoTabuleiro ColocarPersonagem(int setor, char personagem)
         {
             return this.api.ColocarPersonagem(this.id, this.senha, setor, personagem);
         }

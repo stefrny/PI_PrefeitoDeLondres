@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using KingMeServer;  //utilização de dll do PI
+using KingMeServer;
 
 namespace PI_PrefeitoDeLondres
 {
@@ -13,10 +13,10 @@ namespace PI_PrefeitoDeLondres
         public Form1()
         {
             InitializeComponent();
-            lblVersaoDLL.Text = Jogo.versao;
+            lblVersaoDLL.Text = "Versão: " + Jogo.versao;
         }
 
-        private void btnMostrarPartidas_Click(object sender, EventArgs e)     //ao clicar no bnt
+        private void btnMostrarPartidas_Click(object sender, EventArgs e)
         {
             List<Partida> partidas = null;
 
@@ -30,7 +30,7 @@ namespace PI_PrefeitoDeLondres
                 return;
             }
 
-            lstListaDePartidas.Items.Clear();                     //limpando a lista pra não repetir as mesmas partidas anteriormente solicitadas 
+            lstListaDePartidas.Items.Clear();
             for (int i = 0; i < partidas.Count; i++)
             {
                 int id = partidas[i].Id;
@@ -42,9 +42,9 @@ namespace PI_PrefeitoDeLondres
             }
         }
 
-        private void lstListaDePartidas_SelectedIndexChanged(object sender, EventArgs e) // ao clicar em um item da lista...
+        private void lstListaDePartidas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string partidaStr = lstListaDePartidas.SelectedItem.ToString();       // separando e convertendo os dados da partida
+            string partidaStr = lstListaDePartidas.SelectedItem.ToString();
             // [id, nome, data, status]
             string[] dadosDaPartida = partidaStr.Split('|');
 
@@ -66,21 +66,21 @@ namespace PI_PrefeitoDeLondres
                 return;
             }
 
-            lstListaDeJogadores.Items.Clear();                                  // limpando a lista pra não repetir os mesmos nomes anteriormente solicitados
+            lstListaDeJogadores.Items.Clear();
             for (int i = 0; i < jogadores.Count; i++)
             {
                 int idJogador = jogadores[i].Id;
                 string nomeJogador = jogadores[i].Nome;
                 int pontos = jogadores[i].Pontos;
 
-                lstListaDeJogadores.Items.Add($"{idJogador} | {nomeJogador} | {pontos}");                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
+                lstListaDeJogadores.Items.Add($"{idJogador} | {nomeJogador} | {pontos}");
             }
         }
 
         private void btnCriarPartida_Click(object sender, EventArgs e)
         {
             lblNomeIDPartida.Text = "ID da Partida";
-            string nomePartida = txtNomePartida.Text;                     //pega o nome e senha inseridos nas textboxes
+            string nomePartida = txtNomePartida.Text;
             string senhaPartida = txtSenhaPartida.Text;
             string nomeGrupo = txtGrupoNome.Text;
 
@@ -95,12 +95,12 @@ namespace PI_PrefeitoDeLondres
             }
 
             lblIdPartida.Text = this.partida.Id.ToString();
-            txtPartidaID.Text = this.partida.Id.ToString(); // campo abaixo de ID partida mostra o ID da partida
+            txtPartidaID.Text = this.partida.Id.ToString();
         }
 
         private void bntEntrarPartida_Click(object sender, EventArgs e)
         {
-            string nomeJogador = txtNomeJogador.Text;                     //pega o nome e senha inseridos nas textboxes
+            string nomeJogador = txtNomeJogador.Text;
             if (txtPartidaID.Text == "")
             {
                 Utils.ExibirErro("Insira o ID da partida");
@@ -122,21 +122,11 @@ namespace PI_PrefeitoDeLondres
                 return;
             }
 
-            lblJogadorID.Text = this.jogador.Id.ToString();                 //id de jogador
-            lblSenhaJogador.Text = this.jogador.Senha;                      //id de senha
+            lblJogadorID.Text = this.jogador.Id.ToString();
+            lblSenhaJogador.Text = this.jogador.Senha;
 
-            txtIDJogador.Text = this.jogador.Id.ToString(); // txt ID Jogador recebe lbl ID do jogador
-            txtSenhaAtualPartida.Text = this.jogador.Senha; // txt Senha recebe lbl da senha do jogador
-
-            List<Setor> setores = this.partida.ListarSetores();
-            lstSetores.Items.Clear();
-            for (int i = 0; i < setores.Count; i++)
-                lstSetores.Items.Add($"{setores[i].Id} | {setores[i].Nome}");                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
-
-            List<Personagem> personagens = this.partida.ListarPersonagens();
-            lstPersonagens.Items.Clear();
-            for (int i = 0; i < personagens.Count; i++)
-                lstPersonagens.Items.Add(personagens[i].Nome);                    // jogando na lstListaDeJogadores todos os jogadores da partida selecionada
+            txtIDJogador.Text = this.jogador.Id.ToString();
+            txtSenhaAtualPartida.Text = this.jogador.Senha;
         }
 
         private void bntIniciarJogo_Click(object sender, EventArgs e)
@@ -154,72 +144,12 @@ namespace PI_PrefeitoDeLondres
                 return;
             }
 
-            TabuleiroForm tabuleiro = new TabuleiroForm();
-            tabuleiro.idJogador = this.idJogador;
-            tabuleiro.senhaJogador = this.senhaJogador;
-            tabuleiro.idPartida = this.idPartida;
-
-            tabuleiro.ShowDialog();
-        }
-
-        private void btnExibirCartas_Click(object sender, EventArgs e)
-        {
-            List<Personagem> personagens = null;
-
-            try
-            {
-                if (this.partida == null || this.jogador == null)
-                    throw new Exception("Entre em uma partida");
-
-                personagens = this.jogador.ListarCarta();
-            }
-            catch (Exception erro)
-            {
-                Utils.ExibirErro(erro.Message);
-                return;
-            }
-
-            lblCartas.Text = "Carta: ";
-            for (int i = 0; i < personagens.Count; i++)
-                lblCartas.Text += personagens[i].Inicial;
-        }
-
-        private void bntColocarPersonagem_Click(object sender, EventArgs e)
-        {
-            if (txtSetor.Text == "" || txtPersonagem.Text == "")
-            {
-                Utils.ExibirErro("Insira o número do setor e a inicial do personagem");
-                return;
-            }
-            int setor = Convert.ToInt32(txtSetor.Text);
-            char personagem = Convert.ToChar(txtPersonagem.Text);
-
-            string retorno = null;
-
-            try
-            {
-                if (this.partida == null || this.jogador == null)
-                    throw new Exception("Entre em uma partida");
-
-                retorno = this.jogador.ColocarPersonagem(setor, personagem);
-            }
-            catch (Exception erro)
-            {
-                Utils.ExibirErro(erro.Message);
-                return;
-            }
-
-            lstJogo.Items.Add(retorno);
+            new TabuleiroForm(this.partida, this.jogador).ShowDialog();
         }
 
         private void btnAbrirTabuleiro_Click(object sender, EventArgs e)
         {
-            TabuleiroForm tabuleiro = new TabuleiroForm();
-            tabuleiro.idJogador = this.idJogador;
-            tabuleiro.senhaJogador = this.senhaJogador;
-            tabuleiro.idPartida = this.idPartida;
-
-            tabuleiro.ShowDialog();
+            new TabuleiroForm(this.partida, this.jogador).ShowDialog();
         }
     }
 }

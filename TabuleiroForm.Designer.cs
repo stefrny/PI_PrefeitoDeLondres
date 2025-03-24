@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblVersaoJogo = new System.Windows.Forms.Label();
             this.btnPosicionar = new System.Windows.Forms.Button();
             this.btnPromover = new System.Windows.Forms.Button();
             this.btnConfirmarVoto = new System.Windows.Forms.Button();
@@ -69,16 +68,6 @@
             this.pnlSetor1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblVersaoJogo
-            // 
-            this.lblVersaoJogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVersaoJogo.AutoSize = true;
-            this.lblVersaoJogo.Location = new System.Drawing.Point(831, 983);
-            this.lblVersaoJogo.Name = "lblVersaoJogo";
-            this.lblVersaoJogo.Size = new System.Drawing.Size(0, 13);
-            this.lblVersaoJogo.TabIndex = 0;
-            this.lblVersaoJogo.Click += new System.EventHandler(this.lblVersaoJogo_Click);
-            // 
             // btnPosicionar
             // 
             this.btnPosicionar.Location = new System.Drawing.Point(29, 241);
@@ -117,7 +106,6 @@
             this.cboTipoVoto.Name = "cboTipoVoto";
             this.cboTipoVoto.Size = new System.Drawing.Size(121, 21);
             this.cboTipoVoto.TabIndex = 4;
-            this.cboTipoVoto.SelectedIndexChanged += new System.EventHandler(this.cboTipoVoto_SelectedIndexChanged);
             // 
             // lblCartas
             // 
@@ -126,7 +114,7 @@
             this.lblCartas.Name = "lblCartas";
             this.lblCartas.Size = new System.Drawing.Size(30, 13);
             this.lblCartas.TabIndex = 5;
-            this.lblCartas.Text = "teste";
+            this.lblCartas.Text = "";
             // 
             // btnExibirCartas
             // 
@@ -151,20 +139,6 @@
             // cboPosicionarPersonagens
             // 
             this.cboPosicionarPersonagens.FormattingEnabled = true;
-            this.cboPosicionarPersonagens.Items.AddRange(new object[] {
-            "Adilson Konrad",
-            "Beatriz Paiva",
-            "Claro",
-            "Douglas Baquiao",
-            "Eduardo Takeo",
-            "Guilherme Rey",
-            "Heredia",
-            "Kelly Kiyumi",
-            "Leonardo Takuno",
-            "Mario Toledo",
-            "Quintas",
-            "Ranufo",
-            "Toshio"});
             this.cboPosicionarPersonagens.Location = new System.Drawing.Point(29, 302);
             this.cboPosicionarPersonagens.Name = "cboPosicionarPersonagens";
             this.cboPosicionarPersonagens.Size = new System.Drawing.Size(121, 21);
@@ -314,7 +288,7 @@
             this.btnPainel4.Size = new System.Drawing.Size(514, 138);
             this.btnPainel4.TabIndex = 20;
             this.btnPainel4.UseVisualStyleBackColor = false;
-            this.btnPainel4.Click += new System.EventHandler(this.btnPainel4_Click);
+            this.btnPainel4.Click += new System.EventHandler(this.btnPainel_Click);
             // 
             // pnlLetraC
             // 
@@ -371,7 +345,7 @@
             this.btnPainel2.Size = new System.Drawing.Size(514, 138);
             this.btnPainel2.TabIndex = 23;
             this.btnPainel2.UseVisualStyleBackColor = false;
-            this.btnPainel2.Click += new System.EventHandler(this.btnPainel2_Click);
+            this.btnPainel2.Click += new System.EventHandler(this.btnPainel_Click);
             // 
             // pnlSetor10
             // 
@@ -406,7 +380,7 @@
             this.btnPainel3.Size = new System.Drawing.Size(514, 138);
             this.btnPainel3.TabIndex = 21;
             this.btnPainel3.UseVisualStyleBackColor = false;
-            this.btnPainel3.Click += new System.EventHandler(this.btnPainel3_Click);
+            this.btnPainel3.Click += new System.EventHandler(this.btnPainel_Click);
             // 
             // pnlSetor1
             // 
@@ -420,7 +394,6 @@
             this.pnlSetor1.Name = "pnlSetor1";
             this.pnlSetor1.Size = new System.Drawing.Size(514, 138);
             this.pnlSetor1.TabIndex = 9;
-            this.pnlSetor1.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSetor1_Paint);
             // 
             // btnPainel1
             // 
@@ -435,7 +408,7 @@
             this.btnPainel1.Size = new System.Drawing.Size(514, 138);
             this.btnPainel1.TabIndex = 23;
             this.btnPainel1.UseVisualStyleBackColor = false;
-            this.btnPainel1.Click += new System.EventHandler(this.btnPainel1_Click);
+            this.btnPainel1.Click += new System.EventHandler(this.btnPainel_Click);
             // 
             // pnlSetor0
             // 
@@ -454,7 +427,7 @@
             this.lblVezJogador.Name = "lblVezJogador";
             this.lblVezJogador.Size = new System.Drawing.Size(30, 13);
             this.lblVezJogador.TabIndex = 34;
-            this.lblVezJogador.Text = "teste";
+            this.lblVezJogador.Text = "";
             // 
             // lblNomeVez
             // 
@@ -463,7 +436,7 @@
             this.lblNomeVez.Name = "lblNomeVez";
             this.lblNomeVez.Size = new System.Drawing.Size(30, 13);
             this.lblNomeVez.TabIndex = 0;
-            this.lblNomeVez.Text = "teste";
+            this.lblNomeVez.Text = "";
             // 
             // TabuleiroForm
             // 
@@ -506,7 +479,6 @@
             this.MinimizeBox = false;
             this.Name = "TabuleiroForm";
             this.Text = "Tabuleiro";
-            this.Load += new System.EventHandler(this.Tabuleiro_Load);
             this.pnlSetor4.ResumeLayout(false);
             this.pnlSetor2.ResumeLayout(false);
             this.pnlSetor3.ResumeLayout(false);
@@ -518,7 +490,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblVersaoJogo;
         private System.Windows.Forms.Button btnPosicionar;
         private System.Windows.Forms.Button btnPromover;
         private System.Windows.Forms.Button btnConfirmarVoto;
