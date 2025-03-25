@@ -112,9 +112,8 @@
             this.lblCartas.AutoSize = true;
             this.lblCartas.Location = new System.Drawing.Point(26, 607);
             this.lblCartas.Name = "lblCartas";
-            this.lblCartas.Size = new System.Drawing.Size(30, 13);
+            this.lblCartas.Size = new System.Drawing.Size(0, 13);
             this.lblCartas.TabIndex = 5;
-            this.lblCartas.Text = "";
             // 
             // btnExibirCartas
             // 
@@ -248,7 +247,7 @@
             this.pnlLetraD.BackColor = System.Drawing.Color.Transparent;
             this.pnlLetraD.BackgroundImage = global::PI_PrefeitoDeLondres.Properties.Resources.D;
             this.pnlLetraD.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlLetraD.Location = new System.Drawing.Point(273, 406);
+            this.pnlLetraD.Location = new System.Drawing.Point(273, 412);
             this.pnlLetraD.Name = "pnlLetraD";
             this.pnlLetraD.Size = new System.Drawing.Size(85, 85);
             this.pnlLetraD.TabIndex = 25;
@@ -425,26 +424,24 @@
             this.lblVezJogador.AutoSize = true;
             this.lblVezJogador.Location = new System.Drawing.Point(26, 119);
             this.lblVezJogador.Name = "lblVezJogador";
-            this.lblVezJogador.Size = new System.Drawing.Size(30, 13);
+            this.lblVezJogador.Size = new System.Drawing.Size(0, 13);
             this.lblVezJogador.TabIndex = 34;
-            this.lblVezJogador.Text = "";
             // 
             // lblNomeVez
             // 
             this.lblNomeVez.AutoSize = true;
             this.lblNomeVez.Location = new System.Drawing.Point(26, 156);
             this.lblNomeVez.Name = "lblNomeVez";
-            this.lblNomeVez.Size = new System.Drawing.Size(30, 13);
+            this.lblNomeVez.Size = new System.Drawing.Size(0, 13);
             this.lblNomeVez.TabIndex = 0;
-            this.lblNomeVez.Text = "";
             // 
             // TabuleiroForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(909, 969);
-            this.Controls.Add(this.pnlLetraE);
             this.Controls.Add(this.pnlLetraD);
+            this.Controls.Add(this.pnlLetraE);
             this.Controls.Add(this.pnlLetraC);
             this.Controls.Add(this.pnlLetraT);
             this.Controls.Add(this.pnlLetraA);
@@ -458,14 +455,7 @@
             this.Controls.Add(this.pnlLetraH);
             this.Controls.Add(this.lblNomeVez);
             this.Controls.Add(this.lblVezJogador);
-            this.Controls.Add(this.pnlSetor4);
             this.Controls.Add(this.cboPosicionarPersonagens);
-            this.Controls.Add(this.pnlSetor5);
-            this.Controls.Add(this.pnlSetor2);
-            this.Controls.Add(this.pnlSetor10);
-            this.Controls.Add(this.pnlSetor3);
-            this.Controls.Add(this.pnlSetor1);
-            this.Controls.Add(this.pnlSetor0);
             this.Controls.Add(this.btnVerificarVez);
             this.Controls.Add(this.btnExibirCartas);
             this.Controls.Add(this.lblCartas);
@@ -473,7 +463,13 @@
             this.Controls.Add(this.btnConfirmarVoto);
             this.Controls.Add(this.btnPromover);
             this.Controls.Add(this.btnPosicionar);
-            this.Controls.Add(this.lblVersaoJogo);
+            this.Controls.Add(this.pnlSetor4);
+            this.Controls.Add(this.pnlSetor5);
+            this.Controls.Add(this.pnlSetor2);
+            this.Controls.Add(this.pnlSetor10);
+            this.Controls.Add(this.pnlSetor3);
+            this.Controls.Add(this.pnlSetor1);
+            this.Controls.Add(this.pnlSetor0);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

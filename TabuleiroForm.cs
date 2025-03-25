@@ -27,20 +27,6 @@ namespace PI_PrefeitoDeLondres
             this.jogador = jogador;
             this.tabuleiro = new Tabuleiro();
 
-            this.tabuleiro.paineisPersonagens.Add('A', pnlLetraA);
-            this.tabuleiro.paineisPersonagens.Add('B', pnlLetraB);
-            this.tabuleiro.paineisPersonagens.Add('T', pnlLetraT);
-            this.tabuleiro.paineisPersonagens.Add('R', pnlLetraR);
-            this.tabuleiro.paineisPersonagens.Add('Q', pnlLetraQ);
-            this.tabuleiro.paineisPersonagens.Add('M', pnlLetraM);
-            this.tabuleiro.paineisPersonagens.Add('L', pnlLetraL);
-            this.tabuleiro.paineisPersonagens.Add('K', pnlLetraK);
-            this.tabuleiro.paineisPersonagens.Add('H', pnlLetraH);
-            this.tabuleiro.paineisPersonagens.Add('G', pnlLetraG);
-            this.tabuleiro.paineisPersonagens.Add('E', pnlLetraE);
-            this.tabuleiro.paineisPersonagens.Add('D', pnlLetraD);
-            this.tabuleiro.paineisPersonagens.Add('C', pnlLetraC);
-
             this.tabuleiro.setores.Add(0, new SetorTabuleiro(pnlSetor0, null));
             this.tabuleiro.setores.Add(1, new SetorTabuleiro(pnlSetor1, null));
             this.tabuleiro.setores.Add(2, new SetorTabuleiro(pnlSetor2, null));
@@ -64,11 +50,11 @@ namespace PI_PrefeitoDeLondres
 
             try
             {
-                personagens = this.partida.ListarCarta();
+                personagens = this.jogador.ListarCarta();
             }
-            catch (Exception e)
+            catch (Exception erro)
             {
-                Utils.ExibirErro(e.Message);
+                Utils.ExibirErro(erro.Message);
                 return;
             }
 
@@ -87,9 +73,9 @@ namespace PI_PrefeitoDeLondres
                 (jogador, estado) = this.partida.VerificarVez();
                 this.tabuleiro.Atualizar(estado);
             }
-            catch (Exception e)
+            catch (Exception erro)
             {
-                Utils.ExibirErro(e.Message);
+                Utils.ExibirErro(erro.Message);
                 return;
             }
 
@@ -101,14 +87,14 @@ namespace PI_PrefeitoDeLondres
         {
             try
             {
-                char personagemEscolhido = Convert.ToChar(cboPosicionarPersonagens.SelectedItem[0]);
+                char personagemEscolhido = Convert.ToChar(((string)cboPosicionarPersonagens.SelectedItem)[0]);
                 EstadoTabuleiro estado = this.jogador.ColocarPersonagem(this.setorEscolhido, personagemEscolhido);
 
                 this.tabuleiro.Atualizar(estado);
             }
-            catch (Exception e)
+            catch (Exception erro)
             {
-                Utils.ExibirErro(e.Message);
+                Utils.ExibirErro(erro.Message);
                 return;
             }
         }

@@ -11,8 +11,8 @@ namespace PI_PrefeitoDeLondres
         Jogador Entrar(int idPartida, string nomeJogador, string senhaPartida);
         void Iniciar(int idJogador, string senhaJogador);
         List<Jogador> ListarJogadores(int idPartida);
-        string ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem);
-        Jogador VerificarVez(int idPartida);
+        EstadoTabuleiro ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem);
+        (Jogador, EstadoTabuleiro) VerificarVez(int idPartida);
         void Promover(int idJogador, string senhaJogador, char personagem);
         void Votar(int idJogador, string senhaJogador, char voto);
         List<Personagem> ListarPersonagens();
@@ -114,7 +114,7 @@ namespace PI_PrefeitoDeLondres
                 throw new Exception(retorno);
 
             int idJogador = Convert.ToInt32(retorno[0]);
-            string fase = retorno[1];
+            string fase = retorno[1].ToString();
             Dictionary<int, string> setores = Utils.FormatarSetores(retorno.Substring(2));
 
             List<Jogador> jogadores = this.ListarJogadores(idPartida);
