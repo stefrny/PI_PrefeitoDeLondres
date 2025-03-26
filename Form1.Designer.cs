@@ -39,15 +39,12 @@
             this.txtSenhaPartida = new System.Windows.Forms.TextBox();
             this.lblIdPartida = new System.Windows.Forms.Label();
             this.lblVersaoDLL = new System.Windows.Forms.Label();
-            this.lblNomeIDPartida = new System.Windows.Forms.Label();
             this.lblNomeJogador = new System.Windows.Forms.Label();
             this.txtNomeJogador = new System.Windows.Forms.TextBox();
             this.lblPartidaID = new System.Windows.Forms.Label();
             this.txtPartidaID = new System.Windows.Forms.TextBox();
             this.bntEntrarPartida = new System.Windows.Forms.Button();
             this.bntIniciarJogo = new System.Windows.Forms.Button();
-            this.txtGrupoNome = new System.Windows.Forms.TextBox();
-            this.lblGrupoNome = new System.Windows.Forms.Label();
             this.lblJogadorID = new System.Windows.Forms.Label();
             this.lblSenhaJogador = new System.Windows.Forms.Label();
             this.txtIDJogador = new System.Windows.Forms.TextBox();
@@ -153,18 +150,10 @@
             // 
             this.lblVersaoDLL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersaoDLL.AutoSize = true;
-            this.lblVersaoDLL.Location = new System.Drawing.Point(1056, 611);
+            this.lblVersaoDLL.Location = new System.Drawing.Point(1017, 608);
             this.lblVersaoDLL.Name = "lblVersaoDLL";
             this.lblVersaoDLL.Size = new System.Drawing.Size(0, 13);
             this.lblVersaoDLL.TabIndex = 16;
-            // 
-            // lblNomeIDPartida
-            // 
-            this.lblNomeIDPartida.AutoSize = true;
-            this.lblNomeIDPartida.Location = new System.Drawing.Point(35, 219);
-            this.lblNomeIDPartida.Name = "lblNomeIDPartida";
-            this.lblNomeIDPartida.Size = new System.Drawing.Size(0, 13);
-            this.lblNomeIDPartida.TabIndex = 17;
             // 
             // lblNomeJogador
             // 
@@ -220,23 +209,6 @@
             this.bntIniciarJogo.Text = "Iniciar Partida";
             this.bntIniciarJogo.UseVisualStyleBackColor = true;
             this.bntIniciarJogo.Click += new System.EventHandler(this.bntIniciarJogo_Click);
-            // 
-            // txtGrupoNome
-            // 
-            this.txtGrupoNome.Location = new System.Drawing.Point(24, 190);
-            this.txtGrupoNome.Name = "txtGrupoNome";
-            this.txtGrupoNome.Size = new System.Drawing.Size(100, 20);
-            this.txtGrupoNome.TabIndex = 2;
-            // 
-            // lblGrupoNome
-            // 
-            this.lblGrupoNome.AutoSize = true;
-            this.lblGrupoNome.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGrupoNome.Location = new System.Drawing.Point(21, 172);
-            this.lblGrupoNome.Name = "lblGrupoNome";
-            this.lblGrupoNome.Size = new System.Drawing.Size(86, 15);
-            this.lblGrupoNome.TabIndex = 2;
-            this.lblGrupoNome.Text = "Nome do Grupo";
             // 
             // lblJogadorID
             // 
@@ -314,15 +286,12 @@
             this.Controls.Add(this.lblSenhaAtualPartida);
             this.Controls.Add(this.lblSenhaJogador);
             this.Controls.Add(this.lblJogadorID);
-            this.Controls.Add(this.txtGrupoNome);
-            this.Controls.Add(this.lblGrupoNome);
             this.Controls.Add(this.bntIniciarJogo);
             this.Controls.Add(this.bntEntrarPartida);
             this.Controls.Add(this.txtPartidaID);
             this.Controls.Add(this.lblPartidaID);
             this.Controls.Add(this.txtNomeJogador);
             this.Controls.Add(this.lblNomeJogador);
-            this.Controls.Add(this.lblNomeIDPartida);
             this.Controls.Add(this.lblVersaoDLL);
             this.Controls.Add(this.lblIdPartida);
             this.Controls.Add(this.txtSenhaPartida);
@@ -354,15 +323,12 @@
         private System.Windows.Forms.TextBox txtSenhaPartida;
         private System.Windows.Forms.Label lblIdPartida;
         private System.Windows.Forms.Label lblVersaoDLL;
-        private System.Windows.Forms.Label lblNomeIDPartida;
         private System.Windows.Forms.Label lblNomeJogador;
         private System.Windows.Forms.TextBox txtNomeJogador;
         private System.Windows.Forms.Label lblPartidaID;
         private System.Windows.Forms.TextBox txtPartidaID;
         private System.Windows.Forms.Button bntEntrarPartida;
         private System.Windows.Forms.Button bntIniciarJogo;
-        private System.Windows.Forms.TextBox txtGrupoNome;
-        private System.Windows.Forms.Label lblGrupoNome;
         private System.Windows.Forms.Label lblJogadorID;
         private System.Windows.Forms.Label lblSenhaJogador;
         private System.Windows.Forms.TextBox txtIDJogador;

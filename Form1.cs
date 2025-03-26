@@ -79,14 +79,12 @@ namespace PI_PrefeitoDeLondres
 
         private void btnCriarPartida_Click(object sender, EventArgs e)
         {
-            lblNomeIDPartida.Text = "ID da Partida";
             string nomePartida = txtNomePartida.Text;
             string senhaPartida = txtSenhaPartida.Text;
-            string nomeGrupo = txtGrupoNome.Text;
 
             try
             {
-                this.partida = Partida.CriarPartida(nomePartida, senhaPartida, nomeGrupo);
+                this.partida = Partida.CriarPartida(nomePartida, senhaPartida);
             }
             catch (Exception erro)
             {

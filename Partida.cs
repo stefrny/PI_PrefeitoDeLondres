@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace PI_PrefeitoDeLondres
 {
@@ -13,6 +14,8 @@ namespace PI_PrefeitoDeLondres
 
         private string senha;
         public string Senha { get { return senha; } }
+
+        private const string GRUPO = "Prefeitos de Londres";
 
         private DateTime data;
         public DateTime Data { get { return data; } }
@@ -52,9 +55,9 @@ namespace PI_PrefeitoDeLondres
             this.api = new APIAdapter();
         }
 
-        public static Partida CriarPartida(string nome, string senha, string grupo)
+        public static Partida CriarPartida(string nome, string senha)
         {
-            return new APIAdapter().CriarPartida(nome, senha, grupo);
+            return new APIAdapter().CriarPartida(nome, senha, GRUPO);
         }
 
         public static List<Partida> ListarPartidas(string status)
