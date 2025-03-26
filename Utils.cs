@@ -24,7 +24,7 @@ namespace PI_PrefeitoDeLondres
         public static Dictionary<int, string> FormatarSetores(string str)
         {
             Dictionary<int, string> setores = new Dictionary<int, string>();
-            string[] linhas = str.Replace("\r", "").Split('\n');
+            string[] linhas = str.Substring(0, str.Length - 1).Replace("\r", "").Split('\n');
 
             for (int i = 0; i < linhas.Length; i++)
             {
