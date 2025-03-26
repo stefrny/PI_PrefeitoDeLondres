@@ -39,6 +39,7 @@ namespace PI_PrefeitoDeLondres
         public Tabuleiro()
         {
             this.setores = new Dictionary<int, SetorTabuleiro>();
+            this.cacheImagens = new Dictionary<char, Panel>();
             this.api = new APIAdapter();
         }
 
@@ -47,13 +48,10 @@ namespace PI_PrefeitoDeLondres
             if (estado.fase != null)
                 this.fase = estado.fase;
 
+            if (estado.setores == null) return;
+
             foreach (int chave in this.setores.Keys)
-            {
-                if (this.setores[chave].personagens != null)
-                {
-                    this.setores[chave].personagens.Clear();
-                }
-            }
+                this.setores[chave].personagens?.Clear();
 
             List<Personagem> personagens = this.api.ListarPersonagens();
 
@@ -86,7 +84,6 @@ namespace PI_PrefeitoDeLondres
                         y = pnlSetor.Location.Y - 5 + pnlSetor.Height - pnlPersonagem.Height;
 
                     pnlPersonagem.Location = new Point(x, y);
-                    pnlPersonagem.Visible = true;
                 }
             }
         }

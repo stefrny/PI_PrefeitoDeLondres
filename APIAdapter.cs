@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using KingMeServer;
 
 namespace PI_PrefeitoDeLondres
@@ -113,9 +114,17 @@ namespace PI_PrefeitoDeLondres
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
-            int idJogador = Convert.ToInt32(retorno[0]);
-            string fase = retorno[1].ToString();
-            Dictionary<int, string> setores = Utils.FormatarSetores(retorno.Substring(2));
+            string[] linhas = retorno.Substring(0, retorno.Length - 1).Replace("\r\n", ",").Split('\n');
+            string[] dadosPrimeiraLinha = linhas[0].Split(',');
+
+            int idJogador = Convert.ToInt32(dadosPrimeiraLinha[0]);
+            string fase = dadosPrimeiraLinha[1];
+
+            Dictionary<int, string> setores = null;
+            if (linhas.Length > 1)
+            {
+                // setores = Utils.FormatarSetores();
+            }
 
             List<Jogador> jogadores = this.ListarJogadores(idPartida);
             Jogador jogadorDaVez = jogadores.Find(j => j.Id == idJogador);
