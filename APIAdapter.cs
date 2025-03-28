@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using KingMeServer;
 
 namespace PI_PrefeitoDeLondres
@@ -114,7 +113,7 @@ namespace PI_PrefeitoDeLondres
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
-            string[] linhas = retorno.Substring(0, retorno.Length - 1).Replace("\r\n", ",").Split('\n');
+            string[] linhas = retorno.Substring(0, retorno.Length - 1).Replace("\r", "").Split('\n');
             string[] dadosPrimeiraLinha = linhas[0].Split(',');
 
             int idJogador = Convert.ToInt32(dadosPrimeiraLinha[0]);
@@ -123,7 +122,11 @@ namespace PI_PrefeitoDeLondres
             Dictionary<int, string> setores = null;
             if (linhas.Length > 1)
             {
-                // setores = Utils.FormatarSetores();
+                string setoresStr = null;
+                for (int i = 1; i < linhas.Length; i++)
+                    setoresStr += linhas[i] + "\r\n";
+
+                setores = Utils.FormatarSetores(setoresStr);
             }
 
             List<Jogador> jogadores = this.ListarJogadores(idPartida);
