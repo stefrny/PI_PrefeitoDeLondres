@@ -22,7 +22,7 @@ namespace PI_PrefeitoDeLondres
         public Panel painel;
         public List<Personagem> personagens;
 
-        public SetorTabuleiro(Panel painel,  List<Personagem> personagens)
+        public SetorTabuleiro(Panel painel, List<Personagem> personagens)
         {
             this.painel = painel;
             this.personagens = personagens;
@@ -43,7 +43,7 @@ namespace PI_PrefeitoDeLondres
             this.api = new APIAdapter();
         }
 
-        public void Atualizar(EstadoTabuleiro estado)
+        public void Atualizar(EstadoTabuleiro estado, Control.ControlCollection controlesForm)
         {
             if (estado.fase != null)
                 this.fase = estado.fase;
@@ -84,6 +84,9 @@ namespace PI_PrefeitoDeLondres
                         y = pnlSetor.Location.Y - 5 + pnlSetor.Height - pnlPersonagem.Height;
 
                     pnlPersonagem.Location = new Point(x, y);
+                    controlesForm.Add(pnlPersonagem);
+                    pnlPersonagem.BringToFront();
+                    pnlSetor.SendToBack();
                 }
             }
         }
