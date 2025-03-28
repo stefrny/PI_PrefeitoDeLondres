@@ -1,15 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using KingMeServer;
 
 namespace PI_PrefeitoDeLondres
 {
@@ -71,7 +62,7 @@ namespace PI_PrefeitoDeLondres
             try
             {
                 (jogador, estado) = this.partida.VerificarVez();
-                this.tabuleiro.Atualizar(estado);
+                this.tabuleiro.Atualizar(estado, this.Controls);
             }
             catch (Exception erro)
             {
@@ -90,7 +81,7 @@ namespace PI_PrefeitoDeLondres
                 char personagemEscolhido = Convert.ToChar(((string)cboPosicionarPersonagens.SelectedItem)[0]);
                 EstadoTabuleiro estado = this.jogador.ColocarPersonagem(this.setorEscolhido, personagemEscolhido);
 
-                this.tabuleiro.Atualizar(estado);
+                this.tabuleiro.Atualizar(estado, this.Controls);
             }
             catch (Exception erro)
             {
