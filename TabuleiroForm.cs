@@ -18,13 +18,13 @@ namespace PI_PrefeitoDeLondres
             this.jogador = jogador;
             this.tabuleiro = new Tabuleiro();
 
-            this.tabuleiro.setores.Add(0, new SetorTabuleiro(pnlSetor0, null));
-            this.tabuleiro.setores.Add(1, new SetorTabuleiro(pnlSetor1, null));
-            this.tabuleiro.setores.Add(2, new SetorTabuleiro(pnlSetor2, null));
-            this.tabuleiro.setores.Add(3, new SetorTabuleiro(pnlSetor3, null));
-            this.tabuleiro.setores.Add(4, new SetorTabuleiro(pnlSetor4, null));
-            this.tabuleiro.setores.Add(5, new SetorTabuleiro(pnlSetor5, null));
-            this.tabuleiro.setores.Add(10, new SetorTabuleiro(pnlSetor10, null));
+            this.tabuleiro.AdicionarSetor(0, pnlSetor0);
+            this.tabuleiro.AdicionarSetor(1, pnlSetor1);
+            this.tabuleiro.AdicionarSetor(2, pnlSetor2);
+            this.tabuleiro.AdicionarSetor(3, pnlSetor3);
+            this.tabuleiro.AdicionarSetor(4, pnlSetor4);
+            this.tabuleiro.AdicionarSetor(5, pnlSetor5);
+            this.tabuleiro.AdicionarSetor(10, pnlSetor10);
 
             // Voto 'Sim' aparece selecionado
             cboTipoVoto.SelectedIndex = 0;

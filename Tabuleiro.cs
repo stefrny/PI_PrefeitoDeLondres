@@ -32,7 +32,7 @@ namespace PI_PrefeitoDeLondres
     public class Tabuleiro
     {
         private string fase;
-        public Dictionary<int, SetorTabuleiro> setores;
+        private Dictionary<int, SetorTabuleiro> setores;
         private Dictionary<char, Panel> cacheImagens;
         private APIAdapter api;
 
@@ -89,6 +89,13 @@ namespace PI_PrefeitoDeLondres
                     pnlSetor.SendToBack();
                 }
             }
+        }
+
+        public void AdicionarSetor(int id, Panel pnlSetor)
+        {
+            if (this.setores.ContainsKey(id)) return;
+
+            this.setores.Add(id, new SetorTabuleiro(pnlSetor, new List<Personagem>()));
         }
 
         private Panel ObterPainelParaPersonagem(char inicialPersonagem)
