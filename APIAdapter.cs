@@ -14,7 +14,7 @@ namespace PI_PrefeitoDeLondres
         EstadoTabuleiro ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem);
         (Jogador, EstadoTabuleiro) VerificarVez(int idPartida);
         EstadoTabuleiro Promover(int idJogador, string senhaJogador, char personagem);
-        void Votar(int idJogador, string senhaJogador, char voto);
+        EstadoTabuleiro Votar(int idJogador, string senhaJogador, char voto);
         List<Personagem> ListarPersonagens();
         List<Setor> ListarSetores();
         List<Personagem> ListarCarta(int idJogador, string senhaJogador);
@@ -145,11 +145,14 @@ namespace PI_PrefeitoDeLondres
             return new EstadoTabuleiro(null, setores);
         }
 
-        public void Votar(int idJogador, string senhaJogador, char voto)
+        public EstadoTabuleiro Votar(int idJogador, string senhaJogador, char voto)
         {
-            string retorno = Jogo.Votar(idJogador, senhaJogador, voto.ToString());
+            string retorno = Jogo.Votar(idJogador, senhaJogador, voto.ToString().ToUpper());
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
+
+            Dictionary<int, string> setores = Utils.FormatarSetores(retorno);
+            return new EstadoTabuleiro(null, setores);
         }
 
         public List<Personagem> ListarPersonagens()
@@ -202,6 +205,7 @@ namespace PI_PrefeitoDeLondres
 
         public string ExibirUltimaVotacao(int idPartida)
         {
+            // personagem, id jogador, voto
             string retorno = Jogo.ExibirUltimaVotacao(idPartida);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
