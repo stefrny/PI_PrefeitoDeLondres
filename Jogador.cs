@@ -46,8 +46,6 @@ namespace PI_PrefeitoDeLondres
         public EstadoTabuleiro Promover(char personagemEscolhido)
         {
             return this.api.Promover(this.id, this.senha, personagemEscolhido);
-            
-
         }
     }
 }

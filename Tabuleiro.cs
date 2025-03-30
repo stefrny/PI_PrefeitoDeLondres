@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Forms;
 
 namespace PI_PrefeitoDeLondres
@@ -33,16 +32,9 @@ namespace PI_PrefeitoDeLondres
     public class Tabuleiro
     {
         private string fase;
-        private Dictionary<int, SetorTabuleiro> setores;
-        private Dictionary<char, Panel> cacheImagens;
-        private APIAdapter api;
-
-        public Tabuleiro()
-        {
-            this.setores = new Dictionary<int, SetorTabuleiro>();
-            this.cacheImagens = new Dictionary<char, Panel>();
-            this.api = new APIAdapter();
-        }
+        private Dictionary<int, SetorTabuleiro> setores = new Dictionary<int, SetorTabuleiro>();
+        private Dictionary<char, Panel> cacheImagens = new Dictionary<char, Panel>();
+        private APIAdapter api = new APIAdapter();
 
         public void Atualizar(EstadoTabuleiro estado, Control.ControlCollection controlesForm)
         {
@@ -102,19 +94,9 @@ namespace PI_PrefeitoDeLondres
         private Panel ObterPainelParaPersonagem(char inicialPersonagem)
         {
             if (cacheImagens.ContainsKey(inicialPersonagem))
-            {
                 return cacheImagens[inicialPersonagem];
-            }
 
             Image img = null;
-
-            cacheImagens[inicialPersonagem] = new Panel
-            {
-                BackgroundImageLayout = ImageLayout.Stretch,
-                BackColor = Color.Transparent,
-                Size = new Size(85, 85),
-                Name = inicialPersonagem.ToString(),
-            };
 
             switch (inicialPersonagem)
             {
@@ -159,7 +141,14 @@ namespace PI_PrefeitoDeLondres
                     break;
             }
 
-            cacheImagens[inicialPersonagem].BackgroundImage = img;
+            cacheImagens[inicialPersonagem] = new Panel
+            {
+                BackgroundImage = img,
+                BackgroundImageLayout = ImageLayout.Stretch,
+                BackColor = Color.Transparent,
+                Size = new Size(85, 85),
+                Name = inicialPersonagem.ToString(),
+            };
 
             return cacheImagens[inicialPersonagem];
         }

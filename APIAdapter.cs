@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using KingMeServer;
 
 namespace PI_PrefeitoDeLondres
@@ -20,7 +19,7 @@ namespace PI_PrefeitoDeLondres
         List<Setor> ListarSetores();
         List<Personagem> ListarCarta(int idJogador, string senhaJogador);
         string ExibirUltimaVotacao(int idPartida);
-        string ConsultarHistorico(int idPartida, bool formatado);
+        string ConsultarHistorico(int idPartida, bool formatado, bool completo);
     }
 
     public class APIAdapter : IAPIAdapter
@@ -142,10 +141,8 @@ namespace PI_PrefeitoDeLondres
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
-            Dictionary<int, string> setores = null;
-            setores = Utils.FormatarSetores(retorno);
+            Dictionary<int, string> setores = Utils.FormatarSetores(retorno);
             return new EstadoTabuleiro(null, setores);
-            
         }
 
         public void Votar(int idJogador, string senhaJogador, char voto)
@@ -212,9 +209,9 @@ namespace PI_PrefeitoDeLondres
             return retorno;
         }
 
-        public string ConsultarHistorico(int idPartida, bool formatado)
+        public string ConsultarHistorico(int idPartida, bool formatado, bool completo)
         {
-            string retorno = Jogo.ConsultarHistorico(idPartida, formatado);
+            string retorno = Jogo.ConsultarHistorico(idPartida, formatado, completo);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
