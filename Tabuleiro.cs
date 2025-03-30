@@ -32,16 +32,9 @@ namespace PI_PrefeitoDeLondres
     public class Tabuleiro
     {
         private string fase;
-        private Dictionary<int, SetorTabuleiro> setores;
-        private Dictionary<char, Panel> cacheImagens;
-        private APIAdapter api;
-
-        public Tabuleiro()
-        {
-            this.setores = new Dictionary<int, SetorTabuleiro>();
-            this.cacheImagens = new Dictionary<char, Panel>();
-            this.api = new APIAdapter();
-        }
+        private Dictionary<int, SetorTabuleiro> setores = new Dictionary<int, SetorTabuleiro>();
+        private Dictionary<char, Panel> cacheImagens = new Dictionary<char, Panel>();
+        private APIAdapter api = new APIAdapter();
 
         public void Atualizar(EstadoTabuleiro estado, Control.ControlCollection controlesForm)
         {
@@ -101,9 +94,7 @@ namespace PI_PrefeitoDeLondres
         private Panel ObterPainelParaPersonagem(char inicialPersonagem)
         {
             if (cacheImagens.ContainsKey(inicialPersonagem))
-            {
                 return cacheImagens[inicialPersonagem];
-            }
 
             Image img = null;
 
@@ -127,8 +118,11 @@ namespace PI_PrefeitoDeLondres
                 case 'G':
                     img = Properties.Resources.G;
                     break;
-                case 'K':
+                case 'H':
                     img = Properties.Resources.H;
+                    break;
+                case 'K':
+                    img = Properties.Resources.K;
                     break;
                 case 'L':
                     img = Properties.Resources.L;
@@ -143,7 +137,7 @@ namespace PI_PrefeitoDeLondres
                     img = Properties.Resources.R;
                     break;
                 case 'T':
-                    img = Properties.Resources.T;
+                    img = Properties.Resources.T1;
                     break;
             }
 
@@ -152,7 +146,8 @@ namespace PI_PrefeitoDeLondres
                 BackgroundImage = img,
                 BackgroundImageLayout = ImageLayout.Stretch,
                 BackColor = Color.Transparent,
-                Size = new Size(85, 85)
+                Size = new Size(85, 85),
+                Name = inicialPersonagem.ToString(),
             };
 
             return cacheImagens[inicialPersonagem];

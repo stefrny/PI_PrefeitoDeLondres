@@ -13,13 +13,13 @@ namespace PI_PrefeitoDeLondres
         List<Jogador> ListarJogadores(int idPartida);
         EstadoTabuleiro ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem);
         (Jogador, EstadoTabuleiro) VerificarVez(int idPartida);
-        void Promover(int idJogador, string senhaJogador, char personagem);
+        EstadoTabuleiro Promover(int idJogador, string senhaJogador, char personagem);
         void Votar(int idJogador, string senhaJogador, char voto);
         List<Personagem> ListarPersonagens();
         List<Setor> ListarSetores();
         List<Personagem> ListarCarta(int idJogador, string senhaJogador);
         string ExibirUltimaVotacao(int idPartida);
-        string ConsultarHistorico(int idPartida, bool formatado);
+        string ConsultarHistorico(int idPartida, bool formatado, bool completo);
     }
 
     public class APIAdapter : IAPIAdapter
@@ -135,11 +135,14 @@ namespace PI_PrefeitoDeLondres
             return (jogadorDaVez, new EstadoTabuleiro(fase, setores));
         }
 
-        public void Promover(int idJogador, string senhaJogador, char personagem)
+        public EstadoTabuleiro Promover(int idJogador, string senhaJogador, char personagem)
         {
             string retorno = Jogo.Promover(idJogador, senhaJogador, personagem.ToString());
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
+
+            Dictionary<int, string> setores = Utils.FormatarSetores(retorno);
+            return new EstadoTabuleiro(null, setores);
         }
 
         public void Votar(int idJogador, string senhaJogador, char voto)
@@ -206,9 +209,9 @@ namespace PI_PrefeitoDeLondres
             return retorno;
         }
 
-        public string ConsultarHistorico(int idPartida, bool formatado)
+        public string ConsultarHistorico(int idPartida, bool formatado, bool completo)
         {
-            string retorno = Jogo.ConsultarHistorico(idPartida, formatado);
+            string retorno = Jogo.ConsultarHistorico(idPartida, formatado, completo);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
