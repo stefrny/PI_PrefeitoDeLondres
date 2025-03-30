@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,7 +16,7 @@ namespace PI_PrefeitoDeLondres
         }
     }
 
-    public struct SetorTabuleiro
+    public class SetorTabuleiro
     {
         public Panel painel;
         public List<Personagem> personagens;
@@ -50,37 +49,27 @@ namespace PI_PrefeitoDeLondres
             foreach (int id in this.setores.Keys)
                 this.setores[id].personagens?.Clear();
 
-            List<Personagem> personagens = this.api.ListarPersonagens();
+            List<Personagem> personagensDisponiveis = this.api.ListarPersonagens();
 
             foreach (int id in estado.setores.Keys)
             {
                 if (estado.setores[id] == null) continue;
 
-                string[] personagensStr = estado.setores[id].Split(',');
-                for (int i = 0; i < personagensStr.Length; i++)
+                string iniciais = estado.setores[id].Replace(",", "");
+                for (int i = 0; i < iniciais.Length; i++)
                 {
-                    char inicial = Convert.ToChar(personagensStr[i]);
-                    Personagem personagem = personagens.Find(p => p.Inicial == inicial);
+                    Personagem personagem = personagensDisponiveis.Find(p => p.Inicial == iniciais[i]);
+
                     if (this.setores[id].personagens == null)
-                    {
-                        SetorTabuleiro setor = this.setores[id];
-                        setor.personagens = new List<Personagem>();
-                        this.setores[id] = setor;
-                    }
+                        this.setores[id].personagens = new List<Personagem>();
+
                     this.setores[id].personagens.Add(personagem);
-                    personagens.Remove(personagem);
+                    personagensDisponiveis.Remove(personagem);
 
                     (Panel pnlPersonagem, bool usouCache) = this.ObterPainelParaPersonagem(personagem.Inicial);
                     Panel pnlSetor = this.setores[id].painel;
 
-                    int x = pnlSetor.Location.X + pnlPersonagem.Width + (pnlPersonagem.Width * i);
-                    int y;
-                    if (i % 2 != 0)
-                        y = pnlSetor.Location.Y + 5;
-                    else
-                        y = pnlSetor.Location.Y - 5 + pnlSetor.Height - pnlPersonagem.Height;
-
-                    pnlPersonagem.Location = new Point(x, y);
+                    pnlPersonagem.Location = this.CalcularPosicaoPainel(pnlSetor, i);
                     pnlPersonagem.Visible = true;
 
                     if (!usouCache)
@@ -92,11 +81,10 @@ namespace PI_PrefeitoDeLondres
                 }
             }
 
-            for (int i = 0; i < personagens.Count; i++)
+            // Torna invisíveis os painéis dos personagens que não estão no tabuleiro
+            foreach (Personagem p in personagensDisponiveis)
             {
-                Panel pnlPersonagem = this.cacheImagens[personagens[i].Inicial];
-
-                if (pnlPersonagem != null)
+                if (this.cacheImagens.TryGetValue(p.Inicial, out Panel pnlPersonagem))
                     pnlPersonagem.Visible = false;
             }
         }
@@ -168,6 +156,16 @@ namespace PI_PrefeitoDeLondres
             };
 
             return (cacheImagens[inicialPersonagem], false);
+        }
+
+        private Point CalcularPosicaoPainel(Panel pnlSetor, int indice)
+        {
+            int x = pnlSetor.Location.X + TAMANHO_IMG_PERSONAGEM + (TAMANHO_IMG_PERSONAGEM * indice);
+            int y = (indice % 2 != 0)
+                        ? pnlSetor.Location.Y + 5
+                        : pnlSetor.Location.Y - 5 + pnlSetor.Height - TAMANHO_IMG_PERSONAGEM;
+
+            return new Point(x, y);
         }
     }
 }
