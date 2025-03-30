@@ -107,5 +107,15 @@ namespace PI_PrefeitoDeLondres
         {
             return this.api.ListarSetores();
         }
+
+        public string ExibirUltimaVotacao()
+        {
+            return this.api.ExibirUltimaVotacao(this.id);
+        }
+
+        public string ConsultarHistorico(bool formatado, bool completo)
+        {
+            return this.api.ConsultarHistorico(this.id, formatado, completo);
+        }
     }
 }
