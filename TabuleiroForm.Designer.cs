@@ -49,6 +49,7 @@
             this.pnlSetor0 = new System.Windows.Forms.Panel();
             this.lblVezJogador = new System.Windows.Forms.Label();
             this.lblNomeVez = new System.Windows.Forms.Label();
+            this.lblNomeGrupo = new System.Windows.Forms.Label();
             this.pnlSetor4.SuspendLayout();
             this.pnlSetor2.SuspendLayout();
             this.pnlSetor3.SuspendLayout();
@@ -280,11 +281,22 @@
             this.lblNomeVez.Size = new System.Drawing.Size(0, 13);
             this.lblNomeVez.TabIndex = 0;
             // 
+            // lblNomeGrupo
+            // 
+            this.lblNomeGrupo.AutoSize = true;
+            this.lblNomeGrupo.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNomeGrupo.Location = new System.Drawing.Point(101, 22);
+            this.lblNomeGrupo.Name = "lblNomeGrupo";
+            this.lblNomeGrupo.Size = new System.Drawing.Size(168, 21);
+            this.lblNomeGrupo.TabIndex = 35;
+            this.lblNomeGrupo.Text = "Prefeitos De Londres";
+            // 
             // TabuleiroForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(909, 969);
+            this.Controls.Add(this.lblNomeGrupo);
             this.Controls.Add(this.lblNomeVez);
             this.Controls.Add(this.lblVezJogador);
             this.Controls.Add(this.cboPosicionarPersonagens);
@@ -341,5 +353,6 @@
         private System.Windows.Forms.Panel pnlLetraT;
         private System.Windows.Forms.Label lblVezJogador;
         private System.Windows.Forms.Label lblNomeVez;
+        private System.Windows.Forms.Label lblNomeGrupo;
     }
 }
