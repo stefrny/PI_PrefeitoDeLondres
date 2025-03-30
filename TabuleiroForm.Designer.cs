@@ -349,8 +349,6 @@
         private System.Windows.Forms.Button btnPainel2;
         private System.Windows.Forms.Button btnPainel3;
         private System.Windows.Forms.Button btnPainel1;
-        private System.Windows.Forms.Panel pnlLetraR;
-        private System.Windows.Forms.Panel pnlLetraT;
         private System.Windows.Forms.Label lblVezJogador;
         private System.Windows.Forms.Label lblNomeVez;
         private System.Windows.Forms.Label lblNomeGrupo;
