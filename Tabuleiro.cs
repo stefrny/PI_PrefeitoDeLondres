@@ -32,9 +32,13 @@ namespace PI_PrefeitoDeLondres
     public class Tabuleiro
     {
         private string fase;
+        private int round;
+        private string status;
         private Dictionary<int, SetorTabuleiro> setores = new Dictionary<int, SetorTabuleiro>();
         private Dictionary<char, Panel> cacheImagens = new Dictionary<char, Panel>();
         private APIAdapter api = new APIAdapter();
+
+        private const int TAMANHO_IMG_PERSONAGEM = 85;
 
         public void Atualizar(EstadoTabuleiro estado, Control.ControlCollection controlesForm)
         {
@@ -43,31 +47,31 @@ namespace PI_PrefeitoDeLondres
 
             if (estado.setores == null) return;
 
-            foreach (int chave in this.setores.Keys)
-                this.setores[chave].personagens?.Clear();
+            foreach (int id in this.setores.Keys)
+                this.setores[id].personagens?.Clear();
 
             List<Personagem> personagens = this.api.ListarPersonagens();
 
-            foreach (int chave in estado.setores.Keys)
+            foreach (int id in estado.setores.Keys)
             {
-                if (estado.setores[chave] == null) continue;
+                if (estado.setores[id] == null) continue;
 
-                string[] personagensStr = estado.setores[chave].Split(',');
+                string[] personagensStr = estado.setores[id].Split(',');
                 for (int i = 0; i < personagensStr.Length; i++)
                 {
-                    char incial = Convert.ToChar(personagensStr[i]);
-                    Personagem personagem = personagens.Find(p => p.Inicial == incial);
-                    if (this.setores[chave].personagens == null)
+                    char inicial = Convert.ToChar(personagensStr[i]);
+                    Personagem personagem = personagens.Find(p => p.Inicial == inicial);
+                    if (this.setores[id].personagens == null)
                     {
-                        SetorTabuleiro setor = this.setores[chave];
+                        SetorTabuleiro setor = this.setores[id];
                         setor.personagens = new List<Personagem>();
-                        this.setores[chave] = setor;
+                        this.setores[id] = setor;
                     }
-                    this.setores[chave].personagens.Add(personagem);
+                    this.setores[id].personagens.Add(personagem);
                     personagens.Remove(personagem);
 
-                    Panel pnlPersonagem = this.ObterPainelParaPersonagem(personagem.Inicial);
-                    Panel pnlSetor = this.setores[chave].painel;
+                    (Panel pnlPersonagem, bool usouCache) = this.ObterPainelParaPersonagem(personagem.Inicial);
+                    Panel pnlSetor = this.setores[id].painel;
 
                     int x = pnlSetor.Location.X + pnlPersonagem.Width + (pnlPersonagem.Width * i);
                     int y;
@@ -77,10 +81,23 @@ namespace PI_PrefeitoDeLondres
                         y = pnlSetor.Location.Y - 5 + pnlSetor.Height - pnlPersonagem.Height;
 
                     pnlPersonagem.Location = new Point(x, y);
-                    controlesForm.Add(pnlPersonagem);
-                    pnlPersonagem.BringToFront();
-                    pnlSetor.SendToBack();
+                    pnlPersonagem.Visible = true;
+
+                    if (!usouCache)
+                    {
+                        controlesForm.Add(pnlPersonagem);
+                        pnlPersonagem.BringToFront();
+                        pnlSetor.SendToBack();
+                    }
                 }
+            }
+
+            for (int i = 0; i < personagens.Count; i++)
+            {
+                Panel pnlPersonagem = this.cacheImagens[personagens[i].Inicial];
+
+                if (pnlPersonagem != null)
+                    pnlPersonagem.Visible = false;
             }
         }
 
@@ -91,10 +108,10 @@ namespace PI_PrefeitoDeLondres
             this.setores.Add(id, new SetorTabuleiro(pnlSetor, new List<Personagem>()));
         }
 
-        private Panel ObterPainelParaPersonagem(char inicialPersonagem)
+        private (Panel, bool usouCache) ObterPainelParaPersonagem(char inicialPersonagem)
         {
             if (cacheImagens.ContainsKey(inicialPersonagem))
-                return cacheImagens[inicialPersonagem];
+                return (cacheImagens[inicialPersonagem], true);
 
             Image img = null;
 
@@ -146,11 +163,11 @@ namespace PI_PrefeitoDeLondres
                 BackgroundImage = img,
                 BackgroundImageLayout = ImageLayout.Stretch,
                 BackColor = Color.Transparent,
-                Size = new Size(85, 85),
+                Size = new Size(TAMANHO_IMG_PERSONAGEM, TAMANHO_IMG_PERSONAGEM),
                 Name = inicialPersonagem.ToString(),
             };
 
-            return cacheImagens[inicialPersonagem];
+            return (cacheImagens[inicialPersonagem], false);
         }
     }
 }
