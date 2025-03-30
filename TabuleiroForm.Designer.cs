@@ -73,6 +73,7 @@
             this.btnPromover.TabIndex = 2;
             this.btnPromover.Text = "Promover";
             this.btnPromover.UseVisualStyleBackColor = true;
+            this.btnPromover.Click += new System.EventHandler(this.btnPromover_Click);
             // 
             // btnConfirmarVoto
             // 

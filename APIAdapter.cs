@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using KingMeServer;
 
 namespace PI_PrefeitoDeLondres
@@ -13,7 +14,7 @@ namespace PI_PrefeitoDeLondres
         List<Jogador> ListarJogadores(int idPartida);
         EstadoTabuleiro ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem);
         (Jogador, EstadoTabuleiro) VerificarVez(int idPartida);
-        void Promover(int idJogador, string senhaJogador, char personagem);
+        EstadoTabuleiro Promover(int idJogador, string senhaJogador, char personagem);
         void Votar(int idJogador, string senhaJogador, char voto);
         List<Personagem> ListarPersonagens();
         List<Setor> ListarSetores();
@@ -135,11 +136,16 @@ namespace PI_PrefeitoDeLondres
             return (jogadorDaVez, new EstadoTabuleiro(fase, setores));
         }
 
-        public void Promover(int idJogador, string senhaJogador, char personagem)
+        public EstadoTabuleiro Promover(int idJogador, string senhaJogador, char personagem)
         {
             string retorno = Jogo.Promover(idJogador, senhaJogador, personagem.ToString());
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
+
+            Dictionary<int, string> setores = null;
+            setores = Utils.FormatarSetores(retorno);
+            return new EstadoTabuleiro(null, setores);
+            
         }
 
         public void Votar(int idJogador, string senhaJogador, char voto)

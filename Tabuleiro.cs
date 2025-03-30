@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Forms;
 
 namespace PI_PrefeitoDeLondres
@@ -107,6 +108,14 @@ namespace PI_PrefeitoDeLondres
 
             Image img = null;
 
+            cacheImagens[inicialPersonagem] = new Panel
+            {
+                BackgroundImageLayout = ImageLayout.Stretch,
+                BackColor = Color.Transparent,
+                Size = new Size(85, 85),
+                Name = inicialPersonagem.ToString(),
+            };
+
             switch (inicialPersonagem)
             {
                 case 'A':
@@ -127,8 +136,11 @@ namespace PI_PrefeitoDeLondres
                 case 'G':
                     img = Properties.Resources.G;
                     break;
-                case 'K':
+                case 'H':
                     img = Properties.Resources.H;
+                    break;
+                case 'K':
+                    img = Properties.Resources.K;
                     break;
                 case 'L':
                     img = Properties.Resources.L;
@@ -143,17 +155,11 @@ namespace PI_PrefeitoDeLondres
                     img = Properties.Resources.R;
                     break;
                 case 'T':
-                    img = Properties.Resources.T;
+                    img = Properties.Resources.T1;
                     break;
             }
 
-            cacheImagens[inicialPersonagem] = new Panel
-            {
-                BackgroundImage = img,
-                BackgroundImageLayout = ImageLayout.Stretch,
-                BackColor = Color.Transparent,
-                Size = new Size(85, 85)
-            };
+            cacheImagens[inicialPersonagem].BackgroundImage = img;
 
             return cacheImagens[inicialPersonagem];
         }

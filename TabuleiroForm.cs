@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using KingMeServer;
 
 namespace PI_PrefeitoDeLondres
 {
@@ -108,6 +109,25 @@ namespace PI_PrefeitoDeLondres
             {
                 btnSetorClicado.FlatAppearance.BorderSize = 3;
                 this.setorEscolhido = Convert.ToInt32(btnSetorClicado.Name.Substring(9));
+            }
+        }
+
+        private void btnPromover_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                char personagemEscolhido = Convert.ToChar(((string)cboPosicionarPersonagens.SelectedItem)[0]);
+                EstadoTabuleiro estado = this.jogador.Promover(personagemEscolhido);
+                this.tabuleiro.Atualizar(estado, this.Controls);
+             
+
+            }
+
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
+                return;
             }
         }
     }
