@@ -126,5 +126,20 @@ namespace PI_PrefeitoDeLondres
                 return;
             }
         }
+
+        private void btnConfirmarVoto_Click(object sender, EventArgs e)
+        {
+            string voto = cboTipoVoto.SelectedItem.ToString();
+            try
+            {
+                EstadoTabuleiro estado = this.jogador.Votar(voto[0]);
+                this.tabuleiro.Atualizar(estado, this.Controls);
+            }
+            catch (Exception erro)
+            {
+                Utils.ExibirErro(erro.Message);
+                return;
+            }
+        }
     }
 }
