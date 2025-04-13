@@ -12,7 +12,7 @@ namespace PI_PrefeitoDeLondres
         void Iniciar(int idJogador, string senhaJogador);
         List<Jogador> ListarJogadores(int idPartida);
         EstadoTabuleiro ColocarPersonagem(int idJogador, string senhaJogador, int setor, char personagem);
-        (Jogador, EstadoTabuleiro) VerificarVez(int idPartida);
+        (Jogador, char status, int rodada, char fase, EstadoTabuleiro) VerificarVez(int idPartida);
         EstadoTabuleiro Promover(int idJogador, string senhaJogador, char personagem);
         EstadoTabuleiro Votar(int idJogador, string senhaJogador, char voto);
         List<Personagem> ListarPersonagens();
@@ -103,10 +103,10 @@ namespace PI_PrefeitoDeLondres
 
             Dictionary<int, string> setores = Utils.FormatarSetores(retorno);
 
-            return new EstadoTabuleiro(null, setores);
+            return new EstadoTabuleiro(setores);
         }
 
-        public (Jogador, EstadoTabuleiro) VerificarVez(int idPartida)
+        public (Jogador, char status, int rodada, char fase, EstadoTabuleiro) VerificarVez(int idPartida)
         {
             // int,char,int,char \r\n int,char \r\n ...
             string retorno = Jogo.VerificarVez(idPartida);
@@ -117,7 +117,9 @@ namespace PI_PrefeitoDeLondres
             string[] dadosPrimeiraLinha = linhas[0].Split(',');
 
             int idJogador = Convert.ToInt32(dadosPrimeiraLinha[0]);
-            string fase = dadosPrimeiraLinha[1];
+            char status = Convert.ToChar(dadosPrimeiraLinha[1]);
+            int rodada = Convert.ToInt32(dadosPrimeiraLinha[2]);
+            char fase = Convert.ToChar(dadosPrimeiraLinha[3]);
 
             Dictionary<int, string> setores = null;
             if (linhas.Length > 1)
@@ -132,7 +134,7 @@ namespace PI_PrefeitoDeLondres
             List<Jogador> jogadores = this.ListarJogadores(idPartida);
             Jogador jogadorDaVez = jogadores.Find(j => j.Id == idJogador);
 
-            return (jogadorDaVez, new EstadoTabuleiro(fase, setores));
+            return (jogadorDaVez, status, rodada, fase, new EstadoTabuleiro(setores));
         }
 
         public EstadoTabuleiro Promover(int idJogador, string senhaJogador, char personagem)
@@ -142,7 +144,7 @@ namespace PI_PrefeitoDeLondres
                 throw new Exception(retorno);
 
             Dictionary<int, string> setores = Utils.FormatarSetores(retorno);
-            return new EstadoTabuleiro(null, setores);
+            return new EstadoTabuleiro(setores);
         }
 
         public EstadoTabuleiro Votar(int idJogador, string senhaJogador, char voto)
@@ -152,7 +154,7 @@ namespace PI_PrefeitoDeLondres
                 throw new Exception(retorno);
 
             Dictionary<int, string> setores = Utils.FormatarSetores(retorno);
-            return new EstadoTabuleiro(null, setores);
+            return new EstadoTabuleiro(setores);
         }
 
         public List<Personagem> ListarPersonagens()
