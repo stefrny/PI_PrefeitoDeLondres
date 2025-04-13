@@ -6,12 +6,10 @@ namespace PI_PrefeitoDeLondres
 {
     public struct EstadoTabuleiro
     {
-        public string fase;
         public Dictionary<int, string> setores;
 
-        public EstadoTabuleiro(string fase, Dictionary<int, string> setores)
+        public EstadoTabuleiro(Dictionary<int, string> setores)
         {
-            this.fase = fase;
             this.setores = setores;
         }
     }
@@ -30,10 +28,7 @@ namespace PI_PrefeitoDeLondres
 
     public class Tabuleiro
     {
-        private string fase;
-        private int round;
-        private string status;
-        private Dictionary<int, SetorTabuleiro> setores = new Dictionary<int, SetorTabuleiro>();
+        public readonly Dictionary<int, SetorTabuleiro> setores = new Dictionary<int, SetorTabuleiro>();
         private Dictionary<char, Panel> cacheImagens = new Dictionary<char, Panel>();
         private APIAdapter api = new APIAdapter();
 
@@ -41,9 +36,6 @@ namespace PI_PrefeitoDeLondres
 
         public void Atualizar(EstadoTabuleiro estado, Control.ControlCollection controlesForm)
         {
-            if (estado.fase != null)
-                this.fase = estado.fase;
-
             if (estado.setores == null) return;
 
             foreach (int id in this.setores.Keys)

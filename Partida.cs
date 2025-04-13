@@ -39,6 +39,12 @@ namespace PI_PrefeitoDeLondres
             }
         }
 
+        private int rodada;
+        public int Rodada { get { return rodada; } }
+
+        private char fase;
+        public char Fase { get { return fase; } }
+
         private List<Jogador> jogadores;
 
         private APIAdapter api;
@@ -74,7 +80,7 @@ namespace PI_PrefeitoDeLondres
         public List<Jogador> ListarJogadores()
         {
             bool partidaAberta = this.status == 'A';
-            bool listaJogadoresVazia = this.jogadores == null;
+            bool listaJogadoresVazia = this.jogadores == null || this.jogadores.Count == 0;
 
             if (partidaAberta)
                 return this.api.ListarJogadores(this.id);
@@ -95,7 +101,11 @@ namespace PI_PrefeitoDeLondres
 
         public (Jogador, EstadoTabuleiro) VerificarVez()
         {
-            return this.api.VerificarVez(this.id);
+            (Jogador j, char status, int rodada, char fase, EstadoTabuleiro e) = this.api.VerificarVez(this.id);
+            this.status = status;
+            this.rodada = rodada;
+            this.fase = fase;
+            return (j, e);
         }
 
         public List<Personagem> ListarPersonagens()
