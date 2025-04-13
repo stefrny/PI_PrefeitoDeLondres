@@ -9,7 +9,6 @@ namespace PI_PrefeitoDeLondres
         private Partida partida;
         private Jogador jogador;
         private Tabuleiro tabuleiro;
-        private int setorEscolhido;
 
         public TabuleiroForm(Partida partida, Jogador jogador)
         {
@@ -26,35 +25,10 @@ namespace PI_PrefeitoDeLondres
             this.tabuleiro.AdicionarSetor(5, pnlSetor5);
             this.tabuleiro.AdicionarSetor(10, pnlSetor10);
 
-            // Voto 'Sim' aparece selecionado
-            cboTipoVoto.SelectedIndex = 0;
-
-            // Adiciona todos os personagens na combobox
-            List<Personagem> personagens = this.partida.ListarPersonagens();
-            for (int i = 0; i < personagens.Count; i++)
-                cboPosicionarPersonagens.Items.Add(personagens[i].Nome);
+            tmrVerificarVez.Enabled = true;
         }
 
-        private void btnExibirCartas_Click(object sender, EventArgs e)
-        {
-            List<Personagem> personagens;
-
-            try
-            {
-                personagens = this.jogador.ListarCarta();
-            }
-            catch (Exception erro)
-            {
-                Utils.ExibirErro(erro.Message);
-                return;
-            }
-
-            lblCartas.Text = "Carta: ";
-            for (int i = 0; i < personagens.Count; i++)
-                lblCartas.Text += $"{personagens[i].Inicial}";
-        }
-
-        private void bntVerificarVez_Click(object sender, EventArgs e)
+        private bool VerificarVez()
         {
             Jogador jogador;
             EstadoTabuleiro estado;
@@ -67,20 +41,36 @@ namespace PI_PrefeitoDeLondres
             catch (Exception erro)
             {
                 Utils.ExibirErro(erro.Message);
-                return;
+                return false;
             }
 
-            lblVezJogador.Text = $"ID: {jogador.Id}";
-            lblNomeVez.Text = $"Nome: {jogador.Nome}";
+            return jogador.Id == this.jogador.Id;
         }
 
-        private void btnPosicionar_Click(object sender, EventArgs e)
+        private void Posicionar()
         {
+            List<Personagem> naoEscolhidos = this.partida.ListarPersonagens();
+            int idSetor = -1;
+
+            foreach (int id in this.tabuleiro.setores.Keys)
+            {
+                SetorTabuleiro setor = this.tabuleiro.setores[id];
+                foreach (Personagem personagemTabuleiro in setor.personagens)
+                {
+                    int i = naoEscolhidos.FindIndex(p => p.Inicial == personagemTabuleiro.Inicial);
+                    if (i != -1)
+                        naoEscolhidos.RemoveAt(i);
+                }
+
+                if (setor.personagens.Count <= 3 && id >= 1 && id <= 4)
+                    idSetor = id;
+            }
+
+            if (idSetor == -1 || naoEscolhidos.Count == 0) return;
+
             try
             {
-                char personagemEscolhido = Convert.ToChar(((string)cboPosicionarPersonagens.SelectedItem)[0]);
-                EstadoTabuleiro estado = this.jogador.ColocarPersonagem(this.setorEscolhido, personagemEscolhido);
-
+                EstadoTabuleiro estado = this.jogador.ColocarPersonagem(idSetor, naoEscolhidos[0].Inicial);
                 this.tabuleiro.Atualizar(estado, this.Controls);
             }
             catch (Exception erro)
@@ -90,56 +80,52 @@ namespace PI_PrefeitoDeLondres
             }
         }
 
-        private void btnPainel_Click(object sender, EventArgs e)
+        //private void btnPromover_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        char personagemEscolhido = Convert.ToChar(((string)cboPosicionarPersonagens.SelectedItem)[0]);
+        //        EstadoTabuleiro estado = this.jogador.Promover(personagemEscolhido);
+
+        //        this.tabuleiro.Atualizar(estado, this.Controls);
+        //    }
+        //    catch (Exception erro)
+        //    {
+        //        Utils.ExibirErro(erro.Message);
+        //        return;
+        //    }
+        //}
+
+        //private void btnConfirmarVoto_Click(object sender, EventArgs e)
+        //{
+        //    string voto = cboTipoVoto.SelectedItem.ToString();
+        //    try
+        //    {
+        //        EstadoTabuleiro estado = this.jogador.Votar(voto[0]);
+        //        this.tabuleiro.Atualizar(estado, this.Controls);
+        //    }
+        //    catch (Exception erro)
+        //    {
+        //        Utils.ExibirErro(erro.Message);
+        //        return;
+        //    }
+        //}
+
+        private void tmrVerificarVez_Tick(object sender, EventArgs e)
         {
-            Button btnSetorClicado = (Button)sender;
-            bool estaSelecionado = btnSetorClicado.FlatAppearance.BorderSize == 3;
+            if (this.VerificarVez()) tmrVerificarVez.Enabled = false;
+            else return;
 
-            btnPainel1.FlatAppearance.BorderSize = 0;
-            btnPainel2.FlatAppearance.BorderSize = 0;
-            btnPainel3.FlatAppearance.BorderSize = 0;
-            btnPainel4.FlatAppearance.BorderSize = 0;
+            switch (this.partida.Fase)
+            {
+                case 'S':
+                    this.Posicionar();
+                    break;
+                default:
+                    break;
+            }
 
-            if (estaSelecionado)
-            {
-                this.setorEscolhido = -1;
-            }
-            else
-            {
-                btnSetorClicado.FlatAppearance.BorderSize = 3;
-                this.setorEscolhido = Convert.ToInt32(btnSetorClicado.Name.Substring(9));
-            }
-        }
-
-        private void btnPromover_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                char personagemEscolhido = Convert.ToChar(((string)cboPosicionarPersonagens.SelectedItem)[0]);
-                EstadoTabuleiro estado = this.jogador.Promover(personagemEscolhido);
-
-                this.tabuleiro.Atualizar(estado, this.Controls);
-            }
-            catch (Exception erro)
-            {
-                Utils.ExibirErro(erro.Message);
-                return;
-            }
-        }
-
-        private void btnConfirmarVoto_Click(object sender, EventArgs e)
-        {
-            string voto = cboTipoVoto.SelectedItem.ToString();
-            try
-            {
-                EstadoTabuleiro estado = this.jogador.Votar(voto[0]);
-                this.tabuleiro.Atualizar(estado, this.Controls);
-            }
-            catch (Exception erro)
-            {
-                Utils.ExibirErro(erro.Message);
-                return;
-            }
+            tmrVerificarVez.Enabled = true;
         }
     }
 }
