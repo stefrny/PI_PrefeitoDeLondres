@@ -20,6 +20,8 @@ namespace PI_PrefeitoDeLondres
 
         private APIAdapter api;
 
+        public int QuantidadeVotos { get; set; }
+
         public Jogador(int id, string nome, string senha, int pontos)
         {
             this.id = id;
@@ -50,6 +52,7 @@ namespace PI_PrefeitoDeLondres
 
         public EstadoTabuleiro Votar(char voto)
         {
+            QuantidadeVotos--;
             return this.api.Votar(this.id, this.senha, voto);
         }
     }

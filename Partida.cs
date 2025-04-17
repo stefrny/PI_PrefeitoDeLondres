@@ -45,9 +45,13 @@ namespace PI_PrefeitoDeLondres
         private char fase;
         public char Fase { get { return fase; } }
 
+        private int quantidadeVotos;
+        public int QuantidadeVotos { get; }
+
         private List<Jogador> jogadores;
 
         private APIAdapter api;
+
 
         public Partida(int id, string nome, string senha, string data, char status)
         {
@@ -75,6 +79,8 @@ namespace PI_PrefeitoDeLondres
             Jogador jogador = this.api.Entrar(this.id, nomeJogador, senhaPartida);
             this.senha = senhaPartida;
             return jogador;
+
+
         }
 
         public List<Jogador> ListarJogadores()
@@ -97,6 +103,28 @@ namespace PI_PrefeitoDeLondres
 
             this.status = 'J';
             this.jogadores = this.api.ListarJogadores(this.id);
+
+            List<Jogador> jogadores = this.ListarJogadores();
+            int quantidadeVotos = 0;
+
+            this.quantidadeVotos = quantidadeVotos;
+
+            switch (jogadores.Count)
+            {
+                case 2:
+                case 3:
+                    quantidadeVotos = 4;
+                    break;
+
+                case 4:
+                    quantidadeVotos = 3;
+                    break;
+            }
+
+            foreach (Jogador jogador in jogadores)
+            {
+                jogador.QuantidadeVotos = quantidadeVotos;
+            }
         }
 
         public (Jogador, EstadoTabuleiro) VerificarVez()

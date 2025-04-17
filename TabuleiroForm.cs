@@ -10,6 +10,7 @@ namespace PI_PrefeitoDeLondres
         private Jogador jogador;
         private Tabuleiro tabuleiro;
 
+
         public TabuleiroForm(Partida partida, Jogador jogador)
         {
             InitializeComponent();
@@ -25,8 +26,11 @@ namespace PI_PrefeitoDeLondres
             this.tabuleiro.AdicionarSetor(5, pnlSetor5);
             this.tabuleiro.AdicionarSetor(10, pnlSetor10);
 
+            this.jogador.QuantidadeVotos = this.partida.QuantidadeVotos;
             tmrVerificarVez.Enabled = true;
+
         }
+
 
         private bool VerificarVez()
         {
@@ -80,46 +84,82 @@ namespace PI_PrefeitoDeLondres
             }
         }
 
-        //private void btnPromover_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        char personagemEscolhido = Convert.ToChar(((string)cboPosicionarPersonagens.SelectedItem)[0]);
-        //        EstadoTabuleiro estado = this.jogador.Promover(personagemEscolhido);
 
-        //        this.tabuleiro.Atualizar(estado, this.Controls);
-        //    }
-        //    catch (Exception erro)
-        //    {
-        //        Utils.ExibirErro(erro.Message);
-        //        return;
-        //    }
-        //}
 
-        //private void btnConfirmarVoto_Click(object sender, EventArgs e)
-        //{
-        //    string voto = cboTipoVoto.SelectedItem.ToString();
-        //    try
-        //    {
-        //        EstadoTabuleiro estado = this.jogador.Votar(voto[0]);
-        //        this.tabuleiro.Atualizar(estado, this.Controls);
-        //    }
-        //    catch (Exception erro)
-        //    {
-        //        Utils.ExibirErro(erro.Message);
-        //        return;
-        //    }
-        //}
+        private void Promover()
+        {
+            List<Personagem> personagensCarta = this.jogador.ListarCarta();
+            Personagem personagemEscolhido = null;
+            Personagem primeiroPersonagem = null;
+            EstadoTabuleiro estado = new EstadoTabuleiro();
+            bool setorAcimaVazio = false;
+
+            for (int i = 5; i > 0; i--)
+            {
+                SetorTabuleiro setor = this.tabuleiro.setores[i];
+                this.tabuleiro.setores.TryGetValue(i + 1, out SetorTabuleiro setorAcima);
+
+
+                foreach (Personagem personagem in setor.personagens)
+                {
+                    personagemEscolhido = personagensCarta.Find(p => p.Inicial == personagem.Inicial);
+                }
+
+                setorAcimaVazio = i == 5 ? true : setorAcima.personagens.Count < 4;
+
+
+                if(personagemEscolhido != null && setorAcimaVazio)
+                {
+                    estado = this.jogador.Promover(personagemEscolhido.Inicial);
+                    this.tabuleiro.Atualizar(estado, this.Controls);
+                    return;
+                }
+
+                if  (primeiroPersonagem == null && setor.personagens.Count > 0)
+                {
+                        primeiroPersonagem = setor.personagens[0];
+                }
+            }
+                estado = this.jogador.Promover(primeiroPersonagem.Inicial);
+                this.tabuleiro.Atualizar(estado, this.Controls);
+            return;
+        }
+
+        private void Votar()
+        {
+            List<Personagem> personagensCarta = this.jogador.ListarCarta();
+            Personagem possivelRei = this.tabuleiro.setores[10].personagens[0];
+            bool personagemEstaNaCarta = false;
+
+            foreach (Personagem p in personagensCarta)
+            {
+                if (p.Inicial == possivelRei.Inicial)
+                {
+                    personagemEstaNaCarta = true;
+                }
+            }
+
+            bool votoNao = !personagemEstaNaCarta && this.jogador.QuantidadeVotos > 0;
+            EstadoTabuleiro estado = this.jogador.Votar(votoNao ?  'N' : 'S');
+            //this.tabuleiro.Atualizar(estado, this.Controls);
+        }
 
         private void tmrVerificarVez_Tick(object sender, EventArgs e)
         {
-            if (this.VerificarVez()) tmrVerificarVez.Enabled = false;
+            bool teste = this.VerificarVez();
+            if (teste) tmrVerificarVez.Enabled = false;
             else return;
 
             switch (this.partida.Fase)
             {
                 case 'S':
                     this.Posicionar();
+                    break;
+                case 'P':
+                    this.Promover();
+                    break;
+                case 'V':
+                    this.Votar();
                     break;
                 default:
                     break;
