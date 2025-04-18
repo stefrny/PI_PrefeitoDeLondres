@@ -31,8 +31,8 @@ namespace PI_PrefeitoDeLondres
                         return "Aberta";
                     case 'J':
                         return "Jogando";
-                    case 'F':
-                        return "Finalizada";
+                    case 'E':
+                        return "Encerrada";
                     default:
                         return "Desconhecido";
                 }
@@ -44,14 +44,27 @@ namespace PI_PrefeitoDeLondres
 
         private char fase;
         public char Fase { get { return fase; } }
-
-        private int quantidadeVotos;
-        public int QuantidadeVotos { get; }
+        public string FaseCompleta
+        {
+            get
+            {
+                switch (fase)
+                {
+                    case 'S':
+                        return "Setup";
+                    case 'P':
+                        return "Promoção";
+                    case 'V':
+                        return "Votação";
+                    default:
+                        return "Desconhecido";
+                }
+            }
+        }
 
         private List<Jogador> jogadores;
 
         private APIAdapter api;
-
 
         public Partida(int id, string nome, string senha, string data, char status)
         {
@@ -79,8 +92,6 @@ namespace PI_PrefeitoDeLondres
             Jogador jogador = this.api.Entrar(this.id, nomeJogador, senhaPartida);
             this.senha = senhaPartida;
             return jogador;
-
-
         }
 
         public List<Jogador> ListarJogadores()
@@ -102,37 +113,27 @@ namespace PI_PrefeitoDeLondres
             this.api.Iniciar(idJogador, senhaJogador);
 
             this.status = 'J';
+            this.rodada = 1;
+            this.fase = 'S';
             this.jogadores = this.api.ListarJogadores(this.id);
 
-            List<Jogador> jogadores = this.ListarJogadores();
-            int quantidadeVotos = 0;
-
-            this.quantidadeVotos = quantidadeVotos;
-
-            switch (jogadores.Count)
-            {
-                case 2:
-                case 3:
-                    quantidadeVotos = 4;
-                    break;
-
-                case 4:
-                    quantidadeVotos = 3;
-                    break;
-            }
-
-            foreach (Jogador jogador in jogadores)
-            {
-                jogador.QuantidadeVotos = quantidadeVotos;
-            }
+            foreach (Jogador j in this.jogadores)
+                j.ResetarVotos(this.id);
         }
 
         public (Jogador, EstadoTabuleiro) VerificarVez()
         {
             (Jogador j, char status, int rodada, char fase, EstadoTabuleiro e) = this.api.VerificarVez(this.id);
             this.status = status;
-            this.rodada = rodada;
             this.fase = fase;
+
+            if (this.rodada != rodada)
+            {
+                foreach (Jogador jo in this.ListarJogadores())
+                    jo.ResetarVotos(this.id);
+            }
+            this.rodada = rodada;
+
             return (j, e);
         }
 
@@ -154,6 +155,25 @@ namespace PI_PrefeitoDeLondres
         public string ConsultarHistorico(bool formatado, bool completo)
         {
             return this.api.ConsultarHistorico(this.id, formatado, completo);
+        }
+    }
+
+    public class PartidaView
+    {
+        public string Nome { get; set; }
+        public string Fase { get; set; }
+        public int Rodada { get; set; }
+
+        private PartidaView(string nome, string fase, int rodada)
+        {
+            Nome = nome;
+            Fase = fase;
+            Rodada = rodada;
+        }
+
+        public static PartidaView MapearParaView(Partida partida)
+        {
+            return new PartidaView(partida.Nome, partida.FaseCompleta, partida.Rodada);
         }
     }
 }
