@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace PI_PrefeitoDeLondres
@@ -42,6 +43,23 @@ namespace PI_PrefeitoDeLondres
             }
 
             return setores;
+        }
+
+        public static void ConfigurarDGVPadrao(DataGridView dgv)
+        {
+            dgv.BackgroundColor = Color.White;
+            dgv.GridColor = Color.White;
+            dgv.DefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+            dgv.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.AllowUserToResizeColumns = false;
+            dgv.AllowUserToResizeRows = false;
+            dgv.AllowUserToOrderColumns = false;
+            dgv.RowHeadersVisible = false;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }
