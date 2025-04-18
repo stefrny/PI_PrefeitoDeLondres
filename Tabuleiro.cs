@@ -77,7 +77,7 @@ namespace PI_PrefeitoDeLondres
             foreach (Personagem p in personagensDisponiveis)
             {
                 if (this.cacheImagens.TryGetValue(p.Inicial, out Panel pnlpersonagem))
-                    pnlpersonagem.Visible = false;                           
+                    pnlpersonagem.Visible = false;
             }
         }
 
@@ -150,11 +150,6 @@ namespace PI_PrefeitoDeLondres
             return (cacheImagens[inicialPersonagem], false);
         }
 
-        private void ResetarTabuleiro()
-        {
-
-        }
-
         private Point CalcularPosicaoPainel(Panel pnlSetor, int indice)
         {
             int x = pnlSetor.Location.X + TAMANHO_IMG_PERSONAGEM + (TAMANHO_IMG_PERSONAGEM * indice);
@@ -164,7 +159,5 @@ namespace PI_PrefeitoDeLondres
 
             return new Point(x, y);
         }
-
-
     }
 }
