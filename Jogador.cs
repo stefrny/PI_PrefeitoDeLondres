@@ -16,11 +16,12 @@ namespace PI_PrefeitoDeLondres
         private int pontos;
         public int Pontos { get { return pontos; } }
 
+        private int quantidadeVotos;
+        public int QuantidadeVotos { get { return quantidadeVotos; } }
+
         private List<Personagem> carta;
 
         private APIAdapter api;
-
-        public int QuantidadeVotos { get; set; }
 
         public Jogador(int id, string nome, string senha, int pontos)
         {
@@ -52,8 +53,44 @@ namespace PI_PrefeitoDeLondres
 
         public EstadoTabuleiro Votar(char voto)
         {
-            QuantidadeVotos--;
+            if (voto == 'N') this.quantidadeVotos--;
             return this.api.Votar(this.id, this.senha, voto);
+        }
+
+        public void ResetarVotos(int idPartida)
+        {
+            List<Jogador> jogadores = this.api.ListarJogadores(idPartida);
+
+            switch (jogadores.Count)
+            {
+                case 2:
+                case 3:
+                    this.quantidadeVotos = 4;
+                    break;
+                case 4:
+                    this.quantidadeVotos = 3;
+                    break;
+                default:
+                    this.quantidadeVotos = 2;
+                    break;
+            }
+        }
+    }
+
+    public class JogadorView
+    {
+        public string Nome { get; set; }
+        public int QuantidadeVotos { get; set; }
+
+        private JogadorView(string nome, int quantidadeVotos)
+        {
+            this.Nome = nome;
+            QuantidadeVotos = quantidadeVotos;
+        }
+
+        public static JogadorView MapearParaView(Jogador jogador)
+        {
+            return new JogadorView(jogador.Nome, jogador.QuantidadeVotos);
         }
     }
 }
