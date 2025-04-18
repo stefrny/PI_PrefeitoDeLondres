@@ -10,7 +10,6 @@ namespace PI_PrefeitoDeLondres
         private Jogador jogador;
         private Tabuleiro tabuleiro;
 
-
         public TabuleiroForm(Partida partida, Jogador jogador)
         {
             InitializeComponent();
@@ -26,16 +25,23 @@ namespace PI_PrefeitoDeLondres
             this.tabuleiro.AdicionarSetor(5, pnlSetor5);
             this.tabuleiro.AdicionarSetor(10, pnlSetor10);
 
-            this.jogador.QuantidadeVotos = this.partida.QuantidadeVotos;
+            this.jogador.ResetarVotos(this.partida.Id);
+
+            this.ConfigurarDGVPartida();
+            this.ConfigurarDGVJogadores();
+
+            List<Personagem> carta = this.jogador.ListarCarta();
+            foreach (Personagem p in carta)
+                lblCarta.Text += p.Inicial;
+
             tmrVerificarVez.Enabled = true;
-
         }
-
 
         private bool VerificarVez()
         {
             Jogador jogador;
             EstadoTabuleiro estado;
+            int rodadaAntes = this.partida.Rodada;
 
             try
             {
@@ -47,6 +53,14 @@ namespace PI_PrefeitoDeLondres
                 Utils.ExibirErro(erro.Message);
                 return false;
             }
+
+            if (rodadaAntes != this.partida.Rodada)
+                this.jogador.ResetarVotos(this.partida.Id);
+
+            this.ConfigurarDGVPartida();
+            this.ConfigurarDGVJogadores();
+
+            lblJogadorDaVez.Text = $"Vez de: {jogador.Nome}";
 
             return jogador.Id == this.jogador.Id;
         }
@@ -74,8 +88,7 @@ namespace PI_PrefeitoDeLondres
 
             try
             {
-                EstadoTabuleiro estado = this.jogador.ColocarPersonagem(idSetor, naoEscolhidos[0].Inicial);
-                this.tabuleiro.Atualizar(estado, this.Controls);
+                this.jogador.ColocarPersonagem(idSetor, naoEscolhidos[0].Inicial);
             }
             catch (Exception erro)
             {
@@ -84,14 +97,11 @@ namespace PI_PrefeitoDeLondres
             }
         }
 
-
-
         private void Promover()
         {
             List<Personagem> personagensCarta = this.jogador.ListarCarta();
             Personagem personagemEscolhido = null;
             Personagem primeiroPersonagem = null;
-            EstadoTabuleiro estado = new EstadoTabuleiro();
             bool setorAcimaVazio = false;
 
             for (int i = 5; i > 0; i--)
@@ -99,29 +109,22 @@ namespace PI_PrefeitoDeLondres
                 SetorTabuleiro setor = this.tabuleiro.setores[i];
                 this.tabuleiro.setores.TryGetValue(i + 1, out SetorTabuleiro setorAcima);
 
-
                 foreach (Personagem personagem in setor.personagens)
-                {
                     personagemEscolhido = personagensCarta.Find(p => p.Inicial == personagem.Inicial);
-                }
 
                 setorAcimaVazio = i == 5 ? true : setorAcima.personagens.Count < 4;
 
-
-                if(personagemEscolhido != null && setorAcimaVazio)
+                if (personagemEscolhido != null && setorAcimaVazio)
                 {
-                    estado = this.jogador.Promover(personagemEscolhido.Inicial);
-                    this.tabuleiro.Atualizar(estado, this.Controls);
+                    this.jogador.Promover(personagemEscolhido.Inicial);
                     return;
                 }
 
-                if  (primeiroPersonagem == null && setor.personagens.Count > 0)
-                {
-                        primeiroPersonagem = setor.personagens[0];
-                }
+                if (primeiroPersonagem == null && setor.personagens.Count > 0)
+                    primeiroPersonagem = setor.personagens[0];
             }
-                estado = this.jogador.Promover(primeiroPersonagem.Inicial);
-                this.tabuleiro.Atualizar(estado, this.Controls);
+
+            this.jogador.Promover(primeiroPersonagem.Inicial);
             return;
         }
 
@@ -134,20 +137,16 @@ namespace PI_PrefeitoDeLondres
             foreach (Personagem p in personagensCarta)
             {
                 if (p.Inicial == possivelRei.Inicial)
-                {
                     personagemEstaNaCarta = true;
-                }
             }
 
-            bool votoNao = !personagemEstaNaCarta && this.jogador.QuantidadeVotos > 0;
-            EstadoTabuleiro estado = this.jogador.Votar(votoNao ?  'N' : 'S');
-            //this.tabuleiro.Atualizar(estado, this.Controls);
+            bool votoSim = personagemEstaNaCarta || this.jogador.QuantidadeVotos == 0;
+            this.jogador.Votar(votoSim ? 'S' : 'N');
         }
 
         private void tmrVerificarVez_Tick(object sender, EventArgs e)
         {
-            bool teste = this.VerificarVez();
-            if (teste) tmrVerificarVez.Enabled = false;
+            if (this.VerificarVez()) tmrVerificarVez.Enabled = false;
             else return;
 
             switch (this.partida.Fase)
@@ -165,7 +164,29 @@ namespace PI_PrefeitoDeLondres
                     break;
             }
 
+            this.VerificarVez();
             tmrVerificarVez.Enabled = true;
+        }
+
+        private void ConfigurarDGVJogadores()
+        {
+            Utils.ConfigurarDGVPadrao(dgvJogadores);
+
+            List<JogadorView> jogadoresViews = new List<JogadorView>();
+            foreach (Jogador jogador in this.partida.ListarJogadores())
+                jogadoresViews.Add(JogadorView.MapearParaView(jogador));
+
+            dgvJogadores.DataSource = jogadoresViews;
+        }
+
+        private void ConfigurarDGVPartida()
+        {
+            Utils.ConfigurarDGVPadrao(dgvPartida);
+            List<PartidaView> partidasViews = new List<PartidaView>
+            {
+                PartidaView.MapearParaView(this.partida)
+            };
+            dgvPartida.DataSource = partidasViews;
         }
     }
 }
