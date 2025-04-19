@@ -18,7 +18,7 @@ namespace PI_PrefeitoDeLondres
         List<Personagem> ListarPersonagens();
         List<Setor> ListarSetores();
         List<Personagem> ListarCarta(int idJogador, string senhaJogador);
-        string ExibirUltimaVotacao(int idPartida);
+        Voto[] ExibirUltimaVotacao(int idPartida);
         string ConsultarHistorico(int idPartida, bool formatado, bool completo);
     }
 
@@ -205,14 +205,27 @@ namespace PI_PrefeitoDeLondres
             return personagens;
         }
 
-        public string ExibirUltimaVotacao(int idPartida)
+        public Voto[] ExibirUltimaVotacao(int idPartida)
         {
             // personagem, id jogador, voto
             string retorno = Jogo.ExibirUltimaVotacao(idPartida);
             if (Utils.VerificarErro(retorno))
                 throw new Exception(retorno);
 
-            return retorno;
+            string[] linhas = retorno.Substring(0, retorno.Length - 1).Replace("\r", "").Split('\n');
+            Voto[] votacao = new Voto[linhas.Length];
+
+            for (int i = 0; i < linhas.Length; i++)
+            {
+                string[] dados = linhas[i].Split(',');
+                char personagem = Convert.ToChar(dados[0]);
+                int idJogador = Convert.ToInt32(dados[1]);
+                char voto = Convert.ToChar(dados[2]);
+
+                votacao[i] = new Voto(personagem, idJogador, voto);
+            }
+
+            return votacao;
         }
 
         public string ConsultarHistorico(int idPartida, bool formatado, bool completo)

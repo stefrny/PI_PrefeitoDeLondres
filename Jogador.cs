@@ -14,10 +14,10 @@ namespace PI_PrefeitoDeLondres
         public string Senha { get { return senha; } }
 
         private int pontos;
-        public int Pontos { get { return pontos; } }
+        public int Pontos { get { return pontos; } set { pontos = value; } }
 
         private int quantidadeVotos;
-        public int QuantidadeVotos { get { return quantidadeVotos; } }
+        public int QuantidadeVotos { get { return quantidadeVotos; } set { quantidadeVotos = value; } }
 
         public string Carta
         {
@@ -59,27 +59,7 @@ namespace PI_PrefeitoDeLondres
 
         public EstadoTabuleiro Votar(char voto)
         {
-            if (voto == 'N') this.quantidadeVotos--;
             return this.api.Votar(this.id, this.senha, voto);
-        }
-
-        public void ResetarVotos(int idPartida)
-        {
-            int quantidadeJogadores = this.api.ListarJogadores(idPartida).Count;
-
-            switch (quantidadeJogadores)
-            {
-                case 2:
-                case 3:
-                    this.quantidadeVotos = 4;
-                    break;
-                case 4:
-                    this.quantidadeVotos = 3;
-                    break;
-                default:
-                    this.quantidadeVotos = 2;
-                    break;
-            }
         }
     }
 
@@ -87,16 +67,18 @@ namespace PI_PrefeitoDeLondres
     {
         public string Nome { get; set; }
         public int QuantidadeVotos { get; set; }
+        public int Pontos { get; set; }
 
-        private JogadorView(string nome, int quantidadeVotos)
+        private JogadorView(string nome, int quantidadeVotos, int pontos)
         {
-            this.Nome = nome;
+            Nome = nome;
             QuantidadeVotos = quantidadeVotos;
+            Pontos = pontos;
         }
 
         public static JogadorView MapearParaView(Jogador jogador)
         {
-            return new JogadorView(jogador.Nome, jogador.QuantidadeVotos);
+            return new JogadorView(jogador.Nome, jogador.QuantidadeVotos, jogador.Pontos);
         }
     }
 }

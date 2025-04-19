@@ -158,4 +158,23 @@ namespace PI_PrefeitoDeLondres
             return new Point(x, y);
         }
     }
+
+    public struct Voto
+    {
+        public char personagem;
+        public int idJogador;
+        public char tipo;
+
+        public Voto(char personagem, int idJogador, char tipoVoto)
+        {
+            this.personagem = personagem;
+            this.idJogador = idJogador;
+            this.tipo = tipoVoto;
+        }
+
+        public override string ToString()
+        {
+            return $"{personagem},{idJogador},{tipo}\n";
+        }
+    }
 }
