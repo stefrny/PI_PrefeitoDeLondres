@@ -19,7 +19,17 @@ namespace PI_PrefeitoDeLondres
         private int quantidadeVotos;
         public int QuantidadeVotos { get { return quantidadeVotos; } }
 
-        private List<Personagem> carta;
+        public string Carta
+        {
+            get
+            {
+                string cartaStr = "";
+                List<Personagem> carta = this.api.ListarCarta(this.id, this.senha);
+                foreach (Personagem p in carta)
+                    cartaStr += p.Inicial;
+                return cartaStr;
+            }
+        }
 
         private APIAdapter api;
 
@@ -29,16 +39,12 @@ namespace PI_PrefeitoDeLondres
             this.nome = nome;
             this.senha = senha;
             this.pontos = pontos;
-            this.carta = null;
             this.api = new APIAdapter();
         }
 
         public List<Personagem> ListarCarta()
         {
-            if (this.carta == null)
-                this.carta = this.api.ListarCarta(this.id, this.senha);
-
-            return this.carta;
+            return this.api.ListarCarta(this.id, this.senha);
         }
 
         public EstadoTabuleiro ColocarPersonagem(int setor, char personagem)
