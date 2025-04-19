@@ -30,9 +30,7 @@ namespace PI_PrefeitoDeLondres
             this.ConfigurarDGVPartida();
             this.ConfigurarDGVJogadores();
 
-            List<Personagem> carta = this.jogador.ListarCarta();
-            foreach (Personagem p in carta)
-                lblCarta.Text += p.Inicial;
+            lblCarta.Text = $"Carta: {this.jogador.Carta}";
 
             tmrVerificarVez.Enabled = true;
         }
@@ -55,7 +53,10 @@ namespace PI_PrefeitoDeLondres
             }
 
             if (rodadaAntes != this.partida.Rodada)
+            {
                 this.jogador.ResetarVotos(this.partida.Id);
+                lblCarta.Text = $"Carta: {this.jogador.Carta}";
+            }
 
             this.ConfigurarDGVPartida();
             this.ConfigurarDGVJogadores();
@@ -135,10 +136,8 @@ namespace PI_PrefeitoDeLondres
             bool personagemEstaNaCarta = false;
 
             foreach (Personagem p in personagensCarta)
-            {
                 if (p.Inicial == possivelRei.Inicial)
                     personagemEstaNaCarta = true;
-            }
 
             bool votoSim = personagemEstaNaCarta || this.jogador.QuantidadeVotos == 0;
             this.jogador.Votar(votoSim ? 'S' : 'N');
