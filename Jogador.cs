@@ -46,9 +46,9 @@ namespace PI_PrefeitoDeLondres
             return this.api.ColocarPersonagem(this.id, this.senha, setor, personagem);
         }
 
-        public EstadoTabuleiro Promover(char personagemEscolhido)
+        public EstadoTabuleiro Promover(char personagem)
         {
-            return this.api.Promover(this.id, this.senha, personagemEscolhido);
+            return this.api.Promover(this.id, this.senha, personagem);
         }
 
         public EstadoTabuleiro Votar(char voto)
@@ -59,9 +59,9 @@ namespace PI_PrefeitoDeLondres
 
         public void ResetarVotos(int idPartida)
         {
-            List<Jogador> jogadores = this.api.ListarJogadores(idPartida);
+            int quantidadeJogadores = this.api.ListarJogadores(idPartida).Count;
 
-            switch (jogadores.Count)
+            switch (quantidadeJogadores)
             {
                 case 2:
                 case 3:
