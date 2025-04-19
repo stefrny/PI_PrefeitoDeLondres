@@ -36,8 +36,6 @@ namespace PI_PrefeitoDeLondres
 
         public void Atualizar(EstadoTabuleiro estado, Control.ControlCollection controlesForm)
         {
-            if (estado.setores == null) return;
-
             foreach (int id in this.setores.Keys)
                 this.setores[id].personagens?.Clear();
 

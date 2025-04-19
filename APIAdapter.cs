@@ -121,7 +121,7 @@ namespace PI_PrefeitoDeLondres
             int rodada = Convert.ToInt32(dadosPrimeiraLinha[2]);
             char fase = Convert.ToChar(dadosPrimeiraLinha[3]);
 
-            Dictionary<int, string> setores = null;
+            Dictionary<int, string> setores = new Dictionary<int, string>();
             if (linhas.Length > 1)
             {
                 string setoresStr = null;
