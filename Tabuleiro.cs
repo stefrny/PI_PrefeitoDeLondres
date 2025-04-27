@@ -36,8 +36,6 @@ namespace PI_PrefeitoDeLondres
 
         public void Atualizar(EstadoTabuleiro estado, Control.ControlCollection controlesForm)
         {
-            if (estado.setores == null) return;
-
             foreach (int id in this.setores.Keys)
                 this.setores[id].personagens?.Clear();
 
@@ -76,8 +74,8 @@ namespace PI_PrefeitoDeLondres
             // Torna invisíveis os painéis dos personagens que não estão no tabuleiro
             foreach (Personagem p in personagensDisponiveis)
             {
-                if (this.cacheImagens.TryGetValue(p.Inicial, out Panel pnlPersonagem))
-                    pnlPersonagem.Visible = false;
+                if (this.cacheImagens.TryGetValue(p.Inicial, out Panel pnlpersonagem))
+                    pnlpersonagem.Visible = false;
             }
         }
 
@@ -158,6 +156,25 @@ namespace PI_PrefeitoDeLondres
                         : pnlSetor.Location.Y - 5 + pnlSetor.Height - TAMANHO_IMG_PERSONAGEM;
 
             return new Point(x, y);
+        }
+    }
+
+    public struct Voto
+    {
+        public char personagem;
+        public int idJogador;
+        public char tipo;
+
+        public Voto(char personagem, int idJogador, char tipoVoto)
+        {
+            this.personagem = personagem;
+            this.idJogador = idJogador;
+            this.tipo = tipoVoto;
+        }
+
+        public override string ToString()
+        {
+            return $"{personagem},{idJogador},{tipo}\n";
         }
     }
 }

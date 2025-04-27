@@ -14,9 +14,22 @@ namespace PI_PrefeitoDeLondres
         public string Senha { get { return senha; } }
 
         private int pontos;
-        public int Pontos { get { return pontos; } }
+        public int Pontos { get { return pontos; } set { pontos = value; } }
 
-        private List<Personagem> carta;
+        private int quantidadeVotos;
+        public int QuantidadeVotos { get { return quantidadeVotos; } set { quantidadeVotos = value; } }
+
+        public string Carta
+        {
+            get
+            {
+                string cartaStr = "";
+                List<Personagem> carta = this.api.ListarCarta(this.id, this.senha);
+                foreach (Personagem p in carta)
+                    cartaStr += p.Inicial;
+                return cartaStr;
+            }
+        }
 
         private APIAdapter api;
 
@@ -26,16 +39,12 @@ namespace PI_PrefeitoDeLondres
             this.nome = nome;
             this.senha = senha;
             this.pontos = pontos;
-            this.carta = null;
             this.api = new APIAdapter();
         }
 
         public List<Personagem> ListarCarta()
         {
-            if (this.carta == null)
-                this.carta = this.api.ListarCarta(this.id, this.senha);
-
-            return this.carta;
+            return this.api.ListarCarta(this.id, this.senha);
         }
 
         public EstadoTabuleiro ColocarPersonagem(int setor, char personagem)
@@ -43,14 +52,33 @@ namespace PI_PrefeitoDeLondres
             return this.api.ColocarPersonagem(this.id, this.senha, setor, personagem);
         }
 
-        public EstadoTabuleiro Promover(char personagemEscolhido)
+        public EstadoTabuleiro Promover(char personagem)
         {
-            return this.api.Promover(this.id, this.senha, personagemEscolhido);
+            return this.api.Promover(this.id, this.senha, personagem);
         }
 
         public EstadoTabuleiro Votar(char voto)
         {
             return this.api.Votar(this.id, this.senha, voto);
+        }
+    }
+
+    public class JogadorView
+    {
+        public string Nome { get; set; }
+        public int QuantidadeVotos { get; set; }
+        public int Pontos { get; set; }
+
+        private JogadorView(string nome, int quantidadeVotos, int pontos)
+        {
+            Nome = nome;
+            QuantidadeVotos = quantidadeVotos;
+            Pontos = pontos;
+        }
+
+        public static JogadorView MapearParaView(Jogador jogador)
+        {
+            return new JogadorView(jogador.Nome, jogador.QuantidadeVotos, jogador.Pontos);
         }
     }
 }
