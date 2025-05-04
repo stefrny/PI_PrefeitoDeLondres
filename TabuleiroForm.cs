@@ -9,6 +9,7 @@ namespace PI_PrefeitoDeLondres
         private Partida partida;
         private Jogador jogador;
         private Tabuleiro tabuleiro;
+        private Estrategia estrategia;
 
         public TabuleiroForm(Partida partida, Jogador jogador)
         {
@@ -16,6 +17,7 @@ namespace PI_PrefeitoDeLondres
             this.partida = partida;
             this.jogador = jogador;
             this.tabuleiro = new Tabuleiro();
+            this.estrategia = new EstrategiaConservadora(this.jogador, this.partida, this.tabuleiro);
 
             this.tabuleiro.AdicionarSetor(0, pnlSetor0);
             this.tabuleiro.AdicionarSetor(1, pnlSetor1);
@@ -58,38 +60,6 @@ namespace PI_PrefeitoDeLondres
                 lblCarta.Text = $"Carta: {this.jogador.Carta}";
 
             return jogador.Id == this.jogador.Id;
-        }
-
-        private void Posicionar()
-        {
-            List<Personagem> naoEscolhidos = this.partida.ListarPersonagens();
-            int idSetor = -1;
-
-            foreach (int id in this.tabuleiro.setores.Keys)
-            {
-                SetorTabuleiro setor = this.tabuleiro.setores[id];
-                foreach (Personagem personagemTabuleiro in setor.personagens)
-                {
-                    int i = naoEscolhidos.FindIndex(p => p.Inicial == personagemTabuleiro.Inicial);
-                    if (i != -1)
-                        naoEscolhidos.RemoveAt(i);
-                }
-
-                if (setor.personagens.Count <= 3 && id >= 1 && id <= 4)
-                    idSetor = id;
-            }
-
-            if (idSetor == -1 || naoEscolhidos.Count == 0) return;
-
-            try
-            {
-                this.jogador.ColocarPersonagem(idSetor, naoEscolhidos[0].Inicial);
-            }
-            catch (Exception erro)
-            {
-                Utils.ExibirErro(erro.Message);
-                return;
-            }
         }
 
         private void Promover()
@@ -145,7 +115,7 @@ namespace PI_PrefeitoDeLondres
             switch (this.partida.Fase)
             {
                 case 'S':
-                    this.Posicionar();
+                    this.estrategia.Posicionar();
                     break;
                 case 'P':
                     this.Promover();
