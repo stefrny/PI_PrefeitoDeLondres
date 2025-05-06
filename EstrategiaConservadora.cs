@@ -76,12 +76,55 @@ namespace PI_PrefeitoDeLondres
 
         public override void Promover()
         {
+            List<Personagem> personagensCarta = this.jogador.ListarCarta();
+            Personagem personagemEscolhido = null;
+            Personagem primeiroPersonagem = null;
+            bool setorAcimaVazio = false;
 
+            for (int i = 0; i < 6; i++)
+            {
+                SetorTabuleiro setor = this.tabuleiro.setores[i];
+                this.tabuleiro.setores.TryGetValue(i + 1, out SetorTabuleiro setorAcima);
+
+                foreach (Personagem personagem in setor.personagens)
+                    personagemEscolhido = personagensCarta.Find(p => p.Inicial == personagem.Inicial);
+
+                setorAcimaVazio = i == 5 ? true : setorAcima.personagens.Count < 4;
+
+                if (personagemEscolhido != null && setorAcimaVazio)
+                {
+                    this.jogador.Promover(personagemEscolhido.Inicial);
+                    return;
+                }
+            }
+
+            for (int i = 5; i > 0; i--)
+            {
+                SetorTabuleiro setor = this.tabuleiro.setores[i];
+
+                if (setor.personagens.Count == 0)
+                    continue;
+
+                primeiroPersonagem = setor.personagens[0];
+                break;
+            }
+
+            this.jogador.Promover(primeiroPersonagem.Inicial);
+            return;
         }
 
         public override void Votar()
         {
+            List<Personagem> personagensCarta = this.jogador.ListarCarta();
+            Personagem possivelRei = this.tabuleiro.setores[10].personagens[0];
+            bool personagemEstaNaCarta = false;
 
+            foreach (Personagem p in personagensCarta)
+                if (p.Inicial == possivelRei.Inicial)
+                    personagemEstaNaCarta = true;
+
+            bool votoSim = personagemEstaNaCarta || this.jogador.QuantidadeVotos == 0;
+            this.jogador.Votar(votoSim ? 'S' : 'N');
         }
 
         public EstrategiaConservadora(Jogador jogador, Partida partida, Tabuleiro tabuleiro) : base(jogador, partida, tabuleiro)

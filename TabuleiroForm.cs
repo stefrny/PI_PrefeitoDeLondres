@@ -62,51 +62,6 @@ namespace PI_PrefeitoDeLondres
             return jogador.Id == this.jogador.Id;
         }
 
-        private void Promover()
-        {
-            List<Personagem> personagensCarta = this.jogador.ListarCarta();
-            Personagem personagemEscolhido = null;
-            Personagem primeiroPersonagem = null;
-            bool setorAcimaVazio = false;
-
-            for (int i = 5; i > 0; i--)
-            {
-                SetorTabuleiro setor = this.tabuleiro.setores[i];
-                this.tabuleiro.setores.TryGetValue(i + 1, out SetorTabuleiro setorAcima);
-
-                foreach (Personagem personagem in setor.personagens)
-                    personagemEscolhido = personagensCarta.Find(p => p.Inicial == personagem.Inicial);
-
-                setorAcimaVazio = i == 5 ? true : setorAcima.personagens.Count < 4;
-
-                if (personagemEscolhido != null && setorAcimaVazio)
-                {
-                    this.jogador.Promover(personagemEscolhido.Inicial);
-                    return;
-                }
-
-                if (primeiroPersonagem == null && setor.personagens.Count > 0)
-                    primeiroPersonagem = setor.personagens[0];
-            }
-
-            this.jogador.Promover(primeiroPersonagem.Inicial);
-            return;
-        }
-
-        private void Votar()
-        {
-            List<Personagem> personagensCarta = this.jogador.ListarCarta();
-            Personagem possivelRei = this.tabuleiro.setores[10].personagens[0];
-            bool personagemEstaNaCarta = false;
-
-            foreach (Personagem p in personagensCarta)
-                if (p.Inicial == possivelRei.Inicial)
-                    personagemEstaNaCarta = true;
-
-            bool votoSim = personagemEstaNaCarta || this.jogador.QuantidadeVotos == 0;
-            this.jogador.Votar(votoSim ? 'S' : 'N');
-        }
-
         private void tmrVerificarVez_Tick(object sender, EventArgs e)
         {
             if (this.VerificarVez()) tmrVerificarVez.Enabled = false;
@@ -118,10 +73,10 @@ namespace PI_PrefeitoDeLondres
                     this.estrategia.Posicionar();
                     break;
                 case 'P':
-                    this.Promover();
+                    this.estrategia.Promover();
                     break;
                 case 'V':
-                    this.Votar();
+                    this.estrategia.Votar();
                     break;
                 default:
                     break;
