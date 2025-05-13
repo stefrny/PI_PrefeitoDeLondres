@@ -9,6 +9,7 @@ namespace PI_PrefeitoDeLondres
         private Partida partida;
         private Jogador jogador;
         private Tabuleiro tabuleiro;
+        private Estrategia estrategia;
 
         public TabuleiroForm(Partida partida, Jogador jogador)
         {
@@ -16,6 +17,7 @@ namespace PI_PrefeitoDeLondres
             this.partida = partida;
             this.jogador = jogador;
             this.tabuleiro = new Tabuleiro();
+            this.estrategia = new EstrategiaConservadora(this.jogador, this.partida, this.tabuleiro);
 
             this.tabuleiro.AdicionarSetor(0, pnlSetor0);
             this.tabuleiro.AdicionarSetor(1, pnlSetor1);
@@ -60,83 +62,6 @@ namespace PI_PrefeitoDeLondres
             return jogador.Id == this.jogador.Id;
         }
 
-        private void Posicionar()
-        {
-            List<Personagem> naoEscolhidos = this.partida.ListarPersonagens();
-            int idSetor = -1;
-
-            foreach (int id in this.tabuleiro.setores.Keys)
-            {
-                SetorTabuleiro setor = this.tabuleiro.setores[id];
-                foreach (Personagem personagemTabuleiro in setor.personagens)
-                {
-                    int i = naoEscolhidos.FindIndex(p => p.Inicial == personagemTabuleiro.Inicial);
-                    if (i != -1)
-                        naoEscolhidos.RemoveAt(i);
-                }
-
-                if (setor.personagens.Count <= 3 && id >= 1 && id <= 4)
-                    idSetor = id;
-            }
-
-            if (idSetor == -1 || naoEscolhidos.Count == 0) return;
-
-            try
-            {
-                this.jogador.ColocarPersonagem(idSetor, naoEscolhidos[0].Inicial);
-            }
-            catch (Exception erro)
-            {
-                Utils.ExibirErro(erro.Message);
-                return;
-            }
-        }
-
-        private void Promover()
-        {
-            List<Personagem> personagensCarta = this.jogador.ListarCarta();
-            Personagem personagemEscolhido = null;
-            Personagem primeiroPersonagem = null;
-            bool setorAcimaVazio = false;
-
-            for (int i = 5; i > 0; i--)
-            {
-                SetorTabuleiro setor = this.tabuleiro.setores[i];
-                this.tabuleiro.setores.TryGetValue(i + 1, out SetorTabuleiro setorAcima);
-
-                foreach (Personagem personagem in setor.personagens)
-                    personagemEscolhido = personagensCarta.Find(p => p.Inicial == personagem.Inicial);
-
-                setorAcimaVazio = i == 5 ? true : setorAcima.personagens.Count < 4;
-
-                if (personagemEscolhido != null && setorAcimaVazio)
-                {
-                    this.jogador.Promover(personagemEscolhido.Inicial);
-                    return;
-                }
-
-                if (primeiroPersonagem == null && setor.personagens.Count > 0)
-                    primeiroPersonagem = setor.personagens[0];
-            }
-
-            this.jogador.Promover(primeiroPersonagem.Inicial);
-            return;
-        }
-
-        private void Votar()
-        {
-            List<Personagem> personagensCarta = this.jogador.ListarCarta();
-            Personagem possivelRei = this.tabuleiro.setores[10].personagens[0];
-            bool personagemEstaNaCarta = false;
-
-            foreach (Personagem p in personagensCarta)
-                if (p.Inicial == possivelRei.Inicial)
-                    personagemEstaNaCarta = true;
-
-            bool votoSim = personagemEstaNaCarta || this.jogador.QuantidadeVotos == 0;
-            this.jogador.Votar(votoSim ? 'S' : 'N');
-        }
-
         private void tmrVerificarVez_Tick(object sender, EventArgs e)
         {
             if (this.VerificarVez()) tmrVerificarVez.Enabled = false;
@@ -145,13 +70,13 @@ namespace PI_PrefeitoDeLondres
             switch (this.partida.Fase)
             {
                 case 'S':
-                    this.Posicionar();
+                    this.estrategia.Posicionar();
                     break;
                 case 'P':
-                    this.Promover();
+                    this.estrategia.Promover();
                     break;
                 case 'V':
-                    this.Votar();
+                    this.estrategia.Votar();
                     break;
                 default:
                     break;
