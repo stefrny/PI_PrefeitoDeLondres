@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlSetor4 = new System.Windows.Forms.Panel();
             this.pnlSetor5 = new System.Windows.Forms.Panel();
             this.pnlSetor2 = new System.Windows.Forms.Panel();
@@ -170,14 +170,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvJogadores.BackgroundColor = System.Drawing.Color.White;
             this.dgvJogadores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvJogadores.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvJogadores.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvJogadores.GridColor = System.Drawing.Color.White;
             this.dgvJogadores.Location = new System.Drawing.Point(28, 221);
             this.dgvJogadores.Name = "dgvJogadores";
@@ -265,6 +265,7 @@
             // 
             // TabuleiroForm
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 967);
             this.Controls.Add(this.rtxUltimaVotacao);
@@ -281,10 +282,10 @@
             this.Controls.Add(this.pnlSetor5);
             this.Controls.Add(this.pnlSetor4);
             this.Controls.Add(this.pnlSetor2);
-            this.Controls.Add(this.pnlSetor10);
             this.Controls.Add(this.pnlSetor3);
             this.Controls.Add(this.pnlSetor1);
             this.Controls.Add(this.pnlSetor0);
+            this.Controls.Add(this.pnlSetor10);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;

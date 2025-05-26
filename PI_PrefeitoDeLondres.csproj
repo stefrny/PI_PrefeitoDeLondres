@@ -173,5 +173,65 @@
   <ItemGroup>
     <None Include="Resources\T.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PrefeitosDeLondres.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FundoVermelho.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AbrirTabuleiro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IniciarPartida.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FundoVermelho2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FundoVermelho3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FundoMarrom.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CriarPartida.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ListarPartida.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EntrarPartida.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NomeDaPartida.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NomeDaPartida2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NomeDaPartida1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SenhaDaPartida.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FundoAzul.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IdDoJogador.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Senha.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IdDaPartida.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NomeDoJogador.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IdObtidoDoJogador.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

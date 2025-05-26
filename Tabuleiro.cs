@@ -143,6 +143,7 @@ namespace PI_PrefeitoDeLondres
                 BackColor = Color.Transparent,
                 Size = new Size(TAMANHO_IMG_PERSONAGEM, TAMANHO_IMG_PERSONAGEM),
                 Name = inicialPersonagem.ToString(),
+
             };
 
             return (cacheImagens[inicialPersonagem], false);
