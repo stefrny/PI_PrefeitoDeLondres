@@ -30,7 +30,7 @@ namespace PI_PrefeitoDeLondres
             this.ConfigurarDGVPartida();
             this.ConfigurarDGVJogadores();
 
-            lblCarta.Text = $"Carta: {this.jogador.Carta}";
+            lblCarta.Text = $"{this.jogador.Carta}";
 
             tmrVerificarVez.Enabled = true;
         }
@@ -55,9 +55,9 @@ namespace PI_PrefeitoDeLondres
             this.ConfigurarDGVPartida();
             this.ConfigurarDGVJogadores();
 
-            lblJogadorDaVez.Text = $"Vez de: {jogador.Nome}";
+            lblJogadorDaVez.Text = $"{jogador.Nome}";
             if (rodadaAntes != this.partida.Rodada)
-                lblCarta.Text = $"Carta: {this.jogador.Carta}";
+                lblCarta.Text = $"{this.jogador.Carta}";
 
             return jogador.Id == this.jogador.Id;
         }

@@ -113,6 +113,16 @@ namespace PI_PrefeitoDeLondres.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap carta {
+            get {
+                object obj = ResourceManager.GetObject("carta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CriarPartida {
             get {
                 object obj = ResourceManager.GetObject("CriarPartida", resourceCulture);
@@ -233,6 +243,16 @@ namespace PI_PrefeitoDeLondres.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap historico {
+            get {
+                object obj = ResourceManager.GetObject("historico", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IdDaPartida {
             get {
                 object obj = ResourceManager.GetObject("IdDaPartida", resourceCulture);
@@ -266,6 +286,16 @@ namespace PI_PrefeitoDeLondres.Properties {
         internal static System.Drawing.Bitmap IniciarPartida {
             get {
                 object obj = ResourceManager.GetObject("IniciarPartida", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap jogadores {
+            get {
+                object obj = ResourceManager.GetObject("jogadores", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -346,6 +376,16 @@ namespace PI_PrefeitoDeLondres.Properties {
         internal static System.Drawing.Bitmap NomeDoJogador {
             get {
                 object obj = ResourceManager.GetObject("NomeDoJogador", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap partida {
+            get {
+                object obj = ResourceManager.GetObject("partida", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -486,6 +526,26 @@ namespace PI_PrefeitoDeLondres.Properties {
         internal static System.Drawing.Bitmap T1 {
             get {
                 object obj = ResourceManager.GetObject("T1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ultimaVotacao {
+            get {
+                object obj = ResourceManager.GetObject("ultimaVotacao", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap vezDe {
+            get {
+                object obj = ResourceManager.GetObject("vezDe", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

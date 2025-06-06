@@ -233,5 +233,23 @@
   <ItemGroup>
     <None Include="Resources\IdObtidoDoJogador.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\partida.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jogadores.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ultimaVotacao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\historico.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vezDe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\carta.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
