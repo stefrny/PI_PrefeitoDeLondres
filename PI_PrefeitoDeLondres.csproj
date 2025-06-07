@@ -126,12 +126,6 @@
     <None Include="Resources\Setor10.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\T.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\H2.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\A.png" />
   </ItemGroup>
   <ItemGroup>
@@ -139,9 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\C.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\B1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\D.png" />
