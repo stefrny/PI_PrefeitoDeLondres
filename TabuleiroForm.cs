@@ -30,7 +30,7 @@ namespace PI_PrefeitoDeLondres
             this.ConfigurarDGVPartida();
             this.ConfigurarDGVJogadores();
 
-            lblCarta.Text = $"Carta: {this.jogador.Carta}";
+            lblCarta.Text = $"{this.jogador.Carta}";
 
             tmrVerificarVez.Enabled = true;
         }
@@ -40,6 +40,7 @@ namespace PI_PrefeitoDeLondres
             Jogador jogador;
             EstadoTabuleiro estado;
             int rodadaAntes = this.partida.Rodada;
+            char faseAntes = this.partida.Fase;
 
             try
             {
@@ -55,9 +56,18 @@ namespace PI_PrefeitoDeLondres
             this.ConfigurarDGVPartida();
             this.ConfigurarDGVJogadores();
 
-            lblJogadorDaVez.Text = $"Vez de: {jogador.Nome}";
+            lblJogadorDaVez.Text = $"{jogador.Nome}";
             if (rodadaAntes != this.partida.Rodada)
-                lblCarta.Text = $"Carta: {this.jogador.Carta}";
+                lblCarta.Text = $"{this.jogador.Carta}";
+
+            if (faseAntes == 'V' && faseAntes != this.partida.Fase)
+            {
+                try
+                {
+                    rtxUltimaVotacao.Text = this.partida.ExibirUltimaVotacao();
+                }
+                catch { }
+            }
 
             return jogador.Id == this.jogador.Id;
         }
@@ -83,6 +93,11 @@ namespace PI_PrefeitoDeLondres
             }
 
             this.VerificarVez();
+            try
+            {
+                rtxHistorico.Text = this.partida.ConsultarHistorico(true, false);
+            }
+            catch { }
             tmrVerificarVez.Enabled = true;
         }
 

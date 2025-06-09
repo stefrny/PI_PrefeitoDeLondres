@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace PI_PrefeitoDeLondres
@@ -32,7 +33,8 @@ namespace PI_PrefeitoDeLondres
         private Dictionary<char, Panel> cacheImagens = new Dictionary<char, Panel>();
         private APIAdapter api = new APIAdapter();
 
-        private const int TAMANHO_IMG_PERSONAGEM = 85;
+        private const int LARGURA_IMG_PERSONAGEM = 66;
+        private const int ALTURA_IMG_PERSONAGEM = 100;
 
         public void Atualizar(EstadoTabuleiro estado, Control.ControlCollection controlesForm)
         {
@@ -91,58 +93,17 @@ namespace PI_PrefeitoDeLondres
             if (cacheImagens.ContainsKey(inicialPersonagem))
                 return (cacheImagens[inicialPersonagem], true);
 
-            Image img = null;
-
-            switch (inicialPersonagem)
-            {
-                case 'A':
-                    img = Properties.Resources.A;
-                    break;
-                case 'B':
-                    img = Properties.Resources.B;
-                    break;
-                case 'C':
-                    img = Properties.Resources.C;
-                    break;
-                case 'D':
-                    img = Properties.Resources.D;
-                    break;
-                case 'E':
-                    img = Properties.Resources.E;
-                    break;
-                case 'G':
-                    img = Properties.Resources.G;
-                    break;
-                case 'H':
-                    img = Properties.Resources.H;
-                    break;
-                case 'K':
-                    img = Properties.Resources.K;
-                    break;
-                case 'L':
-                    img = Properties.Resources.L;
-                    break;
-                case 'M':
-                    img = Properties.Resources.M;
-                    break;
-                case 'Q':
-                    img = Properties.Resources.Q;
-                    break;
-                case 'R':
-                    img = Properties.Resources.R;
-                    break;
-                case 'T':
-                    img = Properties.Resources.T1;
-                    break;
-            }
+            ResourceManager rm = Properties.Resources.ResourceManager;
+            Image img = (Bitmap)rm.GetObject(inicialPersonagem.ToString());
 
             cacheImagens[inicialPersonagem] = new Panel
             {
                 BackgroundImage = img,
                 BackgroundImageLayout = ImageLayout.Stretch,
                 BackColor = Color.Transparent,
-                Size = new Size(TAMANHO_IMG_PERSONAGEM, TAMANHO_IMG_PERSONAGEM),
+                Size = new Size(LARGURA_IMG_PERSONAGEM, ALTURA_IMG_PERSONAGEM),
                 Name = inicialPersonagem.ToString(),
+
             };
 
             return (cacheImagens[inicialPersonagem], false);
@@ -150,10 +111,8 @@ namespace PI_PrefeitoDeLondres
 
         private Point CalcularPosicaoPainel(Panel pnlSetor, int indice)
         {
-            int x = pnlSetor.Location.X + TAMANHO_IMG_PERSONAGEM + (TAMANHO_IMG_PERSONAGEM * indice);
-            int y = (indice % 2 != 0)
-                        ? pnlSetor.Location.Y + 5
-                        : pnlSetor.Location.Y - 5 + pnlSetor.Height - TAMANHO_IMG_PERSONAGEM;
+            int x = pnlSetor.Location.X + LARGURA_IMG_PERSONAGEM + (LARGURA_IMG_PERSONAGEM * indice + 5);
+            int y = pnlSetor.Location.Y;
 
             return new Point(x, y);
         }
